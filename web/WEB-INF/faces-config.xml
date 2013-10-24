@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    
+    <!-- Conversor ConverteAnoMySql -->
+    <converter>
+        <converter-id>converteAnoMySQL</converter-id>
+        <converter-class>util.ConverteAnoMySQL</converter-class>
+    </converter>
+    <!-- O Bean Livros     
+    <managed-bean>
+        <managed-bean-name>livro</managed-bean-name>
+        <managed-bean-class>bean.Livros</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    -->
+
+    
+     <!-- O Bean LivrosController -->
+    <managed-bean>
+        <managed-bean-name>livrosView</managed-bean-name>
+        <managed-bean-class>controller.LivrosController</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-eager>true</managed-bean-eager>
+    </managed-bean>
+    
+     <!-- Navegação da página -->
+     
+     <!-- Edição dos livros atraves da pagina mostrarLivros.jsp -->
+    <navigation-rule>
+        <display-name>mostrarLivros</display-name>
+        <from-view-id>/mostrarLivros.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>editar</from-outcome>
+            <to-view-id>/atuLivro.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+     <!-- Cadastro de um novo livro -->
+     <navigation-rule>
+        <display-name>formLivros</display-name>
+        <from-view-id>/formLivros.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>sucesso_ins</from-outcome>
+            <to-view-id>/mostrarLivros.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <!-- Chamada ao formulário de cadastro de livros -->
+    <navigation-rule>
+        <display-name>menu</display-name>
+        <from-view-id>/menu.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>novo</from-outcome>
+            <to-view-id>/formLivros.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule> 
+<!-- Sucesso da atualização do livro -->
+    <navigation-rule>
+        <display-name>atualizarLivros</display-name>
+        <from-view-id>/atuLivro.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>sucesso_atu</from-outcome>
+            <to-view-id>/mostrarLivros.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+<!-- Sucesso da exclusao do livro -->
+      <navigation-rule>
+        <display-name>mostrarLivros</display-name>
+        <from-view-id>/mostrarLivros.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>sucesso_exc</from-outcome>
+            <to-view-id>/mostrarLivros.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+ <!-- Mostrando todos os livros -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>mostrar</from-outcome>
+            <to-view-id>/mostrarLivros.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+<!-- Adicionando um novo livro pela pagina adicianar um novo livro -->
+      <navigation-rule>
+        <display-name>mostrarLivros</display-name>
+        <from-view-id>/mostrarLivros.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>novo</from-outcome>
+            <to-view-id>/formLivros.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>
