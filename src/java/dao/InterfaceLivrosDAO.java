@@ -4,8 +4,9 @@
  */
 package dao;
 
-import dao.LivrariaDAOException;
+
 import bean.Livros;
+import bean.Usuario;
 import java.util.List;
 
 /**
@@ -19,5 +20,10 @@ public interface InterfaceLivrosDAO {
     void salvar(Livros livro) throws LivrariaDAOException;
     List todosLivros() throws LivrariaDAOException;
     Livros procurarLivro(String isbn) throws LivrariaDAOException;
+    
+    void atualizarTodos(List<Livros> livro) throws LivrariaDAOException;
+    void inserirLogin(String email,String senha,int tipo) throws LivrariaDAOException;
+    Usuario procurarLogin(String email) throws LivrariaDAOException;
+
     
 }

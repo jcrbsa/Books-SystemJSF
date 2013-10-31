@@ -13,13 +13,18 @@
         <title>JavaServerFaces e DAO</title>
     </head>
     <body>
+    <center>
         <h1>Menu</h1>
         <f:view>
             <h:form>
                 <h:commandLink action="#{livrosView.novoLivro}" value="Cadastro de Livros" />
                 <br />
-                <h:commandLink action="mostrar" value="Mostrar Livros Cadastrados" />
+                <h:commandLink action="mostrar" value="Mostrar Livros Cadastrados" /><br />
+                <h:commandLink action="mostrarb" value="Mostrar Livros Cadastrados" /><br />
+
             </h:form>
         </f:view>
+                
+                </center>
     </body>
 </html>

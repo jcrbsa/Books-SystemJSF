@@ -9,10 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>JavaServerFaces e DAO</title>
+        <title>Sistema Gerenciamento Livros</title>
     </head>
     <body>
-        <h1>JavaServerFaces e DAO</h1>
-        <a href="menu.faces">Mostrar Livros ou Inserir</a>
+    <center><h1>Bem-vindo Gerenciamento Livros</h1></center>
+    <center><a href="menu.faces">Mostrar Livros ou Inserir</a></center>
+     <center><a href="login.faces">Login</a></center>
+
     </body>
 </html>

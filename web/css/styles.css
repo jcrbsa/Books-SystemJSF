@@ -1,0 +1,29 @@
+/* 
+    Document   : style
+    Created on : 21/10/2013, 16:22:19
+    Author     : richardsonandrade
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.livroTable{   
+   border-collapse:collapse;
+   border:1px solid #000000;
+}
+
+.livroTableHeader{
+   text-align:center;
+   background:none repeat scroll 0 0 #B5B5B5;
+   border-bottom:1px solid #000000;  
+   padding:2px;
+}
+
+.livroTableOddRow{
+   text-align:center;
+   background:none repeat scroll 0 0 #FFFFFFF;	
+}
+
+.livroTableEvenRow{
+   text-align:center;
+   background:none repeat scroll 0 0 #D3D3D3;
+}

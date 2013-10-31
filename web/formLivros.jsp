@@ -13,29 +13,39 @@
         <title>Cadastro de Livros</title>
     </head>
         <f:view>
-            <h:messages />
+            <center>
             <h:form id="cadastro">
-                <h:panelGrid columns="2">
+                <h:panelGrid columns="3">
                     <f:facet name="header">
                         <h:outputText value="Cadastro de Livros"/>
                     </f:facet>
                     <h:outputText value="ISBN:"/>
-                    <h:inputText id="isbn" value="#{livrosView.livro.isbn}" required="true">
-                    <f:validateLength minimum="13" maximum="13"  />
+                    <h:inputText id="isbn" value="#{livrosView.livro.isbn}" required="true" validator="#{livrosView.validaISBN}">
+                    <f:validateLength minimum="17" maximum="17"  />
                     </h:inputText>
+                    <h:message for="isbn"/>
+                    
                     <h:outputText value="Título:"/>
                     <h:inputText size="30" id="titulo" value="#{livrosView.livro.titulo}" />
+                    <h:message for="titulo" />
+                    
                     <h:outputText value="Edição:"/>
                     <h:inputText size="10" id="edicao" value="#{livrosView.livro.edicao}" />
+                    <h:message for="edicao" />
+                    
                     <h:outputText value="Publicação:"/>
                     <h:inputText size="10" id="publicacao" value="#{livrosView.livro.publicacao}" />
+                    <h:message for="publicacao" />
+                    
                     <h:outputText value="Descrição:"/>
                     <h:inputTextarea cols="20" id="descricao"  value="#{livrosView.livro.descricao}" />            
+                    <h:message for="descricao" />
                 </h:panelGrid>  
                 <h:commandButton value="Cadastrar" action="#{livrosView.create}" />
                 <h:commandButton value="Limpar" type="reset" />
                 <h:commandButton value="Cancelar" action="mostrar" />                   
             </h:form>
+                </center>
         </f:view>
     </body>
 </html>

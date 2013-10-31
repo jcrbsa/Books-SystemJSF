@@ -9,6 +9,12 @@
         <converter-id>converteAnoMySQL</converter-id>
         <converter-class>util.ConverteAnoMySQL</converter-class>
     </converter>
+    <!-- Validador de ISBN -->
+    <validator>
+        <validator-id>validaISBN</validator-id>
+        <validator-class>util.ValidaISBN</validator-class>
+    </validator>
+        
     <!-- O Bean Livros     
     <managed-bean>
         <managed-bean-name>livro</managed-bean-name>
@@ -16,15 +22,22 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     -->
-
-    
-     <!-- O Bean LivrosController -->
+     <!-- O Bean LivrosController    -->
     <managed-bean>
         <managed-bean-name>livrosView</managed-bean-name>
         <managed-bean-class>controller.LivrosController</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
         <managed-bean-eager>true</managed-bean-eager>
     </managed-bean>
+    
+     <!-- O Bean UsersController    -->
+     <managed-bean>
+        <managed-bean-name>usersView</managed-bean-name>
+        <managed-bean-class>controller.UsersController</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-eager>true</managed-bean-eager>
+    </managed-bean>
+ 
     
      <!-- Navegação da página -->
      
@@ -80,6 +93,13 @@
             <to-view-id>/mostrarLivros.jsp</to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+       <navigation-rule>
+        <navigation-case>
+            <from-outcome>mostrarb</from-outcome>
+            <to-view-id>/newxhtml.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 <!-- Adicionando um novo livro pela pagina adicianar um novo livro -->
       <navigation-rule>
         <display-name>mostrarLivros</display-name>
@@ -89,4 +109,36 @@
             <to-view-id>/formLivros.jsp</to-view-id>
         </navigation-case>
     </navigation-rule>
+ <!-- Tela Login -->
+     <navigation-rule>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule> 
+    
+    
+  <!-- Login p/ Cadastro-->
+     <navigation-rule>
+        <navigation-case>
+            <from-outcome>cadastro</from-outcome>
+            <to-view-id>/cadastro.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule> 
+    
+       <navigation-rule>
+        <display-name>login</display-name>
+        <from-view-id>/login.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>sessionUser</from-outcome>
+            <to-view-id>/sessionUser.jsp</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sessionAdmin</from-outcome>
+            <to-view-id>/sessionAdmin.jsp</to-view-id>
+        </navigation-case>
+    
+    </navigation-rule> 
+    
+    
 </faces-config>

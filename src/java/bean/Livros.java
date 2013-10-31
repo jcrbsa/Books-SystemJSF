@@ -16,6 +16,11 @@ public class Livros implements java.io.Serializable{
     private int edicao;
     private String publicacao;
     private String descricao;
+    private boolean canEdit;
+
+    public boolean isCanEdit() {
+        return canEdit;
+    }
 
     public Livros() {
     }
@@ -26,6 +31,7 @@ public class Livros implements java.io.Serializable{
         this.edicao = edicao;
         this.publicacao = publicacao;
         this.descricao = descricao;
+        this.canEdit = false;
     }
 
     /**
@@ -97,6 +103,12 @@ public class Livros implements java.io.Serializable{
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+    
+ 
+
+   public void setCanEdit(boolean canEdit) {
+      this.canEdit = canEdit;
+   }
     
     
 }

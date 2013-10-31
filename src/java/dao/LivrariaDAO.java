@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import bean.Livros;
+import bean.Usuario;
 import java.util.List;
 import util.ConnectionLivrariaFactory;
 
@@ -39,7 +40,7 @@ public class LivrariaDAO implements InterfaceLivrosDAO {
             throw new LivrariaDAOException("O valor passado não pode ser nulo");
                 }
             try {
-                String SQL = "INSERT INTO livros(isbn,titulo,edicao_num,ano_publicacao,descricao "
+                String SQL = "INSERT INTO livros(isbn,titulo,edicao_num,ano_publicacao,descricao)"
                         + "values(?,?,?,?,?)";
                 conn = this.conn;
 
@@ -89,7 +90,7 @@ public class LivrariaDAO implements InterfaceLivrosDAO {
         }
             try {
             
-                String SQL = "UPDATE livros SET titulo=?" + "edicao_num=?" + "ano_publicacao=?, descricao=?" + "WHERE isbn=?";
+                String SQL = "UPDATE livros SET titulo=?," + "edicao_num=?," + "ano_publicacao=?, descricao=?" + "WHERE isbn=?";
                 conn = this.conn;
                 ps = conn.prepareStatement(SQL);
 
@@ -101,11 +102,43 @@ public class LivrariaDAO implements InterfaceLivrosDAO {
 
                 ps.executeUpdate();
             } catch (SQLException sqle) {
-                throw new LivrariaDAOException("Erro ao atualizar dados" + sqle);
+                throw new LivrariaDAOException("Erro ao atualizar dados " + sqle);
             } finally {
                 ConnectionLivrariaFactory.closeConnection(conn, ps);
             }
         }
+    
+    @Override
+    public void atualizarTodos(List<Livros> livro) throws LivrariaDAOException {
+        PreparedStatement ps = null;
+        Connection conn = null;
+        if (livro == null) {
+            throw new LivrariaDAOException("O valor passado não pode ser nulo");
+        }
+            try {
+                for (Livros livros : livro) {
+                    
+                
+            
+                String SQL = "UPDATE livros SET titulo=?," + "edicao_num=?," + "ano_publicacao=?, descricao=?" + "WHERE isbn=?";
+                conn = this.conn;
+                ps = conn.prepareStatement(SQL);
+
+                ps.setString(1, livros.getTitulo());
+                ps.setInt(2, livros.getEdicao());
+                ps.setString(3, livros.getPublicacao());
+                ps.setString(4, livros.getDescricao());
+                ps.setString(5, livros.getIsbn());
+
+                ps.executeUpdate();
+                }
+            } catch (SQLException sqle) {
+                throw new LivrariaDAOException("Erro ao atualizar dados " + sqle);
+            } /*finally {
+                ConnectionLivrariaFactory.closeConnection(conn, ps);
+            }*/
+        }
+    
     
 
     @Override
@@ -167,4 +200,63 @@ public class LivrariaDAO implements InterfaceLivrosDAO {
 
 
     }
+
+    @Override
+    public Usuario procurarLogin(String email) throws LivrariaDAOException {
+         PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+         Usuario user = null;
+        try {
+            conn = this.conn;
+            ps = conn.prepareStatement("SELECT * FROM user WHERE login =?");
+            ps.setString(1,email);
+    
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+            
+             email = rs.getString(2);
+             String senha = rs.getString(3);
+              user = new Usuario(email,senha);
+              
+            }
+            
+            return user;
+        } catch (SQLException sqle) {
+            throw new LivrariaDAOException(sqle);
+        } finally {
+            ConnectionLivrariaFactory.closeConnection(conn, ps, rs);
+        }
+        
+    }
+
+    @Override
+    public void inserirLogin(String email, String senha, int tipo) throws LivrariaDAOException {
+         PreparedStatement ps = null;
+        Connection conn = null;
+           
+            try {
+                String SQL = "INSERT INTO user(login,senha,tipo)"
+                        + "values(?,?,?)";
+                conn = this.conn;
+
+                ps = conn.prepareStatement(SQL);
+                ps.setString(1, email);
+                ps.setString(2, senha);
+                ps.setInt(3, tipo);
+               
+                ps.executeUpdate();
+            } catch (SQLException sqle) {
+                throw new LivrariaDAOException("Erro ao inserir dados" + sqle);
+            } finally {
+                ConnectionLivrariaFactory.closeConnection(conn, ps);
+            }
+    
+    }
+
+    
+
+    
+
 }
