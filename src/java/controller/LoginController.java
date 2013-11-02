@@ -5,7 +5,8 @@
 package controller;
 
 import bean.Usuario;
-import dao.InterfaceLivrosDAO;
+
+import dao.InterfaceUsuariosDAO;
 import dao.LivrariaDAO;
 import dao.LivrariaDAOException;
 import java.util.regex.Matcher;
@@ -63,7 +64,7 @@ public class LoginController {
             FacesMessage message  = new FacesMessage("email inválido.");
                        context.addMessage("formulario", message);
         }else{
-              InterfaceLivrosDAO  idao = new LivrariaDAO();
+              InterfaceUsuariosDAO  idao = new LivrariaDAO();
               Usuario user = idao.procurarLogin(login);
             if (user != null){  
                 if(password.equals(user.getSenha())){
@@ -111,7 +112,7 @@ public class LoginController {
         }else{
         
             
-              InterfaceLivrosDAO  idao = new LivrariaDAO();
+              InterfaceUsuariosDAO  idao = new LivrariaDAO();
                Usuario user = idao.procurarLogin(login);
             if ( user != null){  
                 

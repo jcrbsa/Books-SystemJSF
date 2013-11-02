@@ -14,6 +14,10 @@
         <validator-id>validaISBN</validator-id>
         <validator-class>util.ValidaISBN</validator-class>
     </validator>
+    <validator>
+        <validator-id>validaEmail</validator-id>
+        <validator-class>util.ValidaEmail</validator-class>
+    </validator>
         
     <!-- O Bean Livros     
     <managed-bean>

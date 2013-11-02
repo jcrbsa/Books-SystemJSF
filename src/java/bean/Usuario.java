@@ -19,6 +19,15 @@ public class Usuario {
     private String email;
     private String senha;
     private boolean canEdit;
+    private int tipo;
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
 
     public boolean isCanEdit() {
         return canEdit;
@@ -40,10 +49,17 @@ public class Usuario {
         email = login;
         senha = password;
     }
+    public Usuario(String nome,String login, String password, int tipo) {
+        this.nome = nome;
+        email = login;
+        senha = password;
+        tipo = tipo;
+    }
     public Usuario(String nome,String login, String password) {
         this.nome = nome;
         email = login;
         senha = password;
+       
     }
     
        public String getNome() {

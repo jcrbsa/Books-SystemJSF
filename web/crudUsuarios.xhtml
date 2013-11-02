@@ -10,6 +10,7 @@ xmlns:f="http://java.sun.com/jsf/core">
 
    </h:head>
    <h:body> 
+    
       <fieldset>
                         <legend>Opções</legend>
                         <h:form>
@@ -37,6 +38,9 @@ xmlns:f="http://java.sun.com/jsf/core">
             <li ><h:outputLink styleClass="link" >
                     <h:outputText value="Sobre" />
                 </h:outputLink></li>
+            <li ><h:commandLink styleClass="link" action="login.jsp" >
+                    <h:outputText value="Sair" />
+                </h:commandLink></li>
         </ul>
         
         </h:form>
@@ -46,27 +50,32 @@ xmlns:f="http://java.sun.com/jsf/core">
        
   <h:form id="form_add_user">
        
-     <h:panelGrid columns="2">
+     <h:panelGrid columns="3">
            <h:outputLabel for="nome" id="label_nome" value="Nome:"/>
            <h:inputText id="nome" value="#{usuariosView.nome}" required="true">
                     </h:inputText>
+                      <h:message for="nome" />
            <h:outputLabel for="email" id="label_email" value="Email:"/>
-           <h:inputText id="email" value="#{usuariosView.email}" required="true"/>
+           <h:inputText id="email" value="#{usuariosView.email}" required="true" validator="#{usuariosView.consultaLogin}"/>
+           <h:message for="email" />
             <h:outputLabel for="senha" id="label_senha" value="Senha:"/>
             <h:inputText id="senha" value="#{usuariosView.senha}" required="true" />
+             <h:message for="senha" />
+
+
 
               <h:commandButton id ="cadastro" value="Cadastrar" action="#{usuariosView.addUsuario()}" />
        </h:panelGrid>    
       
      </h:form>
-       <h:messages />
-       
+     
   <hr/>
    <h:form>
-       <h:dataTable value="#{usuariosView.showUsuario}" var="usuario"
-         styleClass="usuarioTable"
-         headerClass="usuarioTableHeader"
-         rowClasses="usuarioTableOddRow,usuarioTableEvenRow">
+       <h:dataTable value="#{usuariosView.showUsuarios()}" var="usuario"
+                     styleClass="livroTable"
+                         headerClass="livroTableHeader"
+                         rowClasses="livroTableOddRow,livroTableEvenRow"
+      >
          <h:column>    				
             <f:facet name="header">Nome:</f:facet>    				
             <h:inputText value="#{usuario.nome}"
@@ -91,20 +100,22 @@ xmlns:f="http://java.sun.com/jsf/core">
          
          <h:column>
             <f:facet name="header">Editar</f:facet>
-               <h:commandButton value="Editar" 
+               <h:commandLink 
                                 action="#{usuariosView.editUsuario(usuario)}" 
                   rendered="#{not usuario.canEdit}">        
+                    <h:graphicImage value="/images/edit.jpg" />
                    <f:setPropertyActionListener target="#{usuariosView.usuario}" value="#{usuario}" />
-               </h:commandButton>
+               </h:commandLink>
          </h:column>
           
          <h:column>
             <f:facet name="header">Apagar</f:facet>
-               <h:commandButton value="Apagar" 
+               <h:commandLink 
                                 action="#{usuariosView.deleteUsuario(usuario)}"  >                
+                    <h:graphicImage value="/images/delete.jpg" />
                   <f:setPropertyActionListener 
                      target="#{usuariosView.usuario}" value="#{usuario}" />
-                  </h:commandButton>
+                  </h:commandLink>
          </h:column>
           
           
@@ -112,13 +123,12 @@ xmlns:f="http://java.sun.com/jsf/core">
       </h:dataTable>  
 	  <br/>
 	<h:commandButton value="Atualizar Livros"
-                         action="#{usuariosView.saveUsuario()}" />	  
+                         action="#{usuariosView.saveUsuarios()}" />	  
    </h:form>
        
-     
-       
+
        
    </h:body>
-          
+   
   
 </html>

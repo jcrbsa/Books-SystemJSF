@@ -16,6 +16,8 @@ public class Livros implements java.io.Serializable{
     private int edicao;
     private String publicacao;
     private String descricao;
+    private String autor;
+    
     private boolean canEdit;
 
     public boolean isCanEdit() {
@@ -32,6 +34,25 @@ public class Livros implements java.io.Serializable{
         this.publicacao = publicacao;
         this.descricao = descricao;
         this.canEdit = false;
+       
+    }
+    
+    public Livros(String isbn, String titulo,String autor, int edicao, String publicacao, String descricao) {
+        this.isbn = isbn;
+        this.titulo = titulo;
+        this.edicao = edicao;
+        this.publicacao = publicacao;
+        this.descricao = descricao;
+        this.canEdit = false;
+        this.autor = autor;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
 
     /**

@@ -1,143 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml"   
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <f:view>
     <h:head>
-      <title>Gerenciamento Livros</title>
-    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+        <title>Gerenciamento Livros</title>
+        <link rel="stylesheet" type="text/css" href="css/styles.css" />
 
         <link rel="stylesheet" type="text/css" href="css/menuBar.css" />
 
-   </h:head>
-   <h:body> 
-      <fieldset>
-                        <legend>Opções</legend>
-                        <h:form>
-        <ul>    
-            <li ><h:outputLink styleClass="link" value="Home">
-                    <h:outputText value="Home" />
-                </h:outputLink>
-            </li>
-            <li ><h:outputLink styleClass="link" value="Editar Perfil">
-                    <h:outputText value="Editar Perfil" />
-                </h:outputLink>
-            </li>
-            <li ><h:commandLink action="crudLivros" styleClass="link" >
-                    <h:outputText value="Livros"  />
-              </h:commandLink></li>
-            <li ><h:commandLink styleClass="link" action="crudUsuarios" >
-                    <h:outputText value="Usuários" />
+    </h:head>
+    <h:body> 
+        <fieldset><div style="height: 500px">
+            <legend>Opções</legend>
+            <h:form>
+                <ul>    
+                    <li ><h:outputLink styleClass="link" value="Home">
+                            <h:outputText value="Home" />
+                        </h:outputLink>
+                    </li>
+                    <li ><h:outputLink styleClass="link" value="Editar Perfil">
+                            <h:outputText value="Editar Perfil" />
+                        </h:outputLink>
+                    </li>
+                    <li ><h:commandLink action="crudLivros" styleClass="link" >
+                            <h:outputText value="Livros"  />
+                        </h:commandLink></li>
+                    <li ><h:commandLink styleClass="link" action="crudUsuarios" >
+                            <h:outputText value="Usuários" />
+                        </h:commandLink></li>
+                    <li ><h:outputLink styleClass="link" >
+                            <h:outputText value="Historico" />
+                        </h:outputLink></li>
+                    <li ><h:outputLink styleClass="link" >
+                            <h:outputText value="Gráficos" />
+                        </h:outputLink></li>
+                    <li ><h:outputLink styleClass="link" >
+                            <h:outputText value="Sobre" />
+                        </h:outputLink></li>
+                     <li ><h:commandLink styleClass="link" action="login.jsp" >
+                    <h:outputText value="Sair" />
                 </h:commandLink></li>
-            <li ><h:outputLink styleClass="link" >
-                    <h:outputText value="Historico" />
-                </h:outputLink></li>
-            <li ><h:outputLink styleClass="link" >
-                    <h:outputText value="Gráficos" />
-                </h:outputLink></li>
-            <li ><h:outputLink styleClass="link" >
-                    <h:outputText value="Sobre" />
-                </h:outputLink></li>
-        </ul>
-        
+                </ul>
+
+            </h:form>
+              </div>
+        </fieldset>
+      
+
+        <h:form id="form_add_book">
+
+            <h:panelGrid columns="3">
+                <h:outputLabel for="isbn" id="label_isbn" value="ISBN:"/>
+                <h:inputText id="isbn" value="#{livrosView.isbn}" required="true" validator="#{livrosView.validaISBN}">
+                    <f:validateLength minimum="17" maximum="17"  />
+                </h:inputText>
+                <h:message id="message_isbn" for="isbn" />
+                <h:outputLabel for="titulo" id="label_titulo" value="Título:"/>
+                <h:inputText id="titulo" value="#{livrosView.titulo}" required="true"/>
+                <h:message  for="titulo" />
+                <h:outputLabel for="edicao" id="label_edicao" value="Edicao:"/>
+                <h:inputText id="edicao" value="#{livrosView.edicao}" required="true" />                       
+                <h:message  for="edicao" />
+                <h:outputLabel id="label_publicacao" for="publicacao" value="Publicação:"/>
+                <h:inputText id="publicacao" value="#{livrosView.publicacao}" required="true" />
+                <h:message for="publicacao" />
+                <h:outputLabel for="descricao" id="label_descricao" value="Descrição:"/>
+                <h:inputText id="descricao" value="#{livrosView.descricao}"/> 
+                <h:message for="descricao" />
+                <h:commandButton id ="cadastro" value="Cadastrar" action="#{livrosView.addLivros()}" />
+                <h:commandButton value="Limpar" type="reset" />
+            </h:panelGrid>    
+              
+        </h:form>
+    
+
+
+        <hr />
+        <h:form>
+            <h:dataTable value="#{livrosView.showLivros()}" var="livro"
+                         styleClass="livroTable"
+                         headerClass="livroTableHeader"
+                         rowClasses="livroTableOddRow,livroTableEvenRow">
+                <h:column>    				
+                    <f:facet name="header">ISBN</f:facet>    				
+                    <h:inputText value="#{livro.isbn}"
+                                 size="17" rendered="#{livro.canEdit}" />
+                    <h:outputText value="#{livro.isbn}"
+                                  rendered="#{not livro.canEdit}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Titulo</f:facet>
+                    <h:inputText value="#{livro.titulo}" 
+                                 size="30" rendered="#{livro.canEdit}" />
+                    <h:outputText value="#{livro.titulo}" 
+                                  rendered="#{not livro.canEdit}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Edicao</f:facet>
+                    <h:inputText value="#{livro.edicao}" size="3"
+                                 rendered="#{livro.canEdit}" />
+                    <h:outputText value="#{livro.edicao}" 
+                                  rendered="#{not livro.canEdit}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Publicação</f:facet>
+                    <h:inputText value="#{livro.publicacao}" 
+                                 size="4" rendered="#{livro.canEdit}" />
+                    <h:outputText value="#{livro.publicacao}" 
+                                  rendered="#{not livro.canEdit}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Descrição</f:facet>
+                    <h:inputText value="#{livro.descricao}" 
+                                 size="30" rendered="#{livro.canEdit}" />
+                    <h:outputText value="#{livro.descricao}" 
+                                  rendered="#{not livro.canEdit}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Editar</f:facet>
+                    <h:commandLink
+                        action="#{livrosView.editLivros(livro)}" 
+                        rendered="#{not livro.canEdit}">
+                        <h:graphicImage value="/images/edit.jpg" />
+                        <f:setPropertyActionListener target="#{livrosView.livro}" value="#{livro}" />
+                    </h:commandLink>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Apagar</f:facet>
+                    <h:commandLink
+                        action="#{livrosView.deleteLivros(livro)}"  >
+                        <h:graphicImage value="/images/delete.jpg" />
+                        <f:setPropertyActionListener 
+                            target="#{livrosView.livro}" value="#{livro}" />
+                    </h:commandLink>
+                </h:column>
+
+
+
+            </h:dataTable>  
+            <br/>
+            <h:commandButton value="Atualizar Livros"
+                             action="#{livrosView.saveLivros}" />	  
         </h:form>
 
-            </fieldset>
-       
-       
-  <h:form id="form_add_book">
-       
-     <h:panelGrid columns="2">
-           <h:outputLabel for="isbn" id="label_isbn" value="ISBN:"/>
-            <h:inputText id="isbn" value="#{livrosView.isbn}" required="true" validator="#{livrosView.validaISBN}">
-                    <f:validateLength minimum="17" maximum="17"  />
-                    </h:inputText>
-           <h:outputLabel for="titulo" id="label_titulo" value="Título:"/>
-           <h:inputText id="titulo" value="#{livrosView.titulo}" required="true"/>
-            <h:outputLabel for="edicao" id="label_edicao" value="Edicao:"/>
-            <h:inputText id="edicao" value="#{livrosView.edicao}" required="true" />
-              <h:outputLabel id="label_publicacao" for="publicacao" value="Publicacao:"/>
-              <h:inputText id="publicacao" value="#{livrosView.publicacao}" required="true" />
-              <h:outputLabel for="descricao" id="label_descricao" value="Descrição:"/>
-              <h:inputText id="descricao" value="#{livrosView.descricao}"/> 
-              <h:commandButton id ="cadastro" value="Cadastrar" action="#{livrosView.addLivros()}" />
-       </h:panelGrid>    
-      
-     </h:form>
-       <h:messages />
-       
-  <hr/>
-   <h:form>
-       <h:dataTable value="#{livrosView.showLivros()}" var="livro"
-         styleClass="livroTable"
-         headerClass="livroTableHeader"
-         rowClasses="livroTableOddRow,livroTableEvenRow">
-         <h:column>    				
-            <f:facet name="header">ISBN</f:facet>    				
-            <h:inputText value="#{livro.isbn}"
-               size="17" rendered="#{livro.canEdit}" />
-            <h:outputText value="#{livro.isbn}"
-               rendered="#{not livro.canEdit}" />
-         </h:column>
-         <h:column>
-            <f:facet name="header">Titulo</f:facet>
-            <h:inputText value="#{livro.titulo}" 
-               size="30" rendered="#{livro.canEdit}" />
-            <h:outputText value="#{livro.titulo}" 
-               rendered="#{not livro.canEdit}" />
-         </h:column>
-         <h:column>
-            <f:facet name="header">Edicao</f:facet>
-            <h:inputText value="#{livro.edicao}" size="3"
-               rendered="#{livro.canEdit}" />
-            <h:outputText value="#{livro.edicao}" 
-               rendered="#{not livro.canEdit}" />
-         </h:column>
-         <h:column>
-            <f:facet name="header">Publicação</f:facet>
-            <h:inputText value="#{livro.publicacao}" 
-               size="4" rendered="#{livro.canEdit}" />
-            <h:outputText value="#{livro.publicacao}" 
-               rendered="#{not livro.canEdit}" />
-         </h:column>
-            <h:column>
-            <f:facet name="header">Descrição</f:facet>
-            <h:inputText value="#{livro.descricao}" 
-               size="30" rendered="#{livro.canEdit}" />
-            <h:outputText value="#{livro.descricao}" 
-               rendered="#{not livro.canEdit}" />
-         </h:column>
-         <h:column>
-            <f:facet name="header">Editar</f:facet>
-            <h:commandLink
-                  action="#{livrosView.editLivros(livro)}" 
-                  rendered="#{not livro.canEdit}">
-                <h:graphicImage value="/images/edit.jpg" />
-                  <f:setPropertyActionListener target="#{livrosView.livro}" value="#{livro}" />
-            </h:commandLink>
-         </h:column>
-          
-         <h:column>
-            <f:facet name="header">Apagar</f:facet>
-               <h:commandLink
-                  action="#{livrosView.deleteLivros(livro)}"  >
-                   <h:graphicImage value="/images/delete.jpg" />
-                  <f:setPropertyActionListener 
-                     target="#{livrosView.livro}" value="#{livro}" />
-                  </h:commandLink>
-         </h:column>
-          
-          
-        
-      </h:dataTable>  
-	  <br/>
-	<h:commandButton value="Atualizar Livros"
-          action="#{livrosView.saveLivros}" />	  
-   </h:form>
-       
-     
-       
-       
-   </h:body>
-          
-  
+
+
+
+    </h:body>
+
+
+</f:view>
+
 </html>

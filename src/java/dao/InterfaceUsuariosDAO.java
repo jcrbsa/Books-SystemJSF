@@ -18,4 +18,8 @@ public interface InterfaceUsuariosDAO {
     void salvarUsuario(Usuario usuario) throws LivrariaDAOException;
     List todosUsuario() throws LivrariaDAOException;    
     void atualizarTodosUsuario(List<Usuario> usuario) throws LivrariaDAOException;
+    Usuario procurarLogin(String email) throws LivrariaDAOException;
+    void inserirLogin(String email,String senha,int tipo) throws LivrariaDAOException;
+
+
 }

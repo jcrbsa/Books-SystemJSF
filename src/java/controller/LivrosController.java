@@ -10,6 +10,7 @@ import dao.InterfaceLivrosDAO;
 import dao.LivrariaDAO;
 import dao.LivrariaDAOException;
 import bean.Livros;
+import javax.faces.component.UIComponent;
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -39,13 +40,32 @@ public class LivrosController implements Serializable  {
     private int edicao;
     private String publicacao;
     private String descricao;
+    private String autor;
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
 
     private Livros livro;
     
    public DataModel<Livros> model;
    public static final ArrayList<Livros> array = new ArrayList<Livros>();
 
+    public ArrayList<Livros> arrayConsulta = new ArrayList<Livros>();
 
+    public ArrayList<Livros> getArrayConsulta() {
+        return arrayConsulta;
+    }
+
+   
+
+
+
+    
  
 
     public String novoLivro(){
@@ -148,18 +168,30 @@ public class LivrosController implements Serializable  {
          
      }
    
-         public String create()throws LivrariaDAOException{
+         public String create(UIComponent componente)throws LivrariaDAOException{
            InterfaceLivrosDAO  idao = new LivrariaDAO();  
            idao.salvar(livro);
            return "sucesso_ins";     
      }
 
      public String addLivros()throws LivrariaDAOException {		 
+     
+        
+       FacesContext context = FacesContext.getCurrentInstance();
+  
+        if(consultaLivro(isbn)!= null){
+           
+            FacesMessage message = new FacesMessage("Livro já existe!");
+            
+            context.addMessage("message_isbn",message);
+        }else{
+            
       Livros livro = new Livros(isbn,titulo, edicao,publicacao, descricao);
            array.add(livro);
   
            InterfaceLivrosDAO  idao = new LivrariaDAO();  
            idao.salvar(livro);
+        }
       return null;
    }
 
@@ -204,6 +236,22 @@ public class LivrosController implements Serializable  {
        }
         return array;
 }
+    public ArrayList<Livros> procuraLivrosAutor() throws LivrariaDAOException {
+     InterfaceLivrosDAO test = new LivrariaDAO();
+
+         arrayConsulta  = test.procurarLivroAutor(autor);
+       
+        return arrayConsulta;
+}
+    
+    public ArrayList<Livros> procuraLivrosTitulo() throws LivrariaDAOException {
+     InterfaceLivrosDAO test = new LivrariaDAO();
+        
+       arrayConsulta = test.procurarLivroTitulo(titulo);
+        
+        return arrayConsulta;
+}
+    
 
      public void validaISBN(FacesContext context, UIComponent componente, Object objeto) throws ValidatorException{
         
@@ -219,7 +267,19 @@ public class LivrosController implements Serializable  {
         }
         
     }
+     
+     public Livros consultaLivro(String isbn) throws ValidatorException, LivrariaDAOException{
+        
+         
     
+          InterfaceLivrosDAO idao = new LivrariaDAO();
+          
+        
+       
+        return idao.procurarLivro(isbn);
+                }
+      
+     
     
 
 

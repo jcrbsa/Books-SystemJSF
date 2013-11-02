@@ -175,22 +175,22 @@ public class LivrariaDAO implements InterfaceLivrosDAO, InterfaceUsuariosDAO {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
-
+        Livros livro = null;
         try {
             conn = this.conn;
             ps = conn.prepareStatement("SELECT * FROM livros WHERE isbn =?");
+             ps.setString(1,isbn);
             rs = ps.executeQuery();
-            if (!rs.next()) {
-                throw new LivrariaDAOException("Nao foi encontrado nenhum registro com o ISBN" + isbn);
-            }
-
+             if (rs.next()) {
             String titulo = rs.getString(2);
             int edicao = rs.getInt(3);
             String publicacao = rs.getString(4);
             String descricao = rs.getString(5);
-            return new Livros(isbn, titulo, edicao, publicacao, descricao);
+            livro =  new Livros(isbn, titulo, edicao, publicacao, descricao);
 
-
+             }
+             
+            return livro; 
         } catch (SQLException sqle) {
             throw new LivrariaDAOException(sqle);
         } finally {
@@ -314,15 +314,17 @@ PreparedStatement ps = null;
             throw new LivrariaDAOException("O valor passado não pode ser nulo");
                 }
             try {
-                String SQL = "INSERT INTO user(nome,senha)"
-                        + "values(?,?,?)";
+                String SQL = "INSERT INTO user(nome,login,senha,tipo)"
+                        + "values(?,?,?,?)";
                 conn = this.conn;
 
                 ps = conn.prepareStatement(SQL);
                 ps.setString(1, usuario.getNome());
                 ps.setString(2, usuario.getEmail());
                 ps.setString(3, usuario.getSenha());
-            
+                ps.setInt(4, usuario.getTipo());
+
+                
                 ps.executeUpdate();
             } catch (SQLException sqle) {
                 throw new LivrariaDAOException("Erro ao inserir dados" + sqle);
@@ -391,6 +393,70 @@ PreparedStatement ps = null;
                 ConnectionLivrariaFactory.closeConnection(conn, ps);
             }*/
         
+    }
+
+    @Override
+    public ArrayList<Livros>  procurarLivroAutor(String autor) throws LivrariaDAOException {
+         PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            conn = this.conn;
+            ps = conn.prepareStatement("SELECT * FROM livros WHERE autor =?");
+             ps.setString(1,autor);
+            rs= ps.executeQuery();
+            ArrayList<Livros> list = new ArrayList<Livros>();
+            while (rs.next()) {
+            String isbn = rs.getString("isbn");
+            String titulo = rs.getString("titulo");
+            int edicao = rs.getInt("edicao");
+            String publicacao = rs.getString("publciacao");
+            String descricao = rs.getString("descricao");
+            list.add(new Livros(isbn, titulo,autor, edicao, publicacao, descricao));
+
+             }
+             
+            return list; 
+        } catch (SQLException sqle) {
+            throw new LivrariaDAOException(sqle);
+        } finally {
+            ConnectionLivrariaFactory.closeConnection(conn, ps, rs);
+        }
+        
+        
+    
+    }
+
+    @Override
+    public ArrayList<Livros> procurarLivroTitulo(String titulo) throws LivrariaDAOException {
+        
+         PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+    
+        try {
+            conn = this.conn;
+            ps = conn.prepareStatement("SELECT * FROM livros WHERE titulo =?");
+             ps.setString(1,titulo);
+            rs = ps.executeQuery();
+                ArrayList<Livros> list = new ArrayList<Livros>();
+            while (rs.next()) {
+            String isbn = rs.getString("isbn");
+            String autor = rs.getString("autor");
+            int edicao = rs.getInt("edicao");
+            String publicacao = rs.getString("publciacao");
+            String descricao = rs.getString("descricao");
+           
+            list.add(new Livros(isbn, titulo,autor, edicao, publicacao, descricao));
+
+             }
+             
+            return list; 
+        } catch (SQLException sqle) {
+            throw new LivrariaDAOException(sqle);
+        } finally {
+            ConnectionLivrariaFactory.closeConnection(conn, ps, rs);
+        }
     }
 
     

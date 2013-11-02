@@ -5,17 +5,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Página Usuário</title>
-    <link rel="stylesheet" type="text/css" href="css/menuBar.css" />
+        <link rel="stylesheet" type="text/css" href="css/menuBar.css" />
+        <script type="text/javascript" src="js/abasLogin.js"></script>    
+
     </head>
     <body>
 
-          
-            <fieldset id='fieldset'>
-                <legend>Opções</legend>
+
+        <fieldset id='fieldset'>
+            <legend>Opções</legend>
             <ul>
                 <li ><h:outputLink styleClass="link" value="Home">
-                    <h:outputText value="Home" />
-                </h:outputLink>
+                        <h:outputText value="Home" />
+                    </h:outputLink>
                 </li>
                 <li ><h:outputLink styleClass="link" value="Editar Perfil">
                         <h:outputText value="Editar Perfil" />
@@ -23,22 +25,136 @@
                 </li>
                 <li ><h:outputLink styleClass="link" value="Historico">
                         <h:outputText value="Historico" />
-                      </h:outputLink></li>
+                    </h:outputLink></li>
                 <li ><h:outputLink styleClass="link"  value="Sobre">
                         <h:outputText value="Sobre" />
                     </h:outputLink></li>
             </ul>
-                </fieldset> 
+        </fieldset> 
+
+        <div style=" position: absolute;
+             left:50%;
+             margin-left:-100px">
+            <h:panelGrid columns="2">
+                <f:facet name="td_login" class="menu" id="td_login"> <h:commandLink onclick="AlternarAbas('td_login', 'func1', 'form_login');" value="Autor"/></f:facet>
+                <f:facet name="td_cadastro" class="menu" id="td_cadastro"> <h:commandLink onclick="AlternarAbas('td_cadastro', 'func2', 'form_cadastro');" value="Titulo"/></f:facet>
+
+            </h:panelGrid>
+            <h:form>
+                <div id="func1" style="border:1px solid #000000; display:'';" >
+
+                    <h:inputText id="titulo" value="#{livrosView.titulo}"></h:inputText>
+                    <h:commandButton value="Mostrar Titulo">
+                        <f:ajax execute="titulo" render="outputMessage" />
+                    </h:commandButton>
+                      
+                    <h:dataTable id="outputMessage" value="#{livrosView.procuraLivrosTitulo  != null ? livrosView.procuraLivrosTitulo : '' }" var="livro"
+                     styleClass="livroTable"
+                     headerClass="livroTableHeader"
+                     rowClasses="livroTableOddRow,livroTableEvenRow">
+            <h:column>    				
+                <f:facet name="header">ISBN</f:facet>    				
+                <h:inputText value="#{livro.isbn}"
+                             size="17" rendered="#{livro.canEdit}" />
+                <h:outputText value="#{livro.isbn}"
+                              rendered="#{not livro.canEdit}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Titulo</f:facet>
+                <h:inputText value="#{livro.titulo}" 
+                             size="30" rendered="#{livro.canEdit}" />
+                <h:outputText value="#{livro.titulo}" 
+                              rendered="#{not livro.canEdit}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Edicao</f:facet>
+                <h:inputText value="#{livro.edicao}" size="3"
+                             rendered="#{livro.canEdit}" />
+                <h:outputText value="#{livro.edicao}" 
+                              rendered="#{not livro.canEdit}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Publicação</f:facet>
+                <h:inputText value="#{livro.publicacao}" 
+                             size="4" rendered="#{livro.canEdit}" />
+                <h:outputText value="#{livro.publicacao}" 
+                              rendered="#{not livro.canEdit}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Descrição</f:facet>
+                <h:inputText value="#{livro.descricao}" 
+                             size="30" rendered="#{livro.canEdit}" />
+                <h:outputText value="#{livro.descricao}" 
+                              rendered="#{not livro.canEdit}" />
+            </h:column>
+        </h:dataTable>
+                    
+
+
+                </div>
+                <div id="func2" style="border:1px solid #000000; display:none; ">
+
+                    <h:inputText id="autor" value="#{livrosView.autor}"></h:inputText>
+                    <h:commandButton value="Mostrar Titulo">
+                        <f:ajax execute="autor" render="outputMessage" />
+                    </h:commandButton>
+                    
+                    <h:dataTable id="outputMessage" value="#{livrosView.procuraLivrosAutor  != null ? livrosView.procuraLivrosAutor : '' }" var="livro"
+                     styleClass="livroTable"
+                     headerClass="livroTableHeader"
+                     rowClasses="livroTableOddRow,livroTableEvenRow">
+            <h:column>    				
+                <f:facet name="header">ISBN</f:facet>    				
+                <h:inputText value="#{livro.isbn}"
+                             size="17" rendered="#{livro.canEdit}" />
+                <h:outputText value="#{livro.isbn}"
+                              rendered="#{not livro.canEdit}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Titulo</f:facet>
+                <h:inputText value="#{livro.titulo}" 
+                             size="30" rendered="#{livro.canEdit}" />
+                <h:outputText value="#{livro.titulo}" 
+                              rendered="#{not livro.canEdit}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Edicao</f:facet>
+                <h:inputText value="#{livro.edicao}" size="3"
+                             rendered="#{livro.canEdit}" />
+                <h:outputText value="#{livro.edicao}" 
+                              rendered="#{not livro.canEdit}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Publicação</f:facet>
+                <h:inputText value="#{livro.publicacao}" 
+                             size="4" rendered="#{livro.canEdit}" />
+                <h:outputText value="#{livro.publicacao}" 
+                              rendered="#{not livro.canEdit}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Descrição</f:facet>
+                <h:inputText value="#{livro.descricao}" 
+                             size="30" rendered="#{livro.canEdit}" />
+                <h:outputText value="#{livro.descricao}" 
+                              rendered="#{not livro.canEdit}" />
+            </h:column>
+        </h:dataTable>
+
+                    
+                    
+           
+        </div>
+                 </h:form>
+        </div>
+
         
-        
-          <h:form>
-      <h:inputText id="inputName" value="#{userData.name}"></h:inputText>
-       <h:commandButton value="Show Message">
-         <f:ajax execute="inputName" render="outputMessage" />
-      </h:commandButton>
-      <h2><h:outputText id="outputMessage"
-         value="#{usuario.welcomeMessage != null ?
-            userData.welcomeMessage : ''}"/></h2>
-      </h:form>
+
+
+
+
+
+
+
+
     </body>
 </html>
