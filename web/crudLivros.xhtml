@@ -3,11 +3,46 @@
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-      <title>Gerenciamento do Banco de Dados</title>
+      <title>Gerenciamento Livros</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
+
+        <link rel="stylesheet" type="text/css" href="css/menuBar.css" />
 
    </h:head>
    <h:body> 
+      <fieldset>
+                        <legend>Opções</legend>
+                        <h:form>
+        <ul>    
+            <li ><h:outputLink styleClass="link" value="Home">
+                    <h:outputText value="Home" />
+                </h:outputLink>
+            </li>
+            <li ><h:outputLink styleClass="link" value="Editar Perfil">
+                    <h:outputText value="Editar Perfil" />
+                </h:outputLink>
+            </li>
+            <li ><h:commandLink action="crudLivros" styleClass="link" >
+                    <h:outputText value="Livros"  />
+              </h:commandLink></li>
+            <li ><h:commandLink styleClass="link" action="crudUsuarios" >
+                    <h:outputText value="Usuários" />
+                </h:commandLink></li>
+            <li ><h:outputLink styleClass="link" >
+                    <h:outputText value="Historico" />
+                </h:outputLink></li>
+            <li ><h:outputLink styleClass="link" >
+                    <h:outputText value="Gráficos" />
+                </h:outputLink></li>
+            <li ><h:outputLink styleClass="link" >
+                    <h:outputText value="Sobre" />
+                </h:outputLink></li>
+        </ul>
+        
+        </h:form>
+
+            </fieldset>
+       
        
   <h:form id="form_add_book">
        
@@ -73,20 +108,22 @@ xmlns:f="http://java.sun.com/jsf/core">
          </h:column>
          <h:column>
             <f:facet name="header">Editar</f:facet>
-               <h:commandButton value="Editar" 
+            <h:commandLink
                   action="#{livrosView.editLivros(livro)}" 
-                  rendered="#{not livro.canEdit}">        
+                  rendered="#{not livro.canEdit}">
+                <h:graphicImage value="/images/edit.jpg" />
                   <f:setPropertyActionListener target="#{livrosView.livro}" value="#{livro}" />
-               </h:commandButton>
+            </h:commandLink>
          </h:column>
           
          <h:column>
             <f:facet name="header">Apagar</f:facet>
-               <h:commandButton value="Apagar" 
-                  action="#{livrosView.deleteLivros(livro)}"  >                
+               <h:commandLink
+                  action="#{livrosView.deleteLivros(livro)}"  >
+                   <h:graphicImage value="/images/delete.jpg" />
                   <f:setPropertyActionListener 
                      target="#{livrosView.livro}" value="#{livro}" />
-                  </h:commandButton>
+                  </h:commandLink>
          </h:column>
           
           

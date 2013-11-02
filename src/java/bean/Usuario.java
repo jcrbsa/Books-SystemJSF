@@ -15,8 +15,18 @@ public class Usuario {
     
    
     private String nome;
+
     private String email;
     private String senha;
+    private boolean canEdit;
+
+    public boolean isCanEdit() {
+        return canEdit;
+    }
+
+    public void setCanEdit(boolean canEdit) {
+        this.canEdit = canEdit;
+    }
 
    
     private Vector livrosRetirados;
@@ -27,6 +37,11 @@ public class Usuario {
     }
 
     public Usuario(String login, String password) {
+        email = login;
+        senha = password;
+    }
+    public Usuario(String nome,String login, String password) {
+        this.nome = nome;
         email = login;
         senha = password;
     }
@@ -41,6 +56,14 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
     
 

@@ -20,7 +20,7 @@ import util.ConnectionLivrariaFactory;
  *
  * @author richardsonandrade
  */
-public class LivrariaDAO implements InterfaceLivrosDAO {
+public class LivrariaDAO implements InterfaceLivrosDAO, InterfaceUsuariosDAO {
 
     private Connection conn;
 
@@ -253,6 +253,144 @@ public class LivrariaDAO implements InterfaceLivrosDAO {
                 ConnectionLivrariaFactory.closeConnection(conn, ps);
             }
     
+    }
+
+    @Override
+    public void atualizarUsuario(Usuario usuario) throws LivrariaDAOException {
+        PreparedStatement ps = null;
+        Connection conn = null;
+        if (usuario == null) {
+            throw new LivrariaDAOException("O valor passado não pode ser nulo");
+        }
+            try {
+                                    
+          
+                String SQL = "UPDATE user SET nome=?,"  + "senha=?" + "WHERE loginn=?";
+                conn = this.conn;
+                ps = conn.prepareStatement(SQL);
+
+                ps.setString(1, usuario.getNome());
+                ps.setString(2, usuario.getSenha());
+                ps.setString(3, usuario.getEmail());
+               
+
+                ps.executeUpdate();
+                
+            } catch (SQLException sqle) {
+                throw new LivrariaDAOException("Erro ao atualizar dados " + sqle);
+            } /*finally {
+                ConnectionLivrariaFactory.closeConnection(conn, ps);
+            }*/
+
+    }
+
+    @Override
+    public void excluirUsuario(Usuario usuario) throws LivrariaDAOException {
+PreparedStatement ps = null;
+        Connection conn = null;
+        if (usuario == null) {
+            throw new LivrariaDAOException("O valor passado não pode ser nulo");
+            } try{
+                conn = this.conn;
+                String SQL = "DELETE FROM user WHERE  login =?";
+
+                ps = conn.prepareStatement(SQL);
+                ps.setString(1, usuario.getEmail());
+
+                ps.executeUpdate();
+            } catch (SQLException sqle) {
+                throw new LivrariaDAOException("Erro ao excluir dados" + sqle);
+            } finally {
+                ConnectionLivrariaFactory.closeConnection(conn, ps);
+            }
+    
+    }
+
+    @Override
+    public void salvarUsuario(Usuario usuario) throws LivrariaDAOException {
+        PreparedStatement ps = null;
+        Connection conn = null;
+                if (usuario == null) {
+            throw new LivrariaDAOException("O valor passado não pode ser nulo");
+                }
+            try {
+                String SQL = "INSERT INTO user(nome,senha)"
+                        + "values(?,?,?)";
+                conn = this.conn;
+
+                ps = conn.prepareStatement(SQL);
+                ps.setString(1, usuario.getNome());
+                ps.setString(2, usuario.getEmail());
+                ps.setString(3, usuario.getSenha());
+            
+                ps.executeUpdate();
+            } catch (SQLException sqle) {
+                throw new LivrariaDAOException("Erro ao inserir dados" + sqle);
+            } finally {
+                ConnectionLivrariaFactory.closeConnection(conn, ps);
+            }
+        
+    }
+
+    @Override
+    public List todosUsuario() throws LivrariaDAOException {
+         PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+
+        try {
+            conn = this.conn;
+            ps = conn.prepareStatement("SELECT * FROM user");
+            
+            rs= ps.executeQuery();
+            List<Usuario> list = new ArrayList<Usuario>();
+            while (rs.next()) {
+                String nome = rs.getString(1);
+                String email = rs.getString(2);
+                String senha = rs.getString(3);
+             
+                list.add(new Usuario(nome, email, senha));
+            }
+            return list;
+
+        } catch (SQLException sqle) {
+            throw new LivrariaDAOException(sqle);
+        }finally {
+            ConnectionLivrariaFactory.closeConnection(conn, ps, rs);
+        }
+        
+        
+    }
+
+    @Override
+    public void atualizarTodosUsuario(List<Usuario> usuario) throws LivrariaDAOException {
+         PreparedStatement ps = null;
+        Connection conn = null;
+        if (usuario == null) {
+            throw new LivrariaDAOException("O valor passado não pode ser nulo");
+        }
+            try {
+                for (Usuario usuarios : usuario) {
+                    
+                
+            
+                String SQL = "UPDATE user SET nome=?,"  + "senha=?" + "WHERE login=?";
+                conn = this.conn;
+                ps = conn.prepareStatement(SQL);
+
+                ps.setString(1, usuarios.getNome());
+                ps.setString(2, usuarios.getSenha());
+                ps.setString(3, usuarios.getEmail());
+                
+
+                ps.executeUpdate();
+                }
+            } catch (SQLException sqle) {
+                throw new LivrariaDAOException("Erro ao atualizar dados " + sqle);
+            } /*finally {
+                ConnectionLivrariaFactory.closeConnection(conn, ps);
+            }*/
+        
     }
 
     

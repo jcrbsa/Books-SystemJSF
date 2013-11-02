@@ -1,22 +1,15 @@
-<%-- 
-    Document   : session
-    Created on : 27/10/2013, 01:13:28
-    Author     : jcrbsa
---%>
-
-<%@page contentType="text/html" pageEncoding="UTf-8"%>
-<%@taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<%@taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<!DOCTYPE html>
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Página Usuário</title>
     <link rel="stylesheet" type="text/css" href="css/menuBar.css" />
-
     </head>
     <body>
 
-        <f:view>           
+          
             <fieldset id='fieldset'>
                 <legend>Opções</legend>
             <ul>
@@ -28,30 +21,24 @@
                         <h:outputText value="Editar Perfil" />
                     </h:outputLink>
                 </li>
-                <li ><h:outputLink styleClass="link"  >
-
+                <li ><h:outputLink styleClass="link" value="Historico">
                         <h:outputText value="Historico" />
-                    </h:outputLink></li>
-                <li ><h:outputLink styleClass="link" >
-
+                      </h:outputLink></li>
+                <li ><h:outputLink styleClass="link"  value="Sobre">
                         <h:outputText value="Sobre" />
                     </h:outputLink></li>
             </ul>
-                </fieldset>  
-            
-            
-            
-            <h:form>
+                </fieldset> 
+        
+        
+          <h:form>
       <h:inputText id="inputName" value="#{userData.name}"></h:inputText>
        <h:commandButton value="Show Message">
          <f:ajax execute="inputName" render="outputMessage" />
       </h:commandButton>
       <h2><h:outputText id="outputMessage"
-         value="#{userData.welcomeMessage != null ?
-            userData.welcomeMessage : ''}"
-         /></h2>
+         value="#{usuario.welcomeMessage != null ?
+            userData.welcomeMessage : ''}"/></h2>
       </h:form>
-        </f:view>
-    
     </body>
 </html>

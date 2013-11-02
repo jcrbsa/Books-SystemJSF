@@ -32,8 +32,15 @@
     
      <!-- O Bean UsersController    -->
      <managed-bean>
-        <managed-bean-name>usersView</managed-bean-name>
-        <managed-bean-class>controller.UsersController</managed-bean-class>
+        <managed-bean-name>loginView</managed-bean-name>
+        <managed-bean-class>controller.LoginController</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-eager>true</managed-bean-eager>
+    </managed-bean>
+    
+     <managed-bean>
+        <managed-bean-name>usuariosView</managed-bean-name>
+        <managed-bean-class>controller.UsuariosController</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
         <managed-bean-eager>true</managed-bean-eager>
     </managed-bean>
@@ -96,8 +103,8 @@
     
        <navigation-rule>
         <navigation-case>
-            <from-outcome>mostrarb</from-outcome>
-            <to-view-id>/newxhtml.xhtml</to-view-id>
+            <from-outcome>crudLivros</from-outcome>
+            <to-view-id>/crudLivros.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 <!-- Adicionando um novo livro pela pagina adicianar um novo livro -->
@@ -117,14 +124,13 @@
         </navigation-case>
     </navigation-rule> 
     
-    
-  <!-- Login p/ Cadastro-->
      <navigation-rule>
         <navigation-case>
-            <from-outcome>cadastro</from-outcome>
-            <to-view-id>/cadastro.jsp</to-view-id>
+            <from-outcome>crudUsuarios</from-outcome>
+            <to-view-id>/crudUsuarios.jsp</to-view-id>
         </navigation-case>
     </navigation-rule> 
+    
     
        <navigation-rule>
         <display-name>login</display-name>

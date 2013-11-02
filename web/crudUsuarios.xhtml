@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+      <title>Gerenciamento Usuários</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+
+        <link rel="stylesheet" type="text/css" href="css/menuBar.css" />
+
+   </h:head>
+   <h:body> 
+      <fieldset>
+                        <legend>Opções</legend>
+                        <h:form>
+        <ul>    
+            <li ><h:outputLink styleClass="link" value="Home">
+                    <h:outputText value="Home" />
+                </h:outputLink>
+            </li>
+            <li ><h:outputLink styleClass="link" value="Editar Perfil">
+                    <h:outputText value="Editar Perfil" />
+                </h:outputLink>
+            </li>
+            <li ><h:commandLink action="crudLivros.xhtml" styleClass="link" >
+                    <h:outputText value="Livros"  />
+              </h:commandLink></li>
+            <li ><h:outputLink styleClass="link" >
+                    <h:outputText value="Usuários" />
+                </h:outputLink></li>
+            <li ><h:outputLink styleClass="link" >
+                    <h:outputText value="Historico" />
+                </h:outputLink></li>
+            <li ><h:outputLink styleClass="link" >
+                    <h:outputText value="Gráficos" />
+                </h:outputLink></li>
+            <li ><h:outputLink styleClass="link" >
+                    <h:outputText value="Sobre" />
+                </h:outputLink></li>
+        </ul>
+        
+        </h:form>
+
+            </fieldset>
+       
+       
+  <h:form id="form_add_user">
+       
+     <h:panelGrid columns="2">
+           <h:outputLabel for="nome" id="label_nome" value="Nome:"/>
+           <h:inputText id="nome" value="#{usuariosView.nome}" required="true">
+                    </h:inputText>
+           <h:outputLabel for="email" id="label_email" value="Email:"/>
+           <h:inputText id="email" value="#{usuariosView.email}" required="true"/>
+            <h:outputLabel for="senha" id="label_senha" value="Senha:"/>
+            <h:inputText id="senha" value="#{usuariosView.senha}" required="true" />
+
+              <h:commandButton id ="cadastro" value="Cadastrar" action="#{usuariosView.addUsuario()}" />
+       </h:panelGrid>    
+      
+     </h:form>
+       <h:messages />
+       
+  <hr/>
+   <h:form>
+       <h:dataTable value="#{usuariosView.showUsuario}" var="usuario"
+         styleClass="usuarioTable"
+         headerClass="usuarioTableHeader"
+         rowClasses="usuarioTableOddRow,usuarioTableEvenRow">
+         <h:column>    				
+            <f:facet name="header">Nome:</f:facet>    				
+            <h:inputText value="#{usuario.nome}"
+               size="17" rendered="#{usuario.canEdit}" />
+            <h:outputText value="#{usuario.nome}"
+               rendered="#{not usuario.canEdit}" />
+         </h:column>
+         <h:column>
+            <f:facet name="header">Email</f:facet>
+            <h:inputText value="#{usuario.email}" 
+               size="30" rendered="#{usuario.canEdit}" />
+            <h:outputText value="#{usuario.email}" 
+               rendered="#{not usuario.canEdit}" />
+         </h:column>
+         <h:column>
+            <f:facet name="header">Senha</f:facet>
+            <h:inputText value="#{usuario.senha}" size="3"
+               rendered="#{usuario.canEdit}" />
+            <h:outputText value="#{usuario.senha}" 
+               rendered="#{not usuario.canEdit}" />
+         </h:column>
+         
+         <h:column>
+            <f:facet name="header">Editar</f:facet>
+               <h:commandButton value="Editar" 
+                                action="#{usuariosView.editUsuario(usuario)}" 
+                  rendered="#{not usuario.canEdit}">        
+                   <f:setPropertyActionListener target="#{usuariosView.usuario}" value="#{usuario}" />
+               </h:commandButton>
+         </h:column>
+          
+         <h:column>
+            <f:facet name="header">Apagar</f:facet>
+               <h:commandButton value="Apagar" 
+                                action="#{usuariosView.deleteUsuario(usuario)}"  >                
+                  <f:setPropertyActionListener 
+                     target="#{usuariosView.usuario}" value="#{usuario}" />
+                  </h:commandButton>
+         </h:column>
+          
+          
+        
+      </h:dataTable>  
+	  <br/>
+	<h:commandButton value="Atualizar Livros"
+                         action="#{usuariosView.saveUsuario()}" />	  
+   </h:form>
+       
+     
+       
+       
+   </h:body>
+          
+  
+</html>

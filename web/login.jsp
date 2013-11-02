@@ -20,18 +20,18 @@
         <br /><br /><br /><br /> 
     <center>
         <f:view>
-            
+            <h:graphicImage value="images/logo_ifpe.gif" />     
             <h:form styleClass="loginform"  title="loginform" id="formulario">
             <h:panelGrid  cellpadding="6"  cellspacing="0" width="250" border="0" columns="2" styleClass="std" >
                  <f:facet name="header">
                         <h:outputText value="Login"/>
                     </f:facet>
                 <h:outputLabel value="Login:" for="login" id="label_login"/>
-            <h:inputText id="login" value="#{usersView.login}"  size="20" styleClass="text" title="email" required="true"/>
+            <h:inputText id="login" value="#{loginView.login}"  size="20" styleClass="text" title="email" required="true"/>
            <h:outputLabel value="Senha:" for="senha" id="label_senha"/>
-            <h:inputSecret  id="senha" maxlength="8" size="20" styleClass="text" value="#{usersView.password}" title="senha"  required="true"/>
-             <h:commandButton  title="login" value="Login" action="#{usersView.checkLogin}" styleClass="button"/>
-             <h:commandButton id="cadastrar" title="cadastrar" action="#{usersView.checkCadastro()}" value="Cadastrar"  styleClass="button"/>
+            <h:inputSecret  id="senha" maxlength="8" size="20" styleClass="text" value="#{loginView.password}" title="senha"  required="true"/>
+             <h:commandButton  title="login" value="Login" action="#{loginView.checkLogin}" styleClass="button"/>
+             <h:commandButton id="cadastrar" title="cadastrar" action="#{loginView.checkCadastro()}" value="Cadastrar"  styleClass="button"/>
             </h:panelGrid>
         </h:form>
              <h:messages  /> 

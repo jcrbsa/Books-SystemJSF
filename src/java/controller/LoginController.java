@@ -17,7 +17,7 @@ import javax.faces.context.FacesContext;
  *
  * @author jcrbsa
  */
-public class UsersController {
+public class LoginController {
     
     private String login;
     private String password;
@@ -56,12 +56,12 @@ public class UsersController {
          boolean matchFound3 = m3.matches();
          
          
-         FacesMessage message  = null;
+        
        
         if(!matchFound && !matchFound2 && !matchFound3){
      
-           message = new FacesMessage("email inválido.");
-     
+            FacesMessage message  = new FacesMessage("email inválido.");
+                       context.addMessage("formulario", message);
         }else{
               InterfaceLivrosDAO  idao = new LivrariaDAO();
               Usuario user = idao.procurarLogin(login);
@@ -74,17 +74,16 @@ public class UsersController {
                         
                 }else{
                     
-           message = new FacesMessage("Senha Incorreta");
-      
+            FacesMessage message  = new FacesMessage("Senha Incorreta");
+                                    context.addMessage("formulario", message);
+
                 }
             }else{
-            message = new FacesMessage("Usuário não Cadastrado");
+             FacesMessage message  = new FacesMessage("Usuário não Cadastrado");
+                                     context.addMessage("formulario", message);
 
-         
             }
-            
         }
-        context.addMessage("formulario", message);
 
         
       return forward;
