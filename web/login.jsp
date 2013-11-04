@@ -27,7 +27,7 @@
                         <h:outputText value="Login"/>
                     </f:facet>
                 <h:outputLabel value="Login:" for="login" id="label_login"/>
-            <h:inputText id="login" value="#{loginView.login}"  size="20" styleClass="text" title="email" required="true"/>
+                <h:inputText id="login" value="#{loginView.login}"  size="20" styleClass="text" title="email" required="true" />
            <h:outputLabel value="Senha:" for="senha" id="label_senha"/>
             <h:inputSecret  id="senha" maxlength="8" size="20" styleClass="text" value="#{loginView.password}" title="senha"  required="true"/>
              <h:commandButton  title="login" value="Login" action="#{loginView.checkLogin}" styleClass="button"/>

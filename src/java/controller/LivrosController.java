@@ -10,7 +10,7 @@ import dao.InterfaceLivrosDAO;
 import dao.LivrariaDAO;
 import dao.LivrariaDAOException;
 import bean.Livros;
-import javax.faces.component.UIComponent;
+
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -41,6 +41,15 @@ public class LivrosController implements Serializable  {
     private String publicacao;
     private String descricao;
     private String autor;
+    private boolean checkBox = false;
+
+    public boolean isCheckBox() {
+        return checkBox;
+    }
+
+    public void setCheckBox(boolean checkBox) {
+        this.checkBox = checkBox;
+    }
 
     public String getAutor() {
         return autor;
@@ -55,19 +64,13 @@ public class LivrosController implements Serializable  {
    public DataModel<Livros> model;
    public static final ArrayList<Livros> array = new ArrayList<Livros>();
 
-    public ArrayList<Livros> arrayConsulta = new ArrayList<Livros>();
+    public ArrayList<Livros> arrayConsulta;
 
     public ArrayList<Livros> getArrayConsulta() {
         return arrayConsulta;
     }
 
-   
-
-
-
-    
  
-
     public String novoLivro(){
         this.setLivro(new Livros());
         return "novo";
@@ -278,6 +281,22 @@ public class LivrosController implements Serializable  {
        
         return idao.procurarLivro(isbn);
                 }
+     
+     public String confereCheckBox(){
+
+         //Vericar o tipo de usuario
+
+         //Verifica quantidade de livros ja solicitacos
+         for (Livros livro : arrayConsulta){
+             System.out.println(livro.isCheckBox());
+      }	
+         
+         
+         
+         
+         
+         return null;
+     }
       
      
     

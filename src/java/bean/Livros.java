@@ -20,6 +20,15 @@ public class Livros implements java.io.Serializable{
     
     private boolean canEdit;
 
+    public boolean isCheckBox() {
+        return checkBox;
+    }
+
+    public void setCheckBox(boolean checkBox) {
+        this.checkBox = checkBox;
+    }
+    private boolean  checkBox;
+
     public boolean isCanEdit() {
         return canEdit;
     }

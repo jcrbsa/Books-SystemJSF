@@ -9,9 +9,9 @@ package bean;
  * @author jcrbsa
  */
 import java.util.Date;
-class UsuarioAluno extends Usuario {
+class Aluno extends Usuario {
 private Date dataLimite;
-UsuarioAluno (String st, Date dt) {
+Aluno (String st, Date dt) {
 super (st);
 dataLimite=dt;
 }

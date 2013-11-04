@@ -19,38 +19,40 @@
         <f:view>           
             <fieldset id='fieldset'>
                 <legend>Opções</legend>
-            <ul>
-                <li ><h:outputLink styleClass="link" value="Home">
+                <h:form>
+                <h:panelGrid cellpadding="0.01px" columns="1">
+              <h:outputLink styleClass="link" value="Home">
                     <h:outputText value="Home" />
                 </h:outputLink>
-                </li>
-                <li ><h:outputLink styleClass="link" value="Editar Perfil">
+                
+                <h:outputLink styleClass="link" value="Editar Perfil">
                         <h:outputText value="Editar Perfil" />
                     </h:outputLink>
-                </li>
-                <li ><h:outputLink styleClass="link"  >
+                
+                <h:outputLink styleClass="link"  >
 
                         <h:outputText value="Historico" />
-                    </h:outputLink></li>
-                <li ><h:outputLink styleClass="link" >
+                    </h:outputLink>
+         <h:outputLink styleClass="link" >
 
                         <h:outputText value="Sobre" />
-                    </h:outputLink></li>
-            </ul>
+                    </h:outputLink>
+            <h:commandLink styleClass="link" action="login.jsp" >
+                    <h:outputText value="Sair" />
+                </h:commandLink>
                 </fieldset>  
+            </h:panelGrid >
+            </h:form>
             
-            
-            
+            <h2>Test booleancheckBox</h2>
             <h:form>
-      <h:inputText id="inputName" value="#{userData.name}"></h:inputText>
-       <h:commandButton value="Show Message">
-         <f:ajax execute="inputName" render="outputMessage" />
-      </h:commandButton>
-      <h2><h:outputText id="outputMessage"
-         value="#{userData.welcomeMessage != null ?
-            userData.welcomeMessage : ''}"
-         /></h2>
-      </h:form>
+            <h:selectBooleanCheckbox />
+            <h:commandButton value="testCheckBox"/>
+            </h:form>
+            
+            <h:outputText value="#{livrosView.checkBox}" />
+            
+      
         </f:view>
     
     </body>

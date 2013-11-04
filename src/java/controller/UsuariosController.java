@@ -204,8 +204,17 @@ public class UsuariosController implements Serializable {
         
         
     }
-    
-    
+         
+         public Usuario consultaLogin() throws ValidatorException, LivrariaDAOException{
+        
+         
+          InterfaceUsuariosDAO idao = new LivrariaDAO();
+          
+        return idao.procurarLogin(email);
+        
+        
+        
+         }
     
     
 }

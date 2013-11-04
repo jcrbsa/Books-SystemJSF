@@ -409,8 +409,8 @@ PreparedStatement ps = null;
             while (rs.next()) {
             String isbn = rs.getString("isbn");
             String titulo = rs.getString("titulo");
-            int edicao = rs.getInt("edicao");
-            String publicacao = rs.getString("publciacao");
+            int edicao = rs.getInt("edicao_num");
+            String publicacao = rs.getString("ano_publicacao");
             String descricao = rs.getString("descricao");
             list.add(new Livros(isbn, titulo,autor, edicao, publicacao, descricao));
 
@@ -443,8 +443,8 @@ PreparedStatement ps = null;
             while (rs.next()) {
             String isbn = rs.getString("isbn");
             String autor = rs.getString("autor");
-            int edicao = rs.getInt("edicao");
-            String publicacao = rs.getString("publciacao");
+            int edicao = rs.getInt("edicao_num");
+            String publicacao = rs.getString("ano_publicacao");
             String descricao = rs.getString("descricao");
            
             list.add(new Livros(isbn, titulo,autor, edicao, publicacao, descricao));

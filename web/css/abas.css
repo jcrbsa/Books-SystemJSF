@@ -1,0 +1,52 @@
+
+.menu {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #FFFFFF;
+	background-color: #08245b;
+	border: 1px solid #000000;
+	padding: 5px;
+	cursor: hand;
+}
+
+.menu-sel {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #2887E3 ;
+	background-color: #00FF0C;
+	padding: 5px;
+	cursor: hand;
+}
+
+
+.conteudo {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #000033;
+	
+	padding: 5px;
+
+        position:absolute;
+        top: 30%;
+        
+        border: 1px solid #000000;
+     
+}
+
+#td_login{
+    width: 270px;
+    
+}
+
+#td_cadastro{
+    width: 270px;
+    
+}
+
+.container{
+    border : 1px solid #000000;
+    
+}
