@@ -5,6 +5,7 @@
 package controller;
 
 import bean.Usuario;
+import dao.InterfaceLoginDAO;
 
 import dao.InterfaceUsuariosDAO;
 import dao.LivrariaDAO;
@@ -22,6 +23,16 @@ public class LoginController {
     
     private String login;
     private String password;
+
+    private String canEdit;
+    public String getCanEdit() {
+        return canEdit;
+    }
+
+    public void setCanEdit(String canEdit) {
+        this.canEdit = canEdit;
+    }
+    
 
     public String getLogin() {
         return login;
@@ -137,6 +148,14 @@ public class LoginController {
         
         return "login";
     }
+    
+    
+    public Usuario atualizaSenha()throws LivrariaDAOException{
+           InterfaceLoginDAO  idao = new LivrariaDAO();
+           idao.atualizarSenha(login, password);
+        
+           return null;      
+     }
     
     
 }

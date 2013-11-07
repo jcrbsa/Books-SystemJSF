@@ -7,84 +7,92 @@
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Página Usuário</title>
-        <link rel="stylesheet" type="text/css" href="css/menuBar.css" />
+         <link rel="stylesheet" type="text/css" href="css/menuBar.css" />
         <link rel="stylesheet" type="text/css" href="css/styles.css" />
-        
+        <link rel="stylesheet" type="text/css" href="css/abas.css" />
+        <script type="text/javascript" src="js/abasLogin.js" />
     </h:head>
     <h:body >
 
 
         <fieldset id='fieldset'>
-            <legend>Opções</legend>
-            <h:graphicImage value="/images/user.png" />
+            <legend><h:outputLabel  value ="Opções:" style="font-weight: bold" /></legend>
 
             <h:form>
-                <h:panelGrid cellpadding="0.1" columns="1">
-                    <h:commandLink styleClass="link" value="Home" action="sessionUser.jsp" />
-                       
-           
-                    <h:commandLink styleClass="link" value="Editar Perfil" action="editarPerfil.xhtml" />
-                       
-                 
+
+                <h:panelGrid cellpadding="0.1"  columns="1">
+                    <h:commandLink styleClass="link" value="Home" action="sessionUser.jsp?faces-redirect=true" />
+
+
+                    <h:commandLink styleClass="link" value="Editar Perfil" action="editarPerfil?faces-redirect=true" />
+
+
                     <h:commandLink styleClass="link" value="Histórico"  />
-                        
-                 
+
+
                     <h:commandLink styleClass="link" value="Sobre Sistema"/>
-                   
-     
+
+
                     <h:commandLink styleClass="link" value="Sair" action="login.jsp" />
-                      
-              
+
+
 
                 </h:panelGrid >
             </h:form>
-        </fieldset> 
+
+        </fieldset>
+
+
+        <fieldset id="perfil">
+
+            <legend> <h:outputLabel  value ="Login/Email:" style="font-weight: bold" /></legend>
+
+            <h:graphicImage value="/images/user.png" />
+            <h:outputText  value ="#{loginView.login}" /> 
+
+
+        </fieldset>
+
+
+          <h:panelGrid  style="position: absolute;left:50%;margin-left:-200px;top: 270px " cellpadding="0.1" cellspacing="1" width="250" border="0" columns="3">
+
+                    <h:outputLabel styleClass="link" value="Alterar Senha:" for="login" id="label_login"/>
+                    
+                </h:panelGrid>
 
         <div class="container" style=" position: absolute;left:50%;margin-left:-200px;top: 300px">
 
-
-
-
             <center>
 
-                <h:graphicImage value="images/logo_ifpe.gif" />     
+              
+                        
                 <h:form styleClass="loginform"  title="loginform" id="formulario">
-                    <h:dataTable value="#{usuariosView.consultaLogin() != null ? usuariosView.consultaLogin() : 'test'}" var="usuario" >
-                        <h:panelGrid  cellpadding="6" cellspacing="0" width="250" border="0" columns="3" styleClass="std" >
+                    <h:panelGrid  cellpadding="0.1" cellspacing="1" width="250" border="0" columns="3">
+                     
+                        <h:outputLabel  value="Login:" for="login" id="label_login"/>
 
-                            <h:outputLabel value="Nome:" for="nome" id="label_nome"/>
-                            <h:column>
-                                <h:inputText value="#{usuario.nome}" 
-                                             size="30" rendered="#{usuario.canEdit}" />
-                                <h:outputText value="#{usuario.nome}" 
-                                              rendered="#{not usuario.canEdit}" />
-                            </h:column>
-                            <h:message for="nome" /> 
+                        <h:outputText value="#{loginView.login}"  />
+                        <h:message for="login" /> 
 
 
-                            <h:outputLabel value="Senha:" for="senha" id="label_senha"/>
-                            <h:column>
-                                <h:inputText value="#{usuario.senha}" size="3"
-                                             rendered="#{usuario.canEdit}" />
-                                <h:outputText value="#{usuario.senha}" 
-                                              rendered="#{not usuario.canEdit}" />
-                            </h:column>
-                            <h:message for="senha" /> 
+                        <h:outputLabel  value="Nova Senha:" for="senha" id="label_password"/>
+                        <h:inputSecret value="#{loginView.password}"  />
+<!--                                <h:outputText value="#{UsuarioView.password}" 
+                                          rendered="#{not UsuarioView.canEdit}" />-->
 
-                            <h:commandButton action="#{usuariosView.editUsuario(usuario)}" 
-                                             rendered="#{not usuario.canEdit}">        
-                                <h:graphicImage value="/images/edit.jpg" />
-                                <f:setPropertyActionListener target="#{usuariosView.usuario}" value="#{usuario}" />
-                            </h:commandButton>
+                        <h:message for="senha" /> 
 
-                        </h:panelGrid>
-                    </h:dataTable>
+                        <h:commandButton value="Atualizar Senha" action="#{loginView.atualizaSenha()}" />
+
+                    </h:panelGrid>
                 </h:form>
 
 
             </center>
-
         </div>
+
+
+
 
     </h:body>
 </html>

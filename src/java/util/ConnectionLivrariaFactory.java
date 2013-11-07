@@ -21,7 +21,7 @@ public class ConnectionLivrariaFactory {
     public static Connection getConnection()throws LivrariaDAOException{
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            return DriverManager.getConnection("jdbc:mysql://localhost/livraria","root","mysql");
+            return DriverManager.getConnection("jdbc:mysql://localhost/livrariainicial","root","mysql");
         }catch(Exception e){
             throw new LivrariaDAOException(e.getMessage());
         }

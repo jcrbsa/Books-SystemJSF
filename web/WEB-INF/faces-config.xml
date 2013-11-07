@@ -131,7 +131,7 @@
      <navigation-rule>
         <navigation-case>
             <from-outcome>crudUsuarios</from-outcome>
-            <to-view-id>/crudUsuarios.jsp</to-view-id>
+            <to-view-id>/crudUsuarios.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule> 
     
@@ -141,11 +141,11 @@
         <from-view-id>/login.jsp</from-view-id>
         <navigation-case>
             <from-outcome>sessionUser</from-outcome>
-            <to-view-id>/sessionUser.jsp</to-view-id>
+            <to-view-id>/sessionUser.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>sessionAdmin</from-outcome>
-            <to-view-id>/sessionAdmin.jsp</to-view-id>
+            <to-view-id>/sessionAdmin.xhtml</to-view-id>
         </navigation-case>
     
     </navigation-rule> 

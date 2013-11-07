@@ -33,7 +33,6 @@ public class UsuariosController implements Serializable {
     public static final ArrayList<Usuario> array = new ArrayList<Usuario>();
     
      private int tipo;
-
     public int getTipo() {
         return tipo;
     }
@@ -205,7 +204,7 @@ public class UsuariosController implements Serializable {
         
     }
          
-         public Usuario consultaLogin() throws ValidatorException, LivrariaDAOException{
+         public Usuario consultaLoginAux(String email) throws ValidatorException, LivrariaDAOException{
         
          
           InterfaceUsuariosDAO idao = new LivrariaDAO();
@@ -215,6 +214,16 @@ public class UsuariosController implements Serializable {
         
         
          }
+         
+   
+         
+         
+ public Usuario atualizaUsuario()throws LivrariaDAOException{
+           InterfaceUsuariosDAO  idao = new LivrariaDAO();
+           idao.atualizarUsuario(usuario);
+        
+           return null;      
+     }
     
     
 }

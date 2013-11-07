@@ -20,7 +20,7 @@ import util.ConnectionLivrariaFactory;
  *
  * @author richardsonandrade
  */
-public class LivrariaDAO implements InterfaceLivrosDAO, InterfaceUsuariosDAO {
+public class LivrariaDAO implements InterfaceLivrosDAO, InterfaceUsuariosDAO,InterfaceLoginDAO  {
 
     private Connection conn;
 
@@ -156,7 +156,7 @@ public class LivrariaDAO implements InterfaceLivrosDAO, InterfaceUsuariosDAO {
             while (rs.next()) {
                 String isbn = rs.getString(1);
                 String titulo = rs.getString(2);
-                int edicao = rs.getInt(3);
+                int edicao = rs.getInt("edicao_num");
                 String publicacao = rs.getString(4);
                 String descricao = rs.getString(5);
                 list.add(new Livros(isbn, titulo, edicao, publicacao, descricao));
@@ -256,7 +256,7 @@ public class LivrariaDAO implements InterfaceLivrosDAO, InterfaceUsuariosDAO {
     }
 
     @Override
-    public void atualizarUsuario(Usuario usuario) throws LivrariaDAOException {
+    public Usuario atualizarUsuario(Usuario usuario) throws LivrariaDAOException {
         PreparedStatement ps = null;
         Connection conn = null;
         if (usuario == null) {
@@ -265,7 +265,7 @@ public class LivrariaDAO implements InterfaceLivrosDAO, InterfaceUsuariosDAO {
             try {
                                     
           
-                String SQL = "UPDATE user SET nome=?,"  + "senha=?" + "WHERE loginn=?";
+                String SQL = "UPDATE user SET nome=?,"  + "senha=?" + "WHERE login=?";
                 conn = this.conn;
                 ps = conn.prepareStatement(SQL);
 
@@ -276,11 +276,13 @@ public class LivrariaDAO implements InterfaceLivrosDAO, InterfaceUsuariosDAO {
 
                 ps.executeUpdate();
                 
+                return usuario;
+                
             } catch (SQLException sqle) {
                 throw new LivrariaDAOException("Erro ao atualizar dados " + sqle);
-            } /*finally {
+            }finally {
                 ConnectionLivrariaFactory.closeConnection(conn, ps);
-            }*/
+            }
 
     }
 
@@ -457,6 +459,34 @@ PreparedStatement ps = null;
         } finally {
             ConnectionLivrariaFactory.closeConnection(conn, ps, rs);
         }
+    }
+
+    @Override
+    public void atualizarSenha(String login,String senha) throws LivrariaDAOException {
+
+     PreparedStatement ps = null;
+        Connection conn = null;
+    
+            try {
+            
+                String SQL = "UPDATE user SET senha=? WHERE login=?";
+                conn = this.conn;
+                ps = conn.prepareStatement(SQL);
+
+                ps.setString(1,senha);
+                ps.setString(2, login);
+      
+
+                ps.executeUpdate();
+            } catch (SQLException sqle) {
+                throw new LivrariaDAOException("Erro ao atualizar dados " + sqle);
+            } finally {
+                ConnectionLivrariaFactory.closeConnection(conn, ps);
+            }
+    
+    
+    
+    
     }
 
     

@@ -45,6 +45,8 @@ public class Usuario {
         livrosRetirados = new Vector(5);
     }
 
+    
+   
     public Usuario(String login, String password) {
         email = login;
         senha = password;

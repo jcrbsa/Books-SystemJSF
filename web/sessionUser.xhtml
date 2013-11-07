@@ -2,177 +2,190 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-     >
-
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <f:view>
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Página Usuário</title>
-   <link rel="stylesheet" type="text/css" href="css/menuBar.css" />
+        <link rel="stylesheet" type="text/css" href="css/menuBar.css" />
         <link rel="stylesheet" type="text/css" href="css/styles.css" />
-         <link rel="stylesheet" type="text/css" href="css/abas.css" />
-        
-             
+        <link rel="stylesheet" type="text/css" href="css/abas.css" />
         <script type="text/javascript" src="js/abasLogin.js" />
 
-     </h:head>
-    <h:body >
+    </h:head>
+        <h:body >
+    <!--Definição Template p/ Layout da pagina-->
+<!--    
+        <ui:composition template="templates/common.xhtml">
+         <ui:define name="menu">
+         </ui:define>			
+      </ui:composition> -->
+        
+        <fieldset id='fieldset'>
+            <legend><h:outputLabel  value ="Opções:" style="font-weight: bold" /></legend>
+          
+            <h:form>
+       
+                <h:panelGrid cellpadding="0.1"  columns="1">
+                    <h:commandLink styleClass="link" value="Home" action="sessionUser.jsp" />
 
 
-                <fieldset id='fieldset'>
-                    <legend>Opções</legend>
-                    <h:graphicImage value="/images/user.png" />
-                  <h:form>
-                      <h:panelGrid cellpadding="0.1"  columns="1">
-               <h:commandLink styleClass="link" value="Home" action="sessionUser.jsp" />
-                       
-           
                     <h:commandLink styleClass="link" value="Editar Perfil" action="editarPerfil?faces-redirect=true" />
-                       
-                 
+
+
                     <h:commandLink styleClass="link" value="Histórico"  />
-                        
-                 
+
+
                     <h:commandLink styleClass="link" value="Sobre Sistema"/>
-                   
-     
+
+
                     <h:commandLink styleClass="link" value="Sair" action="login.jsp" />
-                      
-              
-                 
-            </h:panelGrid >
+
+
+
+                </h:panelGrid >
             </h:form>
-                    
-                    
-                    
-                </fieldset>
+
+        </fieldset>
         
+             
+         <fieldset id="perfil">
+             
+            <legend> <h:outputLabel  value ="Login/Email:" style="font-weight: bold" /></legend>
+       
+       <h:graphicImage value="/images/user.png" />
+       <h:outputText  value ="#{loginView.login}" /> 
         
-        <fieldset>
-            <legend>Informacoes usuário</legend>
-            <h:outputText value ="#{usuariosView.email}" />
-            
+                      
         </fieldset>
 
-                <div class="container" style=" position: absolute;left:50%;margin-left:-200px;top: 300px">
-                   
-                     
-                    <table id="menu_central" >
-                        <tr style="border:1px solid #000000;">
-                            <td class="menu" id="td_login"
-                                onClick="AlternarAbas('td_login', 'form_login');">       
-                                Titulo     
-                            </td>
-                            <td  class="menu" id="td_cadastro"
-                                 onClick="AlternarAbas('td_cadastro', 'form_cadastro');">  				
-                                Autor
-                            </td>
-
-                        </tr>    
+    
 
 
-                        <tr> 
-                            <td colspan="2">
+   
 
+        <div class="container" style=" position: absolute;left:50%;margin-left:-200px;top: 300px">
+
+
+            <table id="menu_central" >
+                <tr style="border:1px solid #000000;">
+                    <td class="menu" id="td_login"
+                        onClick="AlternarAbas('td_login', 'form_login');">       
+                        Titulo     
+                    </td>
+                    <td  class="menu" id="td_cadastro"
+                         onClick="AlternarAbas('td_cadastro', 'form_cadastro');">  				
+                        Autor
+                    </td>
+
+                </tr>    
+
+
+                <tr> 
+                    <td colspan="2">
+
+
+
+                        <h:form id="form_login">
+                            <h:inputText id="titulo" value="#{livrosView.titulo}"></h:inputText>
+                            <h:commandButton value="Consultar">
+                                <f:ajax execute="titulo" render="outputMessageTitulo" />
+                                 <f:ajax execute="a" render="saida" />
+                            </h:commandButton>
+
+                            <h:dataTable id="outputMessageTitulo" rendered="true" value="#{livrosView.procuraLivrosTitulo() ne null ?livrosView.procuraLivrosTitulo() : 'Nenhum Resultado Encontrado'     }" var="livro"
+                                         styleClass="livroTable"
+                                         headerClass="livroTableHeader"
+                                         rowClasses="livroTableOddRow,livroTableEvenRow">
+                                <h:column>    				
+                                    <f:facet name="header">Selecionar </f:facet>    				
+                                    <h:selectBooleanCheckbox value=""/>
+
+                                </h:column>
+                                <h:column>    				
+                                    <f:facet name="header">ISBN</f:facet>    				
+
+                                    <h:outputText value="#{livro.isbn}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Titulo</f:facet>
+                                    <h:outputText value="#{livro.titulo}"  />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Edicao</f:facet>
+
+                                    <h:outputText value="#{livro.edicao}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Publicação</f:facet>
+                                    <h:outputText value="#{livro.publicacao}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Descrição</f:facet>
+                                    <h:outputText value="#{livro.descricao}"  />
+                                </h:column>
+
+                            </h:dataTable>    
+                            <h:commandButton value="Escolher" />
+
+                        </h:form>
+
+                        <h:form id="form_cadastro" style="display:none">
+                            <h:inputText id="autor" value="#{livrosView.autor}"></h:inputText>
+                            <h:commandButton value="Consultar">
+                                <f:ajax execute="autor" render="outputMessageAutor" />
                               
-                              
-                                    <h:form id="form_login">
-                                        <h:inputText id="titulo" value="#{livrosView.titulo}"></h:inputText>
-                                        <h:commandButton value="Consultar">
-                                            <f:ajax execute="titulo" render="outputMessageTitulo" />
-                                        </h:commandButton>
-
-                                        <h:dataTable id="outputMessageTitulo" value="#{livrosView.procuraLivrosTitulo()  != null ? livrosView.procuraLivrosTitulo() : 'Nenhum Resultado Encontrado' }" var="livro"
-                                                     styleClass="livroTable"
-                                                     headerClass="livroTableHeader"
-                                                     rowClasses="livroTableOddRow,livroTableEvenRow">
-                                            <h:column>    				
-                                                <f:facet name="header">Selecionar </f:facet>    				
-                                                <h:selectBooleanCheckbox value=""/>
-                                             
-                                            </h:column>
-                                            <h:column>    				
-                                                <f:facet name="header">ISBN</f:facet>    				
-                                   
-                                                <h:outputText value="#{livro.isbn}"/>
-                                            </h:column>
-                                            <h:column>
-                                                <f:facet name="header">Titulo</f:facet>
-                                                <h:outputText value="#{livro.titulo}"  />
-                                            </h:column>
-                                            <h:column>
-                                                <f:facet name="header">Edicao</f:facet>
-                                               
-                                                <h:outputText value="#{livro.edicao}" />
-                                            </h:column>
-                                            <h:column>
-                                                <f:facet name="header">Publicação</f:facet>
-                                                <h:outputText value="#{livro.publicacao}" />
-                                            </h:column>
-                                            <h:column>
-                                                <f:facet name="header">Descrição</f:facet>
-                                                <h:outputText value="#{livro.descricao}"  />
-                                            </h:column>
-                                            
-                                        </h:dataTable>    
-                                         <h:commandButton value="Escolher" />
-                                
-                                    </h:form>
-
-                                    <h:form id="form_cadastro" style="display:none">
-                                        <h:inputText id="autor" value="#{livrosView.autor}"></h:inputText>
-                                        <h:commandButton value="Consultar">
-                                         <f:ajax execute="autor" render="outputMessageAutor" />
-                                          <f:ajax execute="autor" render="saida" />                                   
-                                        </h:commandButton>
-                                        <h:outputText id="saida" value="#{livrosView.procuraLivrosAutor() != null ? '' : 'Nenhum Resultado Encontrado'}" />
-                                                                       
-
-                                        <h:dataTable id="outputMessageAutor"  value="#{livrosView.procuraLivrosAutor()  != null ? livrosView.procuraLivrosAutor() : 'Nenhum Resultado Encontrado' }" var="livro"
-                                                     styleClass="livroTable"
-                                                     headerClass="livroTableHeader"
-                                                     rowClasses="livroTableOddRow,livroTableEvenRow">
-                                         
-
-                                             <h:column>    				
-                                                <f:facet name="header">Selecionar </f:facet>    				
-                                                <h:selectBooleanCheckbox value="#{livro.checkBox}"/>                                            
-                                            </h:column>
-                                            <h:column>    				
-                                                <f:facet name="header">ISBN</f:facet>    				
-                                   
-                                                <h:outputText value="#{livro.isbn}" />
-                                            </h:column>
-                                            <h:column>
-                                                <f:facet name="header">Titulo</f:facet>
-                                                <h:outputText value="#{livro.titulo}"  />
-                                            </h:column>
-                                            <h:column>
-                                                <f:facet name="header">Edicao</f:facet>
-                                               
-                                                <h:outputText value="#{livro.edicao}" />
-                                            </h:column>
-                                            <h:column>
-                                                <f:facet name="header">Publicação</f:facet>
-                                                <h:outputText value="#{livro.publicacao}" />
-                                            </h:column>
-                                            <h:column>
-                                                <f:facet name="header">Descrição</f:facet>
-                                                <h:outputText value="#{livro.descricao}"  />
-                                            </h:column>
-                                        </h:dataTable>
-                                        <h:commandButton value="Escolher" action="#{livrosView.confereCheckBox()}" />
-                                        
-                                    </h:form>     
-                   
+                            </h:commandButton>
 
 
-                            </td>
-                        </tr>
-                    </table>
-               
+                            <h:dataTable id="outputMessageAutor"  value="#{livrosView.procuraLivrosAutor()  != null ? livrosView.procuraLivrosAutor() : 'Nenhum Resultado Encontrado' }" var="livro"
+                                         styleClass="livroTable"
+                                         headerClass="livroTableHeader"
+                                         rowClasses="livroTableOddRow,livroTableEvenRow">
 
-                </div>
 
-            </h:body >
+                                <h:column>    				
+                                    <f:facet name="header">Selecionar </f:facet>    				
+                                    <h:selectBooleanCheckbox value="#{livro.checkBox}"/>                                            
+                                </h:column>
+                                <h:column>    				
+                                    <f:facet name="header">ISBN</f:facet>    				
 
-            </html>
+                                    <h:outputText value="#{livro.isbn}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Titulo</f:facet>
+                                    <h:outputText value="#{livro.titulo}"  />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Edicao</f:facet>
+
+                                    <h:outputText value="#{livro.edicao}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Publicação</f:facet>
+                                    <h:outputText value="#{livro.publicacao}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Descrição</f:facet>
+                                    <h:outputText value="#{livro.descricao}"  />
+                                </h:column>
+                            </h:dataTable>
+                            <h:commandButton value="Escolher" action="#{livrosView.confereCheckBox()}" />
+
+                        </h:form>     
+
+
+
+                    </td>
+                </tr>
+            </table>
+
+
+        </div>
+
+    </h:body >
+    </f:view>
+
+</html>

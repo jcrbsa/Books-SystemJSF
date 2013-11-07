@@ -5,49 +5,60 @@ xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
       <title>Gerenciamento Usuários</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
-
-        <link rel="stylesheet" type="text/css" href="css/menuBar.css" />
-
+  <link rel="stylesheet" type="text/css" href="css/menuBar.css" />
+            <link rel="stylesheet" type="text/css" href="css/styles.css" />
+            <link rel="stylesheet" type="text/css" href="css/abas.css" />
+            <script type="text/javascript" src="js/abasLogin.js" />
    </h:head>
    <h:body> 
     
       <fieldset>
-                        <legend>Opções</legend>
-                        <h:form>
-        <ul>    
-            <li ><h:outputLink styleClass="link" value="Home">
-                    <h:outputText value="Home" />
-                </h:outputLink>
-            </li>
-            <li ><h:outputLink styleClass="link" value="Editar Perfil">
-                    <h:outputText value="Editar Perfil" />
-                </h:outputLink>
-            </li>
-            <li ><h:commandLink action="crudLivros.xhtml" styleClass="link" >
-                    <h:outputText value="Livros"  />
-              </h:commandLink></li>
-            <li ><h:outputLink styleClass="link" >
-                    <h:outputText value="Usuários" />
-                </h:outputLink></li>
-            <li ><h:outputLink styleClass="link" >
-                    <h:outputText value="Historico" />
-                </h:outputLink></li>
-            <li ><h:outputLink styleClass="link" >
-                    <h:outputText value="Gráficos" />
-                </h:outputLink></li>
-            <li ><h:outputLink styleClass="link" >
-                    <h:outputText value="Sobre" />
-                </h:outputLink></li>
-            <li ><h:commandLink styleClass="link" action="login.jsp" >
-                    <h:outputText value="Sair" />
-                </h:commandLink></li>
-        </ul>
-        
-        </h:form>
+                <legend>Opções</legend>
+
+                <h:form>
+                    <h:panelGrid cellpadding="0.1"  columns="1">
+
+                        <h:commandLink styleClass="link" value="Home " action="sessionAdmin.jsp?faces-redirect=true">
+
+                            <h:graphicImage value="/images/home.png" />
+
+                        </h:commandLink>
+
+
+                        <h:commandLink styleClass="link" value="Senha " action="editarPerfil?faces-redirect=true">
+                            <h:graphicImage value="/images/edit.jpg" />
+                        </h:commandLink>
+
+
+                        <h:commandLink action="crudLivros" value="Livros " styleClass="link" >
+                            <h:graphicImage value="/images/books.JPG" />
+                        </h:commandLink>
+                        <h:commandLink action="crudUsuarios" value="Usuarios " styleClass="link" >
+                            <h:graphicImage value="/images/users.PNG" /> 
+                        </h:commandLink>
+                        <h:commandLink styleClass="link" value="Histórico " /> 
+                        <h:commandLink styleClass="link" value="Gráficos "  />                  
+                        <h:commandLink styleClass="link" value="Sair " action="login.jsp" />
+
+
+                    </h:panelGrid >
+                </h:form>
+
+            </fieldset>
+            <fieldset id="perfil">
+
+                <legend> <h:outputLabel  value ="Login/Email:" style="font-weight: bold" /></legend>
+                <center>
+                <h:graphicImage value="/images/admin.png" />
+                                </center>
+
+                <h:outputText  value ="#{loginView.login}" /> 
+
 
             </fieldset>
        
-       
+    <div class="container" style=" position: absolute;left:50%;margin-left:-320px;top: 150px">
+
   <h:form id="form_add_user">
        
      <h:panelGrid columns="3">
@@ -125,6 +136,8 @@ xmlns:f="http://java.sun.com/jsf/core">
 	<h:commandButton value="Atualizar Livros"
                          action="#{usuariosView.saveUsuarios()}" />	  
    </h:form>
+              
+  </div>
        
 
        

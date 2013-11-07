@@ -14,9 +14,17 @@ background-color:#00FF0C;
 color:Navy; }
 
 
-fieldset {
+
+
+fieldset{
     float: left;
     width: 5%;
     margin-top: 250px;
+}
+#perfil{
+    float: left;
+    position: absolute;
+    width: 5%;
+    margin-top: 60px;
 
 }

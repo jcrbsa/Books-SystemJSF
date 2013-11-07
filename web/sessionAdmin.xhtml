@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <f:view>
+        <h:head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <title>Página Usuário</title>
+            <link rel="stylesheet" type="text/css" href="css/menuBar.css" />
+            <link rel="stylesheet" type="text/css" href="css/styles.css" />
+            <link rel="stylesheet" type="text/css" href="css/abas.css" />
+            <script type="text/javascript" src="js/abasLogin.js" />
+
+        </h:head>
+        <h:body >
+
+            <fieldset>
+                <legend>Opções</legend>
+
+                <h:form>
+                    <h:panelGrid cellpadding="0.1"  columns="1">
+
+                        <h:commandLink styleClass="link" value=" Home" action="sessionAdmin.jsp?faces-redirect=true">
+
+                            <h:graphicImage value="/images/home.png" />
+
+                        </h:commandLink>
+
+
+                        <h:commandLink styleClass="link" value="Senha " action="editarPerfil?faces-redirect=true">
+                            <h:graphicImage value="/images/edit.jpg" />
+                        </h:commandLink>
+
+
+                        <h:commandLink action="crudLivros" value="Livros " styleClass="link" >
+                            <h:graphicImage value="/images/books.JPG" />
+                        </h:commandLink>
+                        <h:commandLink action="crudUsuarios" value="Usuarios " styleClass="link" >
+                            <h:graphicImage value="/images/users.PNG" /> 
+                        </h:commandLink>
+                        <h:commandLink styleClass="link" value="Histórico " /> 
+                        <h:commandLink styleClass="link" value="Gráficos "  />                  
+                        <h:commandLink styleClass="link" value="Sair " action="login.jsp" />
+
+
+                    </h:panelGrid >
+                </h:form>
+
+            </fieldset>
+            <fieldset id="perfil">
+
+                <legend> <h:outputLabel  value ="Login/Email:" style="font-weight: bold" /></legend>
+                <center><h:graphicImage value="/images/admin.png" /></center>
+                
+                <h:outputText  value ="#{loginView.login}" /> 
+
+
+            </fieldset>
+
+
+
+        </h:body>
+    </f:view>
+
+</html>

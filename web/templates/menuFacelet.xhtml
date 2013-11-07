@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:h="http://java.sun.com/jsf/html">
+    <h:head></h:head>
+    <h:body>
+      <ui:composition> 
+         <fieldset id='fieldset'>
+            <legend><h:outputLabel  value ="Opções:" style="font-weight: bold" /></legend>
+          
+            <h:form>
+       
+                <h:panelGrid cellpadding="0.1"  columns="1">
+                    <h:commandLink styleClass="link" value="Home" action="sessionUser.jsp" />
+
+
+                    <h:commandLink styleClass="link" value="Editar Perfil" action="editarPerfil?faces-redirect=true" />
+
+
+                    <h:commandLink styleClass="link" value="Histórico"  />
+
+
+                    <h:commandLink styleClass="link" value="Sobre Sistema"/>
+
+
+                    <h:commandLink styleClass="link" value="Sair" action="login.jsp" />
+
+
+
+                </h:panelGrid >
+            </h:form>
+
+        </fieldset>
+        
+             
+         <fieldset id="perfil">
+             
+            <legend> <h:outputLabel  value ="Login/Email:" style="font-weight: bold" /></legend>
+       
+       <h:graphicImage value="/images/user.png" />
+       <h:outputText  value ="#{loginView.login}" /> 
+        
+                      
+        </fieldset>
+      </ui:composition>	
+    </h:body>
+</html>

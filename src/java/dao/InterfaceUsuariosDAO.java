@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface InterfaceUsuariosDAO {
     
-    void atualizarUsuario(Usuario usuario) throws LivrariaDAOException;
+    Usuario atualizarUsuario(Usuario usuario) throws LivrariaDAOException;
     void excluirUsuario(Usuario usuario) throws LivrariaDAOException;
     void salvarUsuario(Usuario usuario) throws LivrariaDAOException;
     List todosUsuario() throws LivrariaDAOException;    
