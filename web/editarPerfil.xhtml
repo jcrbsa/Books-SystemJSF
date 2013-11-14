@@ -3,7 +3,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       >
-
+    <f:view locale="#{userData.locale}">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Página Usuário</title>
@@ -13,27 +13,43 @@
         <script type="text/javascript" src="js/abasLogin.js" />
     </h:head>
     <h:body >
+        <div id="header" style="height: 120px   ">
+        <h:graphicImage value="images/logo.png" />
+        <h:graphicImage value ="images/Nome.png" />
+    <h:form style="float:right">
+       <h:panelGrid columns="2"> 
+           <h:outputLabel value="#{msg.idioma}" style="color:white" /> <br />
+         <h:selectOneMenu onchange="submit();" value="#{userData.locale}"
+             valueChangeListener="#{userData.localeChanged}" >
+             <f:selectItems value="#{userData.countries}"/> 
+         </h:selectOneMenu> 
+      </h:panelGrid> 
+   </h:form> 
+        
+        <hr />
+        
+        </div>
 
 
         <fieldset id='fieldset'>
-            <legend><h:outputLabel  value ="Opções:" style="font-weight: bold" /></legend>
+            <legend><h:outputLabel  value ="#{msg.opcoes}" style="font-weight: bold" /></legend>
 
             <h:form>
 
                 <h:panelGrid cellpadding="0.1"  columns="1">
-                    <h:commandLink styleClass="link" value="Home" action="sessionUser.jsp?faces-redirect=true" />
+                    <h:commandLink styleClass="link" value="#{msg.inicio}" action="sessionUser.jsp?faces-redirect=true" />
 
 
-                    <h:commandLink styleClass="link" value="Editar Perfil" action="editarPerfil?faces-redirect=true" />
+                    <h:commandLink styleClass="link" value="#{msg.editar_perfil}" action="editarPerfil?faces-redirect=true" />
 
 
-                    <h:commandLink styleClass="link" value="Histórico"  />
+                    <h:commandLink styleClass="link" value="#{msg.historico}"  />
 
 
-                    <h:commandLink styleClass="link" value="Sobre Sistema"/>
+                    <h:commandLink styleClass="link" value="#{msg.sobre_sistema}"/>
 
 
-                    <h:commandLink styleClass="link" value="Sair" action="login.jsp" />
+                    <h:commandLink styleClass="link" value="#{msg.sair}" action="login.jsp" />
 
 
 
@@ -95,4 +111,5 @@
 
 
     </h:body>
+       </f:view>
 </html>

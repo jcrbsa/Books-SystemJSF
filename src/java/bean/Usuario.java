@@ -14,13 +14,20 @@ import java.util.Enumeration;
 public class Usuario {
     
    
-    private String nome;
-
     private String email;
     private String senha;
     private boolean canEdit;
     private int tipo;
 
+     private String nome;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
     public int getTipo() {
         return tipo;
     }
@@ -63,11 +70,7 @@ public class Usuario {
         senha = password;
        
     }
-    
-       public String getNome() {
-        return nome;
-    }
-    
+
      public String getSenha() {
         return senha;
     }

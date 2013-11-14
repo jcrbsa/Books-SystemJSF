@@ -157,5 +157,12 @@ public class LoginController {
            return null;      
      }
     
+    public String sair(LivrosController livro){
+        livro = null;
+        
+        return "login";
+        
+    }
+    
     
 }

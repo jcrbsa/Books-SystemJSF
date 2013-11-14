@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+        <ui:composition> 
+            <div id="header" style="height: 120px   ">
+                <h:graphicImage value="images/logo.png" />
+                <h:graphicImage value ="images/Nome.png" />
+                <h:form style="float:right">
+                    <h:panelGrid columns="2"> 
+                        Language : 
+                        <h:selectOneMenu onchange="submit();" value="#{userData.locale}"
+                                         valueChangeListener="#{userData.localeChanged}" >
+                            <f:selectItems value="#{userData.countries}" /> 
+                        </h:selectOneMenu> 
+                    </h:panelGrid> 
+                </h:form> 
+
+                <hr />
+            </div>
+        </ui:composition>	
+  </body>
+
+</html>

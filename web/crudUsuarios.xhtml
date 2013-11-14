@@ -2,6 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core">
+    
+   <f:view locale="#{userData.locale}">
     <h:head>
       <title>Gerenciamento Usuários</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
@@ -11,35 +13,54 @@ xmlns:f="http://java.sun.com/jsf/core">
             <script type="text/javascript" src="js/abasLogin.js" />
    </h:head>
    <h:body> 
+       
+       <div id="header" style="height: 120px   ">
+        <h:graphicImage value="images/logo.png" />
+        <h:graphicImage value ="images/Nome.png" />
+    <h:form style="float:right">
+       <h:panelGrid columns="2"> 
+           <h:outputLabel value="#{msg.idioma}" style="color:white" /> <br />
+         <h:selectOneMenu onchange="submit();" value="#{userData.locale}"
+             valueChangeListener="#{userData.localeChanged}" >
+             <f:selectItems value="#{userData.countries}" />       
+   
+         </h:selectOneMenu> 
+      </h:panelGrid> 
+   </h:form> 
+        
+        <hr />
+        
+    
+</div>
     
       <fieldset>
-                <legend>Opções</legend>
+                <legend><h:outputLabel  value ="#{msg.opcoes}" style="font-weight: bold" /></legend>
 
                 <h:form>
                     <h:panelGrid cellpadding="0.1"  columns="1">
 
-                        <h:commandLink styleClass="link" value="Home " action="sessionAdmin.jsp?faces-redirect=true">
+                        <h:commandLink styleClass="link" value="#{msg.inicio}" action="sessionAdmin.jsp?faces-redirect=true">
 
                             <h:graphicImage value="/images/home.png" />
 
                         </h:commandLink>
 
 
-                        <h:commandLink styleClass="link" value="Senha " action="editarPerfil?faces-redirect=true">
+                        <h:commandLink styleClass="link" value="#{msg.senha}" >
                             <h:graphicImage value="/images/edit.jpg" />
                         </h:commandLink>
 
 
-                        <h:commandLink action="crudLivros" value="Livros " styleClass="link" >
+                        <h:commandLink action="crudLivros" value="#{msg.livros} " styleClass="link" >
                             <h:graphicImage value="/images/books.JPG" />
                         </h:commandLink>
-                        <h:commandLink action="crudUsuarios" value="Usuarios " styleClass="link" >
+                        <h:commandLink action="crudUsuarios" value="#{msg.usuarios} " styleClass="link" >
                             <h:graphicImage value="/images/users.PNG" /> 
                         </h:commandLink>
-                        <h:commandLink styleClass="link" value="Histórico " /> 
-                        <h:commandLink styleClass="link" value="Gráficos "  />                  
-                        <h:commandLink styleClass="link" value="Sair " action="login.jsp" />
-
+                        <h:commandLink styleClass="link" value="#{msg.historico} " /> 
+                        <h:commandLink styleClass="link" value="#{msg.grafico} "  />                  
+                        <h:commandLink styleClass="link" value="#{msg.sair} " action="login.jsp" />
+                 
 
                     </h:panelGrid >
                 </h:form>
@@ -57,25 +78,24 @@ xmlns:f="http://java.sun.com/jsf/core">
 
             </fieldset>
        
-    <div class="container" style=" position: absolute;left:50%;margin-left:-320px;top: 150px">
+    <div class="container" style=" position: absolute;left:50%;margin-left:-220px;top: 300px">
 
   <h:form id="form_add_user">
        
      <h:panelGrid columns="3">
-           <h:outputLabel for="nome" id="label_nome" value="Nome:"/>
+         <h:outputLabel for="nome" id="label_nome" value="#{msg.nome}"/>
            <h:inputText id="nome" value="#{usuariosView.nome}" required="true">
                     </h:inputText>
                       <h:message for="nome" />
            <h:outputLabel for="email" id="label_email" value="Email:"/>
            <h:inputText id="email" value="#{usuariosView.email}" required="true" validator="#{usuariosView.consultaLogin}"/>
            <h:message for="email" />
-            <h:outputLabel for="senha" id="label_senha" value="Senha:"/>
+           <h:outputLabel for="senha" id="label_senha" value="#{msg.senha}"/>
             <h:inputText id="senha" value="#{usuariosView.senha}" required="true" />
              <h:message for="senha" />
+             <h:commandButton id ="cadastro" value="#{msg.cadastrar}" action="#{usuariosView.addUsuario()}" />
+             <h:commandButton value="#{msg.limpar}" type="reset" />
 
-
-
-              <h:commandButton id ="cadastro" value="Cadastrar" action="#{usuariosView.addUsuario()}" />
        </h:panelGrid>    
       
      </h:form>
@@ -88,7 +108,7 @@ xmlns:f="http://java.sun.com/jsf/core">
                          rowClasses="livroTableOddRow,livroTableEvenRow"
       >
          <h:column>    				
-            <f:facet name="header">Nome:</f:facet>    				
+             <f:facet name="header"><h:outputLabel  value ="#{msg.nome}" /></f:facet>    				
             <h:inputText value="#{usuario.nome}"
                size="17" rendered="#{usuario.canEdit}" />
             <h:outputText value="#{usuario.nome}"
@@ -102,7 +122,7 @@ xmlns:f="http://java.sun.com/jsf/core">
                rendered="#{not usuario.canEdit}" />
          </h:column>
          <h:column>
-            <f:facet name="header">Senha</f:facet>
+            <f:facet name="header"><h:outputLabel  value ="#{msg.senha}" /></f:facet>
             <h:inputText value="#{usuario.senha}" size="3"
                rendered="#{usuario.canEdit}" />
             <h:outputText value="#{usuario.senha}" 
@@ -110,7 +130,7 @@ xmlns:f="http://java.sun.com/jsf/core">
          </h:column>
          
          <h:column>
-            <f:facet name="header">Editar</f:facet>
+             <f:facet name="header"><h:outputLabel  value ="#{msg.editar}" /></f:facet>
                <h:commandLink 
                                 action="#{usuariosView.editUsuario(usuario)}" 
                   rendered="#{not usuario.canEdit}">        
@@ -120,7 +140,7 @@ xmlns:f="http://java.sun.com/jsf/core">
          </h:column>
           
          <h:column>
-            <f:facet name="header">Apagar</f:facet>
+             <f:facet name="header"><h:outputLabel  value ="#{msg.apagar}" /></f:facet>
                <h:commandLink 
                                 action="#{usuariosView.deleteUsuario(usuario)}"  >                
                     <h:graphicImage value="/images/delete.jpg" />
@@ -133,7 +153,7 @@ xmlns:f="http://java.sun.com/jsf/core">
         
       </h:dataTable>  
 	  <br/>
-	<h:commandButton value="Atualizar Livros"
+          <h:commandButton value="#{msg.atualizar}"
                          action="#{usuariosView.saveUsuarios()}" />	  
    </h:form>
               
@@ -142,6 +162,5 @@ xmlns:f="http://java.sun.com/jsf/core">
 
        
    </h:body>
-   
-  
+        </f:view>
 </html>

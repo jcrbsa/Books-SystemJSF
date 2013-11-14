@@ -60,6 +60,10 @@
                 </h:column>
             </h:dataTable>
             <h:commandLink action="#{livrosView.novoLivro}" value="Cadastrar novo livro" />
+            <h:commandLink styleClass="link" value="Primeira" action="#{livrosView.pPrimeiraPagina()}" rendered="#{true}" /> 
+            <h:commandLink styleClass="link" value="Anterior" action="#{livrosView.pPaginaAnterior()}" rendered="#{livrosView.paginaAtual != 0 ? true : false}" /> 
+            <h:commandLink styleClass="link" value="Próxima" action="#{livrosView.pProximaPagina()}"  rendered="#{livrosView.paginaAtual  + livrosView.maxPorPagina lt livrosView.total ? true : false}" /> 
+            <h:commandLink styleClass="link" value="Última" action="#{livrosView.pUltimaPagina()}"  rendered=" " />
         </h:form>
  </f:view>
       

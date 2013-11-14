@@ -4,6 +4,21 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     
+    
+    
+     <application>
+   <locale-config>
+      <default-locale>pt</default-locale>
+      <supported-locale>fr</supported-locale>
+       <supported-locale>en</supported-locale>
+       <supported-locale>es</supported-locale>
+
+   </locale-config>
+   <resource-bundle>
+      <base-name>messages.messages</base-name>
+      <var>msg</var>
+   </resource-bundle>
+</application>
     <!-- Conversor ConverteAnoMySql -->
     <converter>
         <converter-id>converteAnoMySQL</converter-id>
@@ -48,8 +63,8 @@
         <managed-bean-scope>session</managed-bean-scope>
         <managed-bean-eager>true</managed-bean-eager>
     </managed-bean>
- 
     
+
      <!-- Navegação da página -->
      
      <!-- Edição dos livros atraves da pagina mostrarLivros.jsp -->
@@ -149,6 +164,15 @@
         </navigation-case>
     
     </navigation-rule> 
+    
+    
+    <navigation-rule>
+       
+        <navigation-case>
+            <from-outcome>sair</from-outcome>
+            <to-view-id>/login.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
     
     
 </faces-config>

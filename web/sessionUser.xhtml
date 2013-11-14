@@ -4,7 +4,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       >
-    <f:view>
+    <f:view locale="#{userData.locale}">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Página Usuário</title>
@@ -16,31 +16,52 @@
     </h:head>
         <h:body >
     <!--Definição Template p/ Layout da pagina-->
-<!--    
-        <ui:composition template="templates/common.xhtml">
-         <ui:define name="menu">
-         </ui:define>			
-      </ui:composition> -->
+   
+<!--        <ui:composition template="/templates/common.xhtml">
+            <ui:define name="header" >
+                teste
+            </ui:define>		
+      </ui:composition>-->
+
+
+<div id="header" style="height: 120px   ">
+        <h:graphicImage value="images/logo.png" />
+        <h:graphicImage value ="images/Nome.png" />
+    <h:form style="float:right">
+       <h:panelGrid columns="2"> 
+           <h:outputLabel value="#{msg.idioma}" style="color:white" /> <br />
+         <h:selectOneMenu onchange="submit();" value="#{userData.locale}"
+             valueChangeListener="#{userData.localeChanged}" >
+             <f:selectItems value="#{userData.countries}" />       
+   
+         </h:selectOneMenu> 
+      </h:panelGrid> 
+   </h:form> 
+        
+        <hr />
+        
+    
+</div>
         
         <fieldset id='fieldset'>
-            <legend><h:outputLabel  value ="Opções:" style="font-weight: bold" /></legend>
+            <legend><h:outputLabel  value ="#{msg.opcoes}" style="font-weight: bold" /></legend>
           
             <h:form>
        
                 <h:panelGrid cellpadding="0.1"  columns="1">
-                    <h:commandLink styleClass="link" value="Home" action="sessionUser.jsp" />
+                    <h:commandLink styleClass="link" value="#{msg.inicio}" action="sessionUser.jsp" />
 
 
-                    <h:commandLink styleClass="link" value="Editar Perfil" action="editarPerfil?faces-redirect=true" />
+                    <h:commandLink styleClass="link" value="#{msg.editar_perfil}" action="editarPerfil?faces-redirect=true" />
 
 
-                    <h:commandLink styleClass="link" value="Histórico"  />
+                    <h:commandLink styleClass="link" value="#{msg.historico}"  />
 
 
-                    <h:commandLink styleClass="link" value="Sobre Sistema"/>
+                    <h:commandLink styleClass="link" value="#{msg.sobre_sistema}"/>
 
 
-                    <h:commandLink styleClass="link" value="Sair" action="login.jsp" />
+                    <h:commandLink styleClass="link" value="#{msg.sair}" action="#{loginView.sair(livrosView)}" />
 
 
 
@@ -72,13 +93,12 @@
                 <tr style="border:1px solid #000000;">
                     <td class="menu" id="td_login"
                         onClick="AlternarAbas('td_login', 'form_login');">       
-                        Titulo     
+                       <h:outputLabel value="#{msg.titulo}" />   
                     </td>
                     <td  class="menu" id="td_cadastro"
                          onClick="AlternarAbas('td_cadastro', 'form_cadastro');">  				
-                        Autor
+                                        <h:outputLabel value="#{msg.autor}" />  
                     </td>
-
                 </tr>    
 
 
@@ -88,18 +108,18 @@
 
 
                         <h:form id="form_login">
-                            <h:inputText id="titulo" value="#{livrosView.titulo}"></h:inputText>
-                            <h:commandButton value="Consultar">
+                            <h:inputText id="titulo" value="#{livrosView.titulo}" />
+                            <h:commandButton value="#{msg.consultar}">
                                 <f:ajax execute="titulo" render="outputMessageTitulo" />
-                                 <f:ajax execute="a" render="saida" />
                             </h:commandButton>
+                             
 
-                            <h:dataTable id="outputMessageTitulo" rendered="true" value="#{livrosView.procuraLivrosTitulo() ne null ?livrosView.procuraLivrosTitulo() : 'Nenhum Resultado Encontrado'     }" var="livro"
+                            <h:dataTable id="outputMessageTitulo" value="#{  livrosView.procuraLivrosTitulo() ne null ? livrosView.procuraLivrosTitulo() : 'Nenhum Resultado Encontrado' }" var="livro"
                                          styleClass="livroTable"
                                          headerClass="livroTableHeader"
                                          rowClasses="livroTableOddRow,livroTableEvenRow">
                                 <h:column>    				
-                                    <f:facet name="header">Selecionar </f:facet>    				
+                                    <f:facet name="header"><h:outputLabel value="#{msg.selecionar}" /> </f:facet>    				
                                     <h:selectBooleanCheckbox value=""/>
 
                                 </h:column>
@@ -109,25 +129,25 @@
                                     <h:outputText value="#{livro.isbn}"/>
                                 </h:column>
                                 <h:column>
-                                    <f:facet name="header">Titulo</f:facet>
+                                    <f:facet name="header"><h:outputLabel value="#{msg.titulo}" /></f:facet>
                                     <h:outputText value="#{livro.titulo}"  />
                                 </h:column>
                                 <h:column>
-                                    <f:facet name="header">Edicao</f:facet>
+                                    <f:facet name="header"><h:outputLabel value="#{msg.edicao}" /></f:facet>
 
                                     <h:outputText value="#{livro.edicao}" />
                                 </h:column>
                                 <h:column>
-                                    <f:facet name="header">Publicação</f:facet>
+                                    <f:facet name="header"><h:outputLabel value="#{msg.publicacao}" /></f:facet>
                                     <h:outputText value="#{livro.publicacao}" />
                                 </h:column>
                                 <h:column>
-                                    <f:facet name="header">Descrição</f:facet>
+                                    <f:facet name="header"><h:outputLabel value="#{msg.descricao}" /></f:facet>
                                     <h:outputText value="#{livro.descricao}"  />
                                 </h:column>
 
                             </h:dataTable>    
-                            <h:commandButton value="Escolher" />
+                            <h:commandButton value="#{msg.escolher}" />
 
                         </h:form>
 
@@ -146,7 +166,7 @@
 
 
                                 <h:column>    				
-                                    <f:facet name="header">Selecionar </f:facet>    				
+                                    <f:facet name="header"><h:outputLabel value="#{msg.selecionar}" /> </f:facet>    				
                                     <h:selectBooleanCheckbox value="#{livro.checkBox}"/>                                            
                                 </h:column>
                                 <h:column>    				
@@ -155,24 +175,24 @@
                                     <h:outputText value="#{livro.isbn}" />
                                 </h:column>
                                 <h:column>
-                                    <f:facet name="header">Titulo</f:facet>
+                                    <f:facet name="header">h:outputLabel value="#{msg.titulo}" /></f:facet>
                                     <h:outputText value="#{livro.titulo}"  />
                                 </h:column>
                                 <h:column>
-                                    <f:facet name="header">Edicao</f:facet>
+                                    <f:facet name="header">h:outputLabel value="#{msg.edicao}" /></f:facet>
 
                                     <h:outputText value="#{livro.edicao}" />
                                 </h:column>
                                 <h:column>
-                                    <f:facet name="header">Publicação</f:facet>
+                                    <f:facet name="header">h:outputLabel value="#{msg.publicacao}" /></f:facet>
                                     <h:outputText value="#{livro.publicacao}" />
                                 </h:column>
                                 <h:column>
-                                    <f:facet name="header">Descrição</f:facet>
+                                    <f:facet name="header">h:outputLabel value="#{msg.descricao}" /></f:facet>
                                     <h:outputText value="#{livro.descricao}"  />
                                 </h:column>
                             </h:dataTable>
-                            <h:commandButton value="Escolher" action="#{livrosView.confereCheckBox()}" />
+                            <h:commandButton value="#{msg.selecionar}" action="#{livrosView.confereCheckBox()}" />
 
                         </h:form>     
 
@@ -184,7 +204,7 @@
 
 
         </div>
-
+    
     </h:body >
     </f:view>
 

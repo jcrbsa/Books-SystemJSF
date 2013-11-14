@@ -4,7 +4,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       >
-    <f:view>
+    <f:view locale="#{userData.locale}" >
         <h:head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
             <title>Página Usuário</title>
@@ -15,35 +15,54 @@
 
         </h:head>
         <h:body >
+            
+   <div id="header" style="height: 120px   ">
+        <h:graphicImage value="images/logo.png" />
+        <h:graphicImage value ="images/Nome.png" />
+    <h:form style="float:right">
+       <h:panelGrid columns="2"> 
+           <h:outputLabel value="#{msg.idioma}" style="color:white" /> <br />
+         <h:selectOneMenu onchange="submit();" value="#{userData.locale}"
+             valueChangeListener="#{userData.localeChanged}" >
+             <f:selectItems value="#{userData.countries}" />       
+   
+         </h:selectOneMenu> 
+      </h:panelGrid> 
+   </h:form> 
+        
+        <hr />
+        
+    
+</div>
 
             <fieldset>
-                <legend>Opções</legend>
+                <legend><h:outputLabel  value ="#{msg.opcoes}" style="font-weight: bold" /></legend>
 
-                <h:form>
+               <h:form>
                     <h:panelGrid cellpadding="0.1"  columns="1">
 
-                        <h:commandLink styleClass="link" value=" Home" action="sessionAdmin.jsp?faces-redirect=true">
+                        <h:commandLink styleClass="link" value="#{msg.inicio}" action="sessionAdmin.jsp?faces-redirect=true">
 
                             <h:graphicImage value="/images/home.png" />
 
                         </h:commandLink>
 
 
-                        <h:commandLink styleClass="link" value="Senha " action="editarPerfil?faces-redirect=true">
+                        <h:commandLink styleClass="link" value="#{msg.senha}" >
                             <h:graphicImage value="/images/edit.jpg" />
                         </h:commandLink>
 
 
-                        <h:commandLink action="crudLivros" value="Livros " styleClass="link" >
+                        <h:commandLink action="crudLivros" value="#{msg.livros} " styleClass="link" >
                             <h:graphicImage value="/images/books.JPG" />
                         </h:commandLink>
-                        <h:commandLink action="crudUsuarios" value="Usuarios " styleClass="link" >
+                        <h:commandLink action="crudUsuarios" value="#{msg.usuarios} " styleClass="link" >
                             <h:graphicImage value="/images/users.PNG" /> 
                         </h:commandLink>
-                        <h:commandLink styleClass="link" value="Histórico " /> 
-                        <h:commandLink styleClass="link" value="Gráficos "  />                  
-                        <h:commandLink styleClass="link" value="Sair " action="login.jsp" />
-
+                        <h:commandLink styleClass="link" value="#{msg.historico} " /> 
+                        <h:commandLink styleClass="link" value="#{msg.grafico} "  />                  
+                        <h:commandLink styleClass="link" value="#{msg.sair} " action="login.jsp" />
+                 
 
                     </h:panelGrid >
                 </h:form>

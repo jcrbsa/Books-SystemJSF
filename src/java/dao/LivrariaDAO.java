@@ -157,8 +157,8 @@ public class LivrariaDAO implements InterfaceLivrosDAO, InterfaceUsuariosDAO,Int
                 String isbn = rs.getString(1);
                 String titulo = rs.getString(2);
                 int edicao = rs.getInt("edicao_num");
-                String publicacao = rs.getString(4);
-                String descricao = rs.getString(5);
+                String publicacao = rs.getString("ano_publicacao");
+                String descricao = rs.getString("descricao");
                 list.add(new Livros(isbn, titulo, edicao, publicacao, descricao));
             }
             return list;
@@ -487,6 +487,37 @@ PreparedStatement ps = null;
     
     
     
+    }
+
+    @Override
+    public int totalDeLivros() throws LivrariaDAOException{
+        
+         PreparedStatement ps = null;
+          Connection conn = null;
+          ResultSet rs = null;
+          int total = 0;
+            try {
+            
+            
+             conn = this.conn;
+            ps =conn.prepareStatement("SELECT COUNT(*) FROM livros");
+            
+            rs= ps.executeQuery();
+            if(rs.next())
+                return rs.getInt("count(*)");
+            else
+                return  0;
+
+        
+            } catch (SQLException sqle) {
+            throw new LivrariaDAOException(sqle);
+        } finally {
+            //ConnectionLivrariaFactory.closeConnection(conn, ps, rs);
+        }
+  
+
+    
+ 
     }
 
     

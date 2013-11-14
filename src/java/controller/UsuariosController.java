@@ -133,6 +133,12 @@ public class UsuariosController implements Serializable {
             for (Usuario usuarios : list) {
                 array.add(usuarios);
             }
+        
+        }else{
+            array.clear();
+            for (Usuario usuarios : list) {
+                array.add(usuarios);
+            }
         }
         return array;
     }

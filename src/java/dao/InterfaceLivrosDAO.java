@@ -26,6 +26,7 @@ public interface InterfaceLivrosDAO {
    ArrayList<Livros>  procurarLivroTitulo(String titulo) throws LivrariaDAOException;
 
     void atualizarTodos(List<Livros> livro) throws LivrariaDAOException;
+   int totalDeLivros() throws LivrariaDAOException;
 
     
 }

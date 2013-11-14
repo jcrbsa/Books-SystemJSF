@@ -298,8 +298,79 @@ public class LivrosController implements Serializable  {
          return null;
      }
       
-     
+private int maxPorPagina =3;
+private int paginaAtual=0;
+
+
+public int getTotal() throws LivrariaDAOException{
+    InterfaceLivrosDAO idao = new LivrariaDAO();
     
+    System.out.println("Total Livros:" + idao.totalDeLivros());
+    return idao.totalDeLivros();
+}
+    public int getMaxPorPagina() {
+        return maxPorPagina;
+    }
+
+    public void setMaxPorPagina(int maxPorPagina) {
+        this.maxPorPagina = maxPorPagina;
+    }
+
+    public int getPaginaAtual() {
+        return paginaAtual;
+    }
+
+    public void setPaginaAtual(int paginaAtual) {
+        this.paginaAtual = paginaAtual;
+    }
+
+    
+public String pPrimeiraPagina(){
+    
+    paginaAtual = 0;
+
+        System.out.println("<< Pagina Atual" +  paginaAtual);
+
+    return "crudLivros";
+}
+
+public String pPaginaAnterior(){
+    
+    paginaAtual -= maxPorPagina;
+        if(paginaAtual < 0 ){
+            paginaAtual =0;
+        }
+    System.out.println("< Pagina Atual" +  paginaAtual);
+    return "crudLivros";
+}
+
+public String pProximaPagina() throws LivrariaDAOException{
+    
+    paginaAtual += maxPorPagina;
+        if(paginaAtual >= getTotal() ){
+            paginaAtual = getTotal() - maxPorPagina;
+            
+        }
+          if(paginaAtual < 0 ){
+            paginaAtual =0;
+        }
+    System.out.println("> Pagina Atual" +  paginaAtual);
+    
+    return "crudLivros";
+}
+
+public String pUltimaPagina() throws LivrariaDAOException{
+    
+
+            paginaAtual = getTotal() - maxPorPagina;
+            
+          if(paginaAtual < 0 ){
+            paginaAtual =0;
+        }
+    System.out.println(">> Pagina Atual" +  paginaAtual);
+    
+    return "crudLivros";
+}
 
 
 

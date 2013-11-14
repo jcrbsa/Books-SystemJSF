@@ -1,53 +1,60 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package meupacote;
-
-import bean.Livros;
-import dao.InterfaceLivrosDAO;
-import dao.LivrariaDAO;
-import dao.LivrariaDAOException;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.io.Serializable;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Map;
 
-/**
- *
- * @author jcrbsa
- */
-public class Test {
-     public static final ArrayList<Livros> employees = new ArrayList<Livros>();
-     public Test(){
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
+
+@ManagedBean(name = "userData", eager = true)
+@SessionScoped
+public class Test implements Serializable {
+
+   private static final long serialVersionUID = 1L;
+   private  String locale = "pt";
+
    
-     }
-    public static void main(String[] args) throws LivrariaDAOException {
 
-      /*  InterfaceLivrosDAO test = new LivrariaDAO();
-         List<Livros> list = new ArrayList<Livros>();
-         list = test.todosLivros();
-         for (Iterator<Livros> it = list.iterator(); it.hasNext();) {
-            Livros livros = it.next();
-            employees.add(livros);
-        }
-         System.out.println("Livros Adicionados no ArrayList<LIvros>...");
-         System.out.println("Livros Armazenado no Array");
-         for (int i = 0; i <  employees.size(); i++) {
-             System.out.println(employees.get(i).getTitulo());
-            
-        }*/
-        
-        
-        Pattern p =  Pattern.compile("[a-z]{3,255}@[r][e][c][i][f][e][.][i][f][p][e][.][e][d][u][.][b][r]");
-        Matcher m = p.matcher("rbsa@recife.ifpe.edu.br");
+   private static Map<String,Object> countries;
+   
+
+   static{
+      countries = new LinkedHashMap<String,Object>();
+           
+          countries.put("Português" ,new Locale("pt"));
+           countries.put("Inglês" ,Locale.ENGLISH );
+           countries.put("Francês" , Locale.FRENCH);
+           countries.put("Espanhol" , new Locale("es"));
      
-        if (!m.matches()) {
-               System.out.println( m.matches()); 
-        }
-       
-        
-    
-    }
+   }
+   
+
+   public Map<String, Object> getCountries() {
+      return countries;
+   }
+
+   public String getLocale() {
+      return locale;
+   }
+
+   public void setLocale(String locale) {
+      this.locale = locale;
+   }
+
+   //value change event listener
+   public void localeChanged(ValueChangeEvent e){
+      String newLocaleValue = e.getNewValue().toString();
+      for (Map.Entry<String, Object> entry : countries.entrySet()) {
+         if(entry.getValue().toString().equals(newLocaleValue)){
+            FacesContext.getCurrentInstance()
+               .getViewRoot().setLocale((Locale)entry.getValue());         
+         }
+      }
+   }
 }
