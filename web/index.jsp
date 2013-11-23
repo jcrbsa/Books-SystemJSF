@@ -15,6 +15,7 @@
     <center><h1>Bem-vindo Gerenciamento Livros</h1></center>
     <center><a href="menu.faces">Mostrar Livros ou Inserir</a></center>
      <center><a href="login.faces">Login</a></center>
+     <center><a href="test.faces">Testes</a></center>
 
     </body>
 </html>

@@ -3,12 +3,12 @@
  * and open the template in the editor.
  */
 package bean;
-
+import java.io.Serializable;
 /**
  *
  * @author richardsonandrade
  */
-public class Livros implements java.io.Serializable{
+public class Livros implements Serializable{
     
     
     private String isbn;
@@ -17,6 +17,15 @@ public class Livros implements java.io.Serializable{
     private String publicacao;
     private String descricao;
     private String autor;
+    private boolean selecionado;
+
+    public boolean isSelecionado() {
+        return selecionado;
+    }
+
+    public void setSelecionado(boolean selecionado) {
+        this.selecionado = selecionado;
+    }
     
     private boolean canEdit;
 
@@ -42,11 +51,14 @@ public class Livros implements java.io.Serializable{
         this.edicao = edicao;
         this.publicacao = publicacao;
         this.descricao = descricao;
-        this.canEdit = false;
-       
+        this.canEdit = false; 
     }
     
-    public Livros(String isbn, String titulo,String autor, int edicao, String publicacao, String descricao) {
+    
+  
+  
+    
+    public Livros(String isbn, String titulo,String autor, int edicao, String publicacao, String descricao, boolean selecionado) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.edicao = edicao;
@@ -54,7 +66,21 @@ public class Livros implements java.io.Serializable{
         this.descricao = descricao;
         this.canEdit = false;
         this.autor = autor;
+        this.selecionado = selecionado;
     }
+    
+    
+     public Livros(String isbn, String titulo,String autor, int edicao, String publicacao, String descricao) {
+        this.isbn = isbn;
+        this.titulo = titulo;
+        this.edicao = edicao;
+        this.publicacao = publicacao;
+        this.descricao = descricao;
+        this.canEdit = false;
+        this.autor = autor;
+        this.selecionado = selecionado;
+    }
+
 
     public String getAutor() {
         return autor;

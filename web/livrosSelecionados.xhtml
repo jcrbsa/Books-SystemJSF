@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+          
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <f:view locale="#{userData.locale}">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Página Usuário</title>
+        <link rel="stylesheet" type="text/css" href="css/menuBar.css" />
+        <link rel="stylesheet" type="text/css" href="css/styles.css" />
+        <link rel="stylesheet" type="text/css" href="css/abas.css" />
+        <script type="text/javascript" src="js/abasLogin.js" />
+
+    </h:head>
+        <h:body >
+    <!--Definição Template p/ Layout da pagina-->
+   
+<!--        <ui:composition template="/templates/common.xhtml">
+            <ui:define name="header" >
+                teste
+            </ui:define>		
+      </ui:composition>-->
+
+
+<div id="header" style="height: 120px   ">
+        <h:graphicImage value="images/logo.png" />
+        <h:graphicImage value ="images/Nome.png" />
+    <h:form style="float:right">
+       <h:panelGrid columns="2"> 
+           <h:outputLabel value="#{msg.idioma}" style="color:white" /> <br />
+         <h:selectOneMenu onchange="submit();" value="#{userData.locale}"
+             valueChangeListener="#{userData.localeChanged}" >
+             <f:selectItems value="#{userData.countries}" />       
+   
+         </h:selectOneMenu> 
+      </h:panelGrid> 
+   </h:form> 
+        
+        <hr />
+        
+    
+</div>
+        
+        <fieldset id='fieldset'>
+            <legend><h:outputLabel  value ="#{msg.opcoes}" style="font-weight: bold" /></legend>
+          
+            <h:form>
+       
+                <h:panelGrid cellpadding="0.1"  columns="1">
+                    <h:commandLink styleClass="link" value="#{msg.inicio}" action="sessionUser.jsp" />
+
+
+                    <h:commandLink styleClass="link" value="#{msg.editar_perfil}" action="editarPerfil?faces-redirect=true" />
+
+
+                    <h:commandLink styleClass="link" value="#{msg.historico}" action="livrosSelecionados?faces-redirect=true" />
+
+
+                    <h:commandLink styleClass="link" value="#{msg.sobre_sistema}"/>
+
+
+                    <h:commandLink styleClass="link" value="#{msg.sair}" action="#{loginView.sair(livrosView)}" />
+
+
+
+                </h:panelGrid >
+            </h:form>
+
+        </fieldset>
+        
+             
+         <fieldset id="perfil">
+             
+            <legend> <h:outputLabel  value ="Login/Email:" style="font-weight: bold" /></legend>
+       
+       <h:graphicImage value="/images/user.png" />
+       <h:outputText  value ="#{loginView.login}" /> 
+        
+                      
+        </fieldset>
+
+    
+
+
+   
+
+        <div class="container" style=" position: absolute;left:50%;margin-left:-200px;top: 300px">
+
+
+            <table id="menu_central" >
+                <tr style="border:1px solid #000000;">
+                    <td >       
+                       <h:outputLabel value="#{msg.titulo}" />   
+         
+                  
+    <h:form>
+        <h:dataTable id="livrosPedidos"  value="#{livrosView.consultarLivrosPedidos(loginView.login)}" var="livro"
+                                         styleClass="livroTable"
+                                         headerClass="livroTableHeader"
+                                         rowClasses="livroTableOddRow,livroTableEvenRow">
+
+
+                             
+                                <h:column>    				
+                                    <f:facet name="header">ISBN</f:facet>    				
+
+                                    <h:outputText value="#{livro.isbn}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header"><h:outputLabel value="#{msg.titulo}" /></f:facet>
+                                    <h:outputText value="#{livro.titulo}"  />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header" ><h:outputLabel value="#{msg.edicao}" /></f:facet>
+
+                                    <h:outputText value="#{livro.edicao}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header"><h:outputLabel value="#{msg.publicacao}" /></f:facet>
+                                    <h:outputText value="#{livro.publicacao}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header"><h:outputLabel value="#{msg.descricao}" /></f:facet>
+                                    <h:outputText value="#{livro.descricao}"  />
+                                </h:column>
+                            </h:dataTable>
+        </h:form>
+                       
+                    </td>
+                </tr>
+                    
+
+            </table>
+    </div>
+
+
+ 
+    </h:body >
+    </f:view>
+
+</html>

@@ -2,18 +2,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
->
-   <h:head>
-      <title>JSF tutorial</title>	 	
+xmlns:p="http://primefaces.org/ui">
+    <f:view>  <h:head>
+            <title>JSF tutorial</title>	 	
    </h:head>
    <h:body> 
-      <h2>Internalization Language Example</h2>
-   <h:form>
-       <h:commandLink styleClass="link" value="Primeira" action="#{livrosView.pPrimeiraPagina()}"  rendererType="#{livrosView.paginaAtual != 0}" /> 
-            <h:commandLink styleClass="link" value="Anterior"  action="#{livrosView.pPaginaAnterior()}" rendererType="#{livrosView.paginaAtual != 0}" /> 
-            <h:commandLink styleClass="link" value="Próxima" action="#{livrosView.pProximaPagina()}"  rendererType="#{livrosView.paginaAtual  + livrosView.maxPorPagina lt livrosView.total}" /> 
-            <h:commandLink styleClass="link" value="Última" action="#{livrosView.pUltimaPagina()}"  rendererType="#{livrosView.paginaAtual  + livrosView.maxPorPagina lt livrosView.total}" />
+             <p:outputLabel value="PrimeFaces Graphics" />  
 
-   </h:form>
-</h:body>
+     <p:barChart id="basic" value="#{chartBean.categoryModel}" legendPosition="ne"  
+            title="Basic Bar Chart" min="0" max="200" style="height:300px"/>  
+  
+      <p:barChart id="horizontal" value="#{chartBean.categoryModel}" legendPosition="se" style="height:300px"  
+            title="Horizontal Bar Chart" orientation="horizontal" min="0" max="200"/>  
+  
+<p:barChart id="stacked" value="#{chartBean.categoryModel}" legendPosition="ne" style="height:300px"  
+            title="Stacked Bar Chart" stacked="true" barMargin="50" min="0" max="300" />
+
+
+            <p:spinner style="visibility:hidden " />
+       
+   
+   </h:body>
+        </f:view> 
 </html>

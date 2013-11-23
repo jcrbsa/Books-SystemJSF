@@ -25,6 +25,17 @@ public class LoginController {
     private String password;
 
     private String canEdit;
+   
+    private Usuario usuario;
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
     public String getCanEdit() {
         return canEdit;
     }
@@ -76,9 +87,9 @@ public class LoginController {
                        context.addMessage("formulario", message);
         }else{
               InterfaceUsuariosDAO  idao = new LivrariaDAO();
-              Usuario user = idao.procurarLogin(login);
-            if (user != null){  
-                if(password.equals(user.getSenha())){
+               usuario = idao.procurarLogin(login);
+            if (usuario != null){  
+                if(password.equals(usuario.getSenha())){
                     if(matchFound || matchFound2)
                     forward = "sessionUser";
                     else
@@ -124,8 +135,8 @@ public class LoginController {
         
             
               InterfaceUsuariosDAO  idao = new LivrariaDAO();
-               Usuario user = idao.procurarLogin(login);
-            if ( user != null){  
+                usuario = idao.procurarLogin(login);
+            if ( usuario != null){  
                 
              message = new FacesMessage("Login já existe");
 

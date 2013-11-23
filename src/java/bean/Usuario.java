@@ -4,6 +4,7 @@
  */
 package bean;
 
+import java.io.Serializable;
 import java.util.Vector;
 import java.util.Enumeration;
 
@@ -11,14 +12,24 @@ import java.util.Enumeration;
  *
  * @author jcrbsa
  */
-public class Usuario {
+public class Usuario implements Serializable{
     
    
     private String email;
     private String senha;
     private boolean canEdit;
     private int tipo;
+    private int quantidade;
 
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+  
      private String nome;
 
     public String getNome() {
@@ -54,9 +65,10 @@ public class Usuario {
 
     
    
-    public Usuario(String login, String password) {
+    public Usuario(String login, String password, int quantidade) {
         email = login;
         senha = password;
+        this.quantidade = quantidade;
     }
     public Usuario(String nome,String login, String password, int tipo) {
         this.nome = nome;
@@ -66,8 +78,9 @@ public class Usuario {
     }
     public Usuario(String nome,String login, String password) {
         this.nome = nome;
-        email = login;
-        senha = password;
+        this.email = login;
+        this.senha = password;
+      
        
     }
 

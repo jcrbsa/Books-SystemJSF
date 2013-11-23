@@ -42,6 +42,15 @@ public class LivrosController implements Serializable  {
     private String descricao;
     private String autor;
     private boolean checkBox = false;
+    private boolean render =false;
+
+    public boolean isRender() {
+        return render;
+    }
+
+    public void setRender(boolean render) {
+        this.render = render;
+    }
 
     public boolean isCheckBox() {
         return checkBox;
@@ -65,6 +74,11 @@ public class LivrosController implements Serializable  {
    public static final ArrayList<Livros> array = new ArrayList<Livros>();
 
     public ArrayList<Livros> arrayConsulta;
+    public static ArrayList<Livros> arrayLivrosSolicitados =  new ArrayList<Livros>();
+
+    public static ArrayList<Livros> getArrayLivrosSolicitados() {
+        return arrayLivrosSolicitados;
+    }
 
     public ArrayList<Livros> getArrayConsulta() {
         return arrayConsulta;
@@ -189,12 +203,13 @@ public class LivrosController implements Serializable  {
             context.addMessage("message_isbn",message);
         }else{
             
-      Livros livro = new Livros(isbn,titulo, edicao,publicacao, descricao);
+       livro = new Livros(isbn,titulo, edicao,publicacao, descricao);
            array.add(livro);
   
            InterfaceLivrosDAO  idao = new LivrariaDAO();  
            idao.salvar(livro);
         }
+        titulo = "";
       return null;
    }
 
@@ -282,22 +297,55 @@ public class LivrosController implements Serializable  {
         return idao.procurarLivro(isbn);
                 }
      
-     public String confereCheckBox(){
+     public String confereCheckBox(String email, int quantidade) throws LivrariaDAOException{
 
-         //Vericar o tipo de usuario
-
-         //Verifica quantidade de livros ja solicitacos
+              
+         InterfaceLivrosDAO idao = new LivrariaDAO();
+         String test = email;
          for (Livros livro : arrayConsulta){
-             System.out.println(livro.isCheckBox());
+             if(livro.isCheckBox() == true){
+                 quantidade++;
+                 if(quantidade <= 3){
+             idao.solicitarLivros(test, livro.getIsbn());
+             arrayLivrosSolicitados.add(livro);
+               render = true;
+                 }
+             }
       }	
          
-         
-         
-         
-         
-         return null;
+     return null;
      }
       
+   public  ArrayList<Livros> consultarLivrosPedidos(String email) throws LivrariaDAOException{
+    InterfaceLivrosDAO idao = new LivrariaDAO();
+     
+       List<Livros> list = new ArrayList<Livros>();
+       list = idao.livrosPedidos(email);
+         if(list != null){
+    
+       if( arrayLivrosSolicitados.isEmpty()){
+        for (Livros livros : list) {
+            arrayLivrosSolicitados.add(livros);
+        }
+       }
+       }     
+         render = false;
+     
+    return arrayLivrosSolicitados; 
+}
+         
+         
+ public int consultaQuantidadelLivrosUsuario(String email) throws LivrariaDAOException{
+     
+         InterfaceLivrosDAO idao = new LivrariaDAO();
+            return idao.quantidadelLivrosUsuario(email);
+ }        
+         
+         
+      
+     
+     
+     
 private int maxPorPagina =3;
 private int paginaAtual=0;
 
