@@ -14,8 +14,10 @@ import bean.Livros;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
@@ -25,6 +27,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+
+import javax.faces.event.ValueChangeEvent;
 
 import javax.faces.validator.ValidatorException;
 /**
@@ -81,9 +85,35 @@ public class LivrosController implements Serializable  {
     }
 
     public ArrayList<Livros> getArrayConsulta() {
+        if(arrayConsulta ==  null){
+            System.out.println("NULL getter");
+        }
+            
         return arrayConsulta;
     }
+    
+    private static Map<String,Object> test;
+	static{
+		test = new LinkedHashMap<String,Object>();
+		test.put("1", 1); 
+	        test.put("2", 2);
+		test.put("3", 3);
+	}
+public Map<String,Object> getTest() {
+		return test;
+	}
+    
+     
+     private boolean oneradio;
 
+    public boolean isOneradio() {
+        return oneradio;
+    }
+
+    public void setOneradio(boolean oneradio) {
+        this.oneradio = oneradio;
+    }
+     
  
     public String novoLivro(){
         this.setLivro(new Livros());
@@ -266,7 +296,7 @@ public class LivrosController implements Serializable  {
      InterfaceLivrosDAO test = new LivrariaDAO();
         
        arrayConsulta = test.procurarLivroTitulo(titulo);
-        
+      
         return arrayConsulta;
 }
     
@@ -306,7 +336,7 @@ public class LivrosController implements Serializable  {
              if(livro.isCheckBox() == true){
                  quantidade++;
                  if(quantidade <= 3){
-             idao.solicitarLivros(test, livro.getIsbn());
+             idao.solicitarLivros(test, livro.getIsbn(), quantidade);
              arrayLivrosSolicitados.add(livro);
                render = true;
                  }
@@ -321,28 +351,68 @@ public class LivrosController implements Serializable  {
      
        List<Livros> list = new ArrayList<Livros>();
        list = idao.livrosPedidos(email);
+       
          if(list != null){
     
        if( arrayLivrosSolicitados.isEmpty()){
         for (Livros livros : list) {
+            
             arrayLivrosSolicitados.add(livros);
         }
        }
        }     
-         render = false;
      
     return arrayLivrosSolicitados; 
 }
-         
+ public static ArrayList<Livros> arrayExemplaresSolicitados = new ArrayList<Livros>();
+
+    public static ArrayList<Livros> getArrayExemplaresSolicitados() {
+        return arrayExemplaresSolicitados;
+    }
          
  public int consultaQuantidadelLivrosUsuario(String email) throws LivrariaDAOException{
      
          InterfaceLivrosDAO idao = new LivrariaDAO();
             return idao.quantidadelLivrosUsuario(email);
  }        
+ 
+ 
+  public ArrayList<Livros> mostrarExemplares(String isbn) throws LivrariaDAOException{
+         
+      InterfaceLivrosDAO idao = new LivrariaDAO();
+      List<Livros> list = new ArrayList<Livros>();
+      list = idao.mostrarExemplares(isbn);
+       if(list != null){
+      if( arrayExemplaresSolicitados.isEmpty()){
+        for (Livros livros : list) {
+            
+            arrayExemplaresSolicitados.add(livros);
+        }
+       }
+           
+       }
+     
+    return arrayExemplaresSolicitados;
+  
+                
+     }
          
          
-      
+   public void confereCheckBoxExamplares() throws LivrariaDAOException{
+
+              
+         InterfaceLivrosDAO idao = new LivrariaDAO();
+         
+         
+         for (Livros livro : arrayExemplaresSolicitados){
+             if(livro.isCheckBox() == true){
+    
+             idao.atualizarExemplares(livro.getCod_exemplar(),livro.isCheckBox());
+            // arrayExemplaresSolicitados.add(livro);
+                 }
+             }
+     
+     }
      
      
      

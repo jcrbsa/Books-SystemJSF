@@ -96,12 +96,24 @@ public class UsuariosController implements Serializable {
 
     public String addUsuario() throws LivrariaDAOException {
         
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        
+        if(consultaLoginAux(email) != null){
+            FacesMessage message = new FacesMessage("Livro já existe!");
+            
+            context.addMessage("form_add_user",message);
+        }else{
+            
         tipo = checaTipoUsuario(email);
         Usuario usuario = new Usuario(nome, email, senha,tipo);
         array.add(usuario);
-
-        InterfaceUsuariosDAO idao = new LivrariaDAO();
+         InterfaceUsuariosDAO idao = new LivrariaDAO();
         idao.salvarUsuario(usuario);
+            
+        }
+
+      
         return null;
     }
 
@@ -141,13 +153,13 @@ public class UsuariosController implements Serializable {
             for (Usuario usuarios : list) {
                 array.add(usuarios);
             }
-        
-        }else{
-            array.clear();
-            for (Usuario usuarios : list) {
-                array.add(usuarios);
-            }
         }
+//        }else{
+//            array.clear();
+//            for (Usuario usuarios : list) {
+//                array.add(usuarios);
+//            }
+//        }
         return array;
     }
 
@@ -197,37 +209,37 @@ public class UsuariosController implements Serializable {
         }
     }
         
-//         public void consultaLogin(FacesContext context, UIComponent componente, Object objeto) throws ValidatorException, LivrariaDAOException{
-//        
-//         
-//          String email = (String)objeto;
-//          InterfaceUsuariosDAO idao = new LivrariaDAO();
-//          
-//        
-//       
-//        if(idao.procurarLogin(email) != null){
-//        
-//           ((UIInput)componente).setValid(false);
-//            FacesMessage message = new FacesMessage("Email já existe!");
-//            context.addMessage(componente.getClientId(context),message);
-//        }
-//        
-//        
-//        
-//        
-//        
-//    }
-//         
-//         public Usuario consultaLoginAux(String email) throws ValidatorException, LivrariaDAOException{
-//        
-//         
-//          InterfaceUsuariosDAO idao = new LivrariaDAO();
-//          
-//        return idao.procurarLogin(email);
-//        
-//        
-//        
-//         }
+         public void consultaLogin(FacesContext context, UIComponent componente, Object objeto) throws ValidatorException, LivrariaDAOException{
+        
+         
+          String email = (String)objeto;
+          InterfaceUsuariosDAO idao = new LivrariaDAO();
+          
+        
+       
+        if(idao.procurarLogin(email) != null){
+        
+           ((UIInput)componente).setValid(false);
+            FacesMessage message = new FacesMessage("Email já existe!");
+            context.addMessage(componente.getClientId(context),message);
+        }
+        
+        
+        
+        
+        
+    }
+         
+         public Usuario consultaLoginAux(String email) throws ValidatorException, LivrariaDAOException{
+        
+         
+          InterfaceUsuariosDAO idao = new LivrariaDAO();
+          
+        return idao.procurarLogin(email);
+        
+        
+        
+         }
          
    
          

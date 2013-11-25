@@ -69,18 +69,21 @@ public class Usuario implements Serializable{
         email = login;
         senha = password;
         this.quantidade = quantidade;
+        this.canEdit = false;
     }
     public Usuario(String nome,String login, String password, int tipo) {
         this.nome = nome;
         email = login;
         senha = password;
         tipo = tipo;
+       this.canEdit = false;
+
     }
     public Usuario(String nome,String login, String password) {
         this.nome = nome;
         this.email = login;
         this.senha = password;
-      
+        this.canEdit = false;      
        
     }
 

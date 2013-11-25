@@ -18,6 +18,33 @@ public class Livros implements Serializable{
     private String descricao;
     private String autor;
     private boolean selecionado;
+    private boolean selected;
+    private int num_exemplar;
+    private int cod_exemplar;
+
+    public int getCod_exemplar() {
+        return cod_exemplar;
+    }
+
+    public void setCod_exemplar(int cod_exemplar) {
+        this.cod_exemplar = cod_exemplar;
+    }
+
+    public int getNum_exemplar() {
+        return num_exemplar;
+    }
+
+    public void setNum_exemplar(int num_exemplar) {
+        this.num_exemplar = num_exemplar;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 
     public boolean isSelecionado() {
         return selecionado;
@@ -52,6 +79,7 @@ public class Livros implements Serializable{
         this.publicacao = publicacao;
         this.descricao = descricao;
         this.canEdit = false; 
+        this.selected = false;
     }
     
     
@@ -67,6 +95,8 @@ public class Livros implements Serializable{
         this.canEdit = false;
         this.autor = autor;
         this.selecionado = selecionado;
+                this.selected = false;
+
     }
     
     
@@ -79,7 +109,18 @@ public class Livros implements Serializable{
         this.canEdit = false;
         this.autor = autor;
         this.selecionado = selecionado;
+        this.selected = false;
+
     }
+     
+     public Livros(int num_exemplar, boolean selecionado, int cod_exemplar) {
+         this.selecionado = selecionado;
+         this.num_exemplar =  num_exemplar;
+         this.canEdit = false;
+         this.cod_exemplar = cod_exemplar;
+    }
+     
+     
 
 
     public String getAutor() {

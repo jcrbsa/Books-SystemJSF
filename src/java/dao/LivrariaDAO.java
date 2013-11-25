@@ -524,7 +524,7 @@ PreparedStatement ps = null;
     }
 
     @Override
-    public void solicitarLivros(String login, String isbn) throws LivrariaDAOException {
+    public void solicitarLivros(String login, String isbn, int quantidade) throws LivrariaDAOException {
  PreparedStatement ps = null;
         Connection conn = null;
          
@@ -550,7 +550,7 @@ PreparedStatement ps = null;
                   
                 conn = this.conn;
                 ps = conn.prepareStatement(SQL);
-                ps.setInt(1, (+1));
+                ps.setInt(1, quantidade);
                 ps.setString(2, login);
                 ps.executeUpdate(); 
                 
@@ -617,6 +617,62 @@ PreparedStatement ps = null;
         
     
     
+    }
+
+    @Override
+    public ArrayList<Livros> mostrarExemplares(String isbn) throws LivrariaDAOException {
+   
+         PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            conn = this.conn;
+            ps = conn.prepareStatement("SELECT * FROM exemplar WHERE isbn =?");
+             ps.setString(1,isbn);
+            rs= ps.executeQuery();
+            ArrayList<Livros> list = new ArrayList<Livros>();
+            while (rs.next()) {
+          
+            boolean selecionado =  rs.getBoolean("situacao");
+            int num_exemplar = rs.getInt("num_exemplar");
+            int cod_exemplar = rs.getInt("cod_exemplar");
+            list.add(new Livros(num_exemplar, selecionado,cod_exemplar));
+
+             }
+             
+            return list; 
+        
+        } catch (SQLException sqle) {
+            throw new LivrariaDAOException(sqle);
+        }
+        
+    
+    }
+
+    @Override
+    public void atualizarExemplares(int cod_exemplar, boolean situacao) throws LivrariaDAOException {
+        PreparedStatement ps = null;
+        Connection conn = null;
+         
+            try {
+            
+                String SQL = "UPDATE exemplar SET situacao=? WHERE cod_exemplar=? ";
+                  
+                conn = this.conn;
+                ps = conn.prepareStatement(SQL);
+               ps.setBoolean(1, situacao);
+                ps.setInt(2, cod_exemplar);
+                
+                ps.executeUpdate(); 
+                
+               
+                
+            } catch (SQLException sqle) {
+                throw new LivrariaDAOException("Erro ao inserir dados" + sqle);
+            }
+        
+        
+        
     }
 
   
