@@ -23,6 +23,16 @@ public class Livros implements Serializable{
     private int cod_exemplar;
     private String emailSolicitante;
     private boolean liberado;
+    private String devolucao;
+
+    public String getDevolucao() {
+        return devolucao;
+    }
+
+    public void setDevolucao(String devolucao) {
+        this.devolucao = devolucao;
+    }
+    
 
     public String getEmailSolicitante() {
         return emailSolicitante;
@@ -96,8 +106,9 @@ public class Livros implements Serializable{
     public Livros(String isbn, String emailUsuario, boolean liberado) {
         this.checkBox = false;
         this.isbn = isbn;
-        emailSolicitante = emailUsuario;
+        this.emailSolicitante = emailUsuario;
         this.liberado = liberado;
+        this.checkBox = false;
         
     }
 
@@ -129,7 +140,7 @@ public class Livros implements Serializable{
     }
     
     
-     public Livros(String isbn, String titulo,String autor, int edicao, String publicacao, String descricao) {
+     public Livros(String isbn, String titulo,String autor, int edicao, String publicacao, String descricao, String devolucao) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.edicao = edicao;
@@ -139,6 +150,7 @@ public class Livros implements Serializable{
         this.autor = autor;
         this.selecionado = selecionado;
         this.selected = false;
+        this.devolucao = devolucao;
 
     }
      

@@ -48,12 +48,6 @@
 
                         </h:commandLink>
 
-
-                        <h:commandLink styleClass="link" value="#{msg.senha}" >
-                            <h:graphicImage value="/images/edit.jpg" />
-                        </h:commandLink>
-
-
                         <h:commandLink action="crudLivros" value="#{msg.livros} " styleClass="link" >
                             <h:graphicImage value="/images/books.JPG" />
                         </h:commandLink>
@@ -103,7 +97,7 @@
                                 </h:commandButton>
 
 
-                                <h:dataTable style="visibility: #{livrosView.arrayConsulta.size() eq 0 ? 'hidden' : 'visible'}" id="outputMessageTitulo" value="#{  livrosView.procuraLivrosTitulo() ne null ? livrosView.procuraLivrosTitulo() : 'Nenhum Resultado Encontrado' }" var="livro"
+                                <h:dataTable style="visibility: #{livrosView.arrayConsulta2.size() eq 0 ? 'hidden' : 'visible'}" id="outputMessageTitulo" value="#{  livrosView.mostrarLivrosReservadosAluno() ne null ? livrosView.mostrarLivrosReservadosAluno() : 'Nenhum Resultado Encontrado' }" var="livro"
                                              styleClass="livroTable"
                                              headerClass="livroTableHeader"
                                              rowClasses="livroTableOddRow,livroTableEvenRow">
@@ -130,7 +124,7 @@
 
 
                                 </h:dataTable>    
-                                <h:commandButton style="visibility: #{livrosView.consultaQuantidadelLivrosUsuario(loginView.login) eq 3 ? 'hidden' : 'visible'}" value="#{msg.escolher}" action="#{livrosView.confereCheckBox(loginView.login, livrosView.consultaQuantidadelLivrosUsuario(loginView.login),loginView.usuario.tipo)}" />
+                                <h:commandButton  value="#{msg.escolher}" action="#{livrosView.confereCheckBoxPedido()}" />
 
 
                             </h:form>
@@ -142,7 +136,7 @@
 
                                 </h:commandButton>
 
-                                <h:dataTable style="visibility: #{livrosView.mostrarLivrosReservadosProfessor()} eq null ? 'hidden' : 'visible'}" id="outputMessageAutor"  value="#{livrosView.procuraLivrosAutor()  != null ? livrosView.procuraLivrosAutor() : 'Nenhum Resultado Encontrado' }" var="livro"
+                                <h:dataTable style="visibility: #{livrosView.arrayConsulta2.size()eq 0 ? 'hidden' : 'visible'}" id="outputMessageAutor"  value="#{livrosView.mostrarLivrosReservadosProfessor()  != null ? livrosView.mostrarLivrosReservadosProfessor() : 'Nenhum Resultado Encontrado' }" var="livro"
                                              styleClass="livroTable"
                                              headerClass="livroTableHeader"
                                              rowClasses="livroTableOddRow,livroTableEvenRow">
@@ -162,7 +156,7 @@
                                         <h:outputText value="#{livro.isbn}"  />
                                     </h:column>
                                 </h:dataTable>
-                                <h:commandButton style="visibility: #{livrosView.consultaQuantidadelLivrosUsuario(loginView.login) eq 3 ? 'hidden' : 'visible'}" value="#{msg.escolher}" action="#{livrosView.confereCheckBox(loginView.login, livrosView.consultaQuantidadelLivrosUsuario(loginView.login),loginView.usuario.tipo)}" />
+                                <h:commandButton  value="#{msg.escolher}" action="#{livrosView.confereCheckBoxPedido()}" />
                             </h:form>     
                         </td>
                     </tr>

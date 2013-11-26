@@ -585,7 +585,8 @@ PreparedStatement ps = null;
             int edicao = rs.getInt("edicao_num");
             String publicacao = rs.getString("ano_publicacao");
             String descricao = rs.getString("descricao");
-            list.add(new Livros(isbn, titulo,autor, edicao, publicacao, descricao));
+            String devolucao = rs.getString("devolucao");
+            list.add(new Livros(isbn, titulo,autor, edicao, publicacao, descricao, devolucao));
 
              }
              
@@ -709,6 +710,36 @@ PreparedStatement ps = null;
         }
         
     }
+    
+    @Override
+    public int totalLivrosLiberados(int cod_usuario) throws LivrariaDAOException {
+        
+               PreparedStatement ps = null;
+          Connection conn = null;
+          ResultSet rs = null;
+          int total = 0;
+            try {
+            
+            
+             conn = this.conn;
+            ps =conn.prepareStatement("SELECT COUNT(*) FROM pedidos WHERE tipo_usuario=? AND liberado=1");
+            ps.setInt(1, cod_usuario );
+            rs= ps.executeQuery();
+            if(rs.next())
+                return rs.getInt("count(*)");
+            else
+                return  0;
+
+        
+            } catch (SQLException sqle) {
+            throw new LivrariaDAOException(sqle);
+        } finally {
+            //ConnectionLivrariaFactory.closeConnection(conn, ps, rs);
+        }
+        
+    }
+    
+    
 
     @Override
     public ArrayList<Livros> livrosReservadosAluno(int i, String aluno) throws LivrariaDAOException {

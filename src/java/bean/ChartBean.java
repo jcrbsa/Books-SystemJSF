@@ -25,15 +25,25 @@ import org.primefaces.model.chart.ChartSeries;
 
 public class ChartBean implements Serializable {  
   
-    private CartesianChartModel categoryModel;  
+   private CartesianChartModel categoryModel;  
+  private CartesianChartModel categoryModel2; 
+
   
+
+    public void setCategoryModel2(CartesianChartModel categoryModel2) {
+        this.categoryModel2 = categoryModel2;
+    }
     public ChartBean()  {  
         createCategoryModel();  
+        createCategoryModel2();
     }  
   
     public CartesianChartModel getCategoryModel() {  
         return categoryModel;  
     }  
+      public CartesianChartModel getCategoryModel2() {
+        return categoryModel2;
+    }
   
     private void createCategoryModel()  {  
         categoryModel = new CartesianChartModel();  
@@ -67,4 +77,38 @@ public class ChartBean implements Serializable {
   
       
     }  
+    
+    private void createCategoryModel2()  {  
+        categoryModel2 = new CartesianChartModel();  
+      InterfaceLivrosDAO idao;
+        try {
+            idao = new LivrariaDAO();
+            
+         ChartSeries aluno = new ChartSeries();  
+        aluno.setLabel("Aluno");  
+
+  
+        aluno.set("Usuario", idao.totalLivrosLiberados(2));  
+
+       
+        
+        ChartSeries professor = new ChartSeries();  
+        professor.setLabel("Professor");  
+  
+        professor.set("Usuario", idao.totalLivrosLiberados(3));  
+       
+ 
+             categoryModel2.addSeries(aluno);  
+        categoryModel2.addSeries(professor);  
+            
+            
+        } catch (LivrariaDAOException ex) {
+            Logger.getLogger(ChartBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+  
+  
+      
+    }  
+    
 }  

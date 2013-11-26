@@ -49,9 +49,7 @@
                         </h:commandLink>
 
 
-                        <h:commandLink styleClass="link" value="#{msg.senha}" >
-                            <h:graphicImage value="/images/edit.jpg" />
-                        </h:commandLink>
+     
 
 
                         <h:commandLink action="crudLivros" value="#{msg.livros} " styleClass="link" >
@@ -60,7 +58,6 @@
                         <h:commandLink action="crudUsuarios" value="#{msg.usuarios} " styleClass="link" >
                             <h:graphicImage value="/images/users.PNG" /> 
                         </h:commandLink>
-                        <h:commandLink styleClass="link" value="#{msg.historico} " /> 
                         <h:commandLink styleClass="link" value="#{msg.grafico} "  />                  
                         <h:commandLink styleClass="link" value="#{msg.sair} " action="login.jsp" />
                  
@@ -84,9 +81,17 @@
                    <div class="container" style=" position: absolute;left:50%;margin-left:-200px;top: 300px">
                        
                         <p:barChart id="basic" value="#{chartBean.categoryModel}" legendPosition="ne"  
-                      title="Livros Reservados" min="0" max="100" style="height:300px"/>  
+                      title="Livros Reservados" min="0" max="40" style="height:300px"/>  
                        
                    </div>
+                   
+                    <div class="container" style=" position: absolute;left:50%;margin-left:-200px;top: 400px">
+                       
+                        <p:barChart id="basic" value="#{chartBean.categoryModel2}" legendPosition="ne"  
+                      title="Livros Liberados" min="0" max="40" style="height:300px"/>  
+                       
+                   </div>
+                   
                    <h:form><p:spinner style="visibility:hidden " /></h:form>
                    
         </h:body>
