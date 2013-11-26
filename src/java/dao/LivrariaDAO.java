@@ -11,7 +11,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import bean.Livros;
 import bean.Usuario;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 import util.ConnectionLivrariaFactory;
 
 
@@ -219,8 +224,9 @@ public class LivrariaDAO implements InterfaceLivrosDAO, InterfaceUsuariosDAO,Int
              email = rs.getString(2);
              String senha = rs.getString(3);
              int qt_livros = rs.getInt("qt_livros");
+             int tipo_usuario = rs.getInt("tipo");
              
-              user = new Usuario(email,senha, qt_livros);
+              user = new Usuario(email,senha, qt_livros, tipo_usuario);
               
             }
             
@@ -524,17 +530,18 @@ PreparedStatement ps = null;
     }
 
     @Override
-    public void solicitarLivros(String login, String isbn, int quantidade) throws LivrariaDAOException {
+    public void solicitarLivros(String login, String isbn, int quantidade,int tipo_usuario) throws LivrariaDAOException {
  PreparedStatement ps = null;
         Connection conn = null;
          
             try {
-                String SQL = "INSERT INTO pedidos(id_livro,id_usuario) values(?,?)";
+                String SQL = "INSERT INTO pedidos(id_livro,id_usuario,tipo_usuario) values(?,?,?)";
 
                 conn = this.conn;
                 ps = conn.prepareStatement(SQL);
                 ps.setString(1,isbn);
                 ps.setString(2,login);
+                ps.setInt(3,tipo_usuario);
                 ps.executeUpdate();
                 
                 SQL = "UPDATE livros SET selecionado=? WHERE isbn=? ";
@@ -673,6 +680,152 @@ PreparedStatement ps = null;
         
         
         
+    }
+
+    @Override
+    public int totalLivrosReservados(int cod_usuario) throws LivrariaDAOException {
+        
+               PreparedStatement ps = null;
+          Connection conn = null;
+          ResultSet rs = null;
+          int total = 0;
+            try {
+            
+            
+             conn = this.conn;
+            ps =conn.prepareStatement("SELECT COUNT(*) FROM pedidos WHERE tipo_usuario=?");
+            ps.setInt(1, cod_usuario );
+            rs= ps.executeQuery();
+            if(rs.next())
+                return rs.getInt("count(*)");
+            else
+                return  0;
+
+        
+            } catch (SQLException sqle) {
+            throw new LivrariaDAOException(sqle);
+        } finally {
+            //ConnectionLivrariaFactory.closeConnection(conn, ps, rs);
+        }
+        
+    }
+
+    @Override
+    public ArrayList<Livros> livrosReservadosAluno(int i, String aluno) throws LivrariaDAOException {
+        
+          PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            conn = this.conn;
+            ps = conn.prepareStatement("SELECT * FROM pedidos WHERE tipo_usuario=? AND id_usuario=?");
+             ps.setInt(1,i);
+             ps.setString(2, aluno);
+            rs= ps.executeQuery();
+            ArrayList<Livros> list = new ArrayList<Livros>();
+            while (rs.next()) {
+          
+            boolean selecionado =  rs.getBoolean("liberado");
+            int num_exemplar = rs.getInt("id_usuario");
+            int cod_exemplar = rs.getInt("id_livro");
+            list.add(new Livros(num_exemplar, selecionado,cod_exemplar));
+
+             }
+             
+            return list; 
+        
+        } catch (SQLException sqle) {
+            throw new LivrariaDAOException(sqle);
+        }
+    }
+
+    @Override
+    public ArrayList<Livros> livrosReservadosProfessor(int i, String professor) throws LivrariaDAOException {
+          PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            conn = this.conn;
+            ps = conn.prepareStatement("SELECT * FROM pedidos WHERE tipo_usuario=? AND id_usuario=?");
+             ps.setInt(1,i);
+             ps.setString(2, professor);
+            rs= ps.executeQuery();
+            ArrayList<Livros> list = new ArrayList<Livros>();
+            while (rs.next()) {
+          
+            boolean selecionado =  rs.getBoolean("liberado");
+            int num_exemplar = rs.getInt("id_usuario");
+            int cod_exemplar = rs.getInt("id_livro");
+            list.add(new Livros(num_exemplar, selecionado,cod_exemplar));
+
+             }
+             
+            return list; 
+        
+        } catch (SQLException sqle) {
+            throw new LivrariaDAOException(sqle);
+        }
+    }
+
+    @Override
+    public void emprestarLivro(String isbn, boolean emprestimo) throws LivrariaDAOException {
+        PreparedStatement ps = null;
+        Connection conn = null;
+        String SQL;
+         
+            try { 
+       
+                
+                SQL = "UPDATE pedidos SET liberado=? WHERE id_livro=? ";
+                  
+                conn = this.conn;
+                ps = conn.prepareStatement(SQL);
+               ps.setBoolean(1, true);
+                ps.setString(2, isbn);
+                
+                ps.executeUpdate(); 
+                
+               SQL = "UPDATE livros SET devolucao=? WHERE isbn=? ";
+                  
+                conn = this.conn;
+                ps = conn.prepareStatement(SQL);
+                GregorianCalendar cal=new GregorianCalendar();
+                cal.add(Calendar.DATE, 7); 
+                Date dtDevolucao=cal.getTime();
+                String test = new SimpleDateFormat("dd/MM/yyyy").format(dtDevolucao);
+                ps.setString(1,test );
+                ps.setString(2, isbn);
+                ps.executeUpdate(); 
+            }catch (SQLException sqle) {
+                throw new LivrariaDAOException("Erro ao Atualizar dados" + sqle);
+            }
+        
+    }
+
+    @Override
+    public int totalAlunos() throws LivrariaDAOException {
+        
+        PreparedStatement ps = null;
+          Connection conn = null;
+          ResultSet rs = null;
+         
+            try {
+            
+            
+             conn = this.conn;
+            ps =conn.prepareStatement("SELECT COUNT(*) FROM user");
+            
+            rs= ps.executeQuery();
+            if(rs.next())
+                return rs.getInt("count(*)");
+            else
+                return  0;
+
+        
+            } catch (SQLException sqle) {
+            throw new LivrariaDAOException(sqle);
+        } 
+  
     }
 
   

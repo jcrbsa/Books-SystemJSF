@@ -19,6 +19,7 @@
    <div id="header" style="height: 120px   ">
         <h:graphicImage value="images/logo.png" />
         <h:graphicImage value ="images/Nome.png" />
+       <h:graphicImage style="position:relative; margin-top: -100px; margin-left: 100px" value ="images/Sistema Gerenciamento Livros.png" />
     <h:form style="float:right">
        <h:panelGrid columns="2"> 
            <h:outputLabel value="#{msg.idioma}" style="color:white" /> <br />
@@ -60,7 +61,7 @@
                             <h:graphicImage value="/images/users.PNG" /> 
                         </h:commandLink>
                         <h:commandLink styleClass="link" value="#{msg.historico} " /> 
-                        <h:commandLink styleClass="link" value="#{msg.grafico} "  />                  
+                        <h:commandLink styleClass="link" value="#{msg.grafico} " action="grafico?faces-redirect=true" />                  
                         <h:commandLink styleClass="link" value="#{msg.sair} " action="login.jsp" />
                  
 
@@ -77,7 +78,97 @@
 
 
             </fieldset>
+            
+                   <h:outputText style="color:Navy;position: absolute;left:90%; font-weight: bold; top: 225px" value="#{loginView.mostrarData(userData.locale)}" /> 
 
+           <div class="container" style=" position: absolute;left:50%;margin-left:-200px;top: 300px">
+
+                <table id="menu_central" >
+                    <tr style="border:1px solid #000000;">
+                        <td class="menu" id="td_login"
+                            onClick="AlternarAbas('td_login', 'form_login');">       
+                            <h:outputLabel value="#{msg.aluno}" />   
+                        </td>
+                        <td  class="menu" id="td_cadastro"
+                             onClick="AlternarAbas('td_cadastro', 'form_cadastro');">  				
+                            <h:outputLabel value="#{msg.professor}" />  
+                        </td>
+                    </tr>    
+                    <tr> 
+                        <td colspan="2">
+                            <h:form id="form_login">
+                                <h:inputText style="position: relative; margin-top: 50px" id="titulo" size="70" value="#{livrosView.aluno}" />
+                                <h:commandButton value="#{msg.consultar}">
+                                    <f:ajax execute="titulo" render="outputMessageTitulo" />
+                                </h:commandButton>
+
+
+                                <h:dataTable style="visibility: #{livrosView.arrayConsulta.size() eq 0 ? 'hidden' : 'visible'}" id="outputMessageTitulo" value="#{  livrosView.procuraLivrosTitulo() ne null ? livrosView.procuraLivrosTitulo() : 'Nenhum Resultado Encontrado' }" var="livro"
+                                             styleClass="livroTable"
+                                             headerClass="livroTableHeader"
+                                             rowClasses="livroTableOddRow,livroTableEvenRow">
+                                    <h:column>    				
+                                        <f:facet name="header"><h:outputLabel value="#{msg.selecionar}" /> </f:facet>    				
+                                        <h:selectBooleanCheckbox value="#{livro.checkBox}" style="visibility:  #{livro.liberado ne false ? 'hidden' : 'visible' }" />
+
+
+                                    </h:column>
+                                    <h:column>    				
+                                        <f:facet name="header">Email</f:facet>    				
+
+                                        <h:outputText value="#{livro.emailSolicitante}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">ISBN</f:facet>
+                                        <h:outputText value="#{livro.isbn}"  />
+                                    </h:column>
+                                  
+
+
+
+
+
+
+                                </h:dataTable>    
+                                <h:commandButton style="visibility: #{livrosView.consultaQuantidadelLivrosUsuario(loginView.login) eq 3 ? 'hidden' : 'visible'}" value="#{msg.escolher}" action="#{livrosView.confereCheckBox(loginView.login, livrosView.consultaQuantidadelLivrosUsuario(loginView.login),loginView.usuario.tipo)}" />
+
+
+                            </h:form>
+
+                            <h:form id="form_cadastro" style="display:none">
+                                <h:inputText style="position: relative; margin-top: 50px" id="autor" size="70" value="#{livrosView.professor}"></h:inputText>
+                                <h:commandButton value="Consultar">
+                                    <f:ajax execute="autor" render="outputMessageAutor" />
+
+                                </h:commandButton>
+
+                                <h:dataTable style="visibility: #{livrosView.mostrarLivrosReservadosProfessor()} eq null ? 'hidden' : 'visible'}" id="outputMessageAutor"  value="#{livrosView.procuraLivrosAutor()  != null ? livrosView.procuraLivrosAutor() : 'Nenhum Resultado Encontrado' }" var="livro"
+                                             styleClass="livroTable"
+                                             headerClass="livroTableHeader"
+                                             rowClasses="livroTableOddRow,livroTableEvenRow">
+                                    <h:column>    				
+                                        <f:facet name="header"><h:outputLabel value="#{msg.selecionar}" /> </f:facet>    				
+                                        <h:selectBooleanCheckbox value="#{livro.checkBox}" style="visibility:  #{livro.liberado ne false ? 'hidden' : 'visible' }" />
+
+
+                                    </h:column>
+                                    <h:column>    				
+                                        <f:facet name="header">Email</f:facet>    				
+
+                                        <h:outputText value="#{livro.emailSolicitante}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">ISBN</f:facet>
+                                        <h:outputText value="#{livro.isbn}"  />
+                                    </h:column>
+                                </h:dataTable>
+                                <h:commandButton style="visibility: #{livrosView.consultaQuantidadelLivrosUsuario(loginView.login) eq 3 ? 'hidden' : 'visible'}" value="#{msg.escolher}" action="#{livrosView.confereCheckBox(loginView.login, livrosView.consultaQuantidadelLivrosUsuario(loginView.login),loginView.usuario.tipo)}" />
+                            </h:form>     
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
 
 
         </h:body>

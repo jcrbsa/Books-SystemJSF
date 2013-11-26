@@ -10,6 +10,12 @@ import dao.InterfaceLoginDAO;
 import dao.InterfaceUsuariosDAO;
 import dao.LivrariaDAO;
 import dao.LivrariaDAOException;
+
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
+import java.util.Locale;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
@@ -27,6 +33,15 @@ public class LoginController {
     private String canEdit;
    
     private Usuario usuario;
+    private String data;
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
 
     public Usuario getUsuario() {
         return usuario;
@@ -94,7 +109,11 @@ public class LoginController {
                     forward = "sessionUser";
                     else
                         forward ="sessionAdmin";
-                        
+                
+             
+                       
+                            
+                  
                 }else{
                     
             FacesMessage message  = new FacesMessage("Senha Incorreta");
@@ -114,7 +133,7 @@ public class LoginController {
     
     public String checkCadastro() throws LivrariaDAOException{
         
-         Pattern p =  Pattern.compile("[a-z]{3,255}@[r][e][c][i][f][e][.][i][f][p][e][.][e][d][u][.][b][r]");
+        Pattern p =  Pattern.compile("[a-z]{3,255}@[r][e][c][i][f][e][.][i][f][p][e][.][e][d][u][.][b][r]");
         Matcher m = p.matcher(login);
         boolean matchFound = m.matches();
         FacesContext context = FacesContext.getCurrentInstance(); 
@@ -141,7 +160,7 @@ public class LoginController {
              message = new FacesMessage("Login já existe");
 
             }else{
-                int tipo ;
+                int tipo =1 ;
              if(matchFound){
                 tipo = 3;
              }else{
@@ -168,11 +187,13 @@ public class LoginController {
            return null;      
      }
     
-    public String sair(LivrosController livro){
-        livro = null;
+   
+    
+    public String mostrarData(String locale){
         
-        return "login";
-        
+         data =  new SimpleDateFormat("EEE, MMM d, yyyy", new Locale(locale)).format(new Date());
+         
+         return data;
     }
     
     

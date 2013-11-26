@@ -1,5 +1,8 @@
 
 package meupacote;
+import dao.InterfaceLivrosDAO;
+import dao.LivrariaDAO;
+import dao.LivrariaDAOException;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,7 +22,11 @@ public class Test implements Serializable {
    private static final long serialVersionUID = 1L;
    private  String locale = "pt";
 
-   
+    public static void main(String[] args) throws LivrariaDAOException {
+         InterfaceLivrosDAO idao = new LivrariaDAO();
+         System.out.println(idao.quantidadelLivrosUsuario("test@recife.ifpe.edu.br"));
+
+    }
 
    private static Map<String,Object> countries;
    

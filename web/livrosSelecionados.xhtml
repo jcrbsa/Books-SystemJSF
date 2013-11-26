@@ -28,6 +28,7 @@
 <div id="header" style="height: 120px   ">
         <h:graphicImage value="images/logo.png" />
         <h:graphicImage value ="images/Nome.png" />
+        <h:graphicImage style="position:relative; margin-top: -100px; margin-left: 100px" value ="images/Sistema Gerenciamento Livros.png" />
     <h:form style="float:right">
        <h:panelGrid columns="2"> 
            <h:outputLabel value="#{msg.idioma}" style="color:white" /> <br />
@@ -62,7 +63,7 @@
                     <h:commandLink styleClass="link" value="#{msg.sobre_sistema}"/>
 
 
-                    <h:commandLink styleClass="link" value="#{msg.sair}" action="#{loginView.sair(livrosView)}" />
+                    <h:commandLink styleClass="link" value="#{msg.sair}" action="#{livrosView.sair}" />
 
 
 
@@ -82,7 +83,7 @@
                       
         </fieldset>
 
-    
+                <h:outputText style="color:Navy;position: absolute;left:90%; font-weight: bold; top: 225px" value="#{loginView.mostrarData(userData.locale)}" /> 
 
 
    
@@ -92,10 +93,12 @@
 
             <table id="menu_central" >
                 <tr style="border:1px solid #000000;">
-                    <td >       
-                       <h:outputLabel value="#{msg.titulo}" />   
-         
-                  
+                    <td class="menu" colspan="2">       
+                        <h:outputLabel value="#{msg.livros}" />   
+                       </td>
+         </tr> 
+             <tr>      
+                 <td>
     <h:form>
         <h:dataTable id="livrosPedidos"  value="#{livrosView.consultarLivrosPedidos(loginView.login)}" var="livro"
                                          styleClass="livroTable"
@@ -122,14 +125,10 @@
                                     <f:facet name="header"><h:outputLabel value="#{msg.publicacao}" /></f:facet>
                                     <h:outputText value="#{livro.publicacao}" />
                                 </h:column>
-                                <h:column>
-                                    <f:facet name="header"><h:outputLabel value="#{msg.descricao}" /></f:facet>
-                                    <h:outputText value="#{livro.descricao}"  />
-                                </h:column>
+                               
                             </h:dataTable>
         </h:form>
-                       
-                    </td>
+                  </td>
                 </tr>
                     
 

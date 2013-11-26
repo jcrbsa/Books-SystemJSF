@@ -106,6 +106,7 @@ public class UsuariosController implements Serializable {
         }else{
             
         tipo = checaTipoUsuario(email);
+            System.out.println("Teste atributo tipo" + tipo);
         Usuario usuario = new Usuario(nome, email, senha,tipo);
         array.add(usuario);
          InterfaceUsuariosDAO idao = new LivrariaDAO();
@@ -181,9 +182,11 @@ public class UsuariosController implements Serializable {
             return 3;
         else if(matchFound2)
             return 2;
+        
+        
+        
         return -1;
-        
-        
+
     }
     
     public void validaEmail(FacesContext context, UIComponent componente, Object objeto) throws ValidatorException{

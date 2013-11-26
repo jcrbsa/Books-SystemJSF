@@ -27,13 +27,20 @@ public interface InterfaceLivrosDAO {
 
     void atualizarTodos(List<Livros> livro) throws LivrariaDAOException;
    int totalDeLivros() throws LivrariaDAOException;
-   void solicitarLivros(String login, String isbn, int quantidade)throws LivrariaDAOException;
+   void solicitarLivros(String login, String isbn, int quantidade, int tipo_usuario)throws LivrariaDAOException;
     ArrayList<Livros> livrosPedidos(String login)throws LivrariaDAOException; 
    int quantidadelLivrosUsuario(String email)throws LivrariaDAOException;
    ArrayList<Livros> mostrarExemplares (String isbn) throws LivrariaDAOException;
    
    void atualizarExemplares(int cod_exemplar, boolean situacao) throws LivrariaDAOException;
+   int totalLivrosReservados(int cod_usuario)throws LivrariaDAOException;
 
-   
+  ArrayList<Livros> livrosReservadosAluno(int i, String aluno)throws LivrariaDAOException;
+
+    ArrayList<Livros> livrosReservadosProfessor(int i, String professor)throws LivrariaDAOException;
+
+void emprestarLivro (String isbn, boolean emprestimo)throws LivrariaDAOException;
+
+int totalAlunos()throws LivrariaDAOException;
 }
 

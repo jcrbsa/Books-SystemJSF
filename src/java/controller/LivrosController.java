@@ -47,6 +47,25 @@ public class LivrosController implements Serializable  {
     private String autor;
     private boolean checkBox = false;
     private boolean render =false;
+    private String aluno;
+    private String professor;
+
+    public String getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(String aluno) {
+        this.aluno = aluno;
+    }
+
+    public String getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(String professor) {
+        this.professor = professor;
+    }
+    
 
     public boolean isRender() {
         return render;
@@ -92,27 +111,17 @@ public class LivrosController implements Serializable  {
         return arrayConsulta;
     }
     
-    private static Map<String,Object> test;
-	static{
-		test = new LinkedHashMap<String,Object>();
-		test.put("1", 1); 
-	        test.put("2", 2);
-		test.put("3", 3);
-	}
-public Map<String,Object> getTest() {
-		return test;
-	}
-    
-     
-     private boolean oneradio;
+public ArrayList<Livros> arrayConsulta2;
 
-    public boolean isOneradio() {
-        return oneradio;
+    public ArrayList<Livros> getArrayConsulta2() {
+        return arrayConsulta2;
     }
 
-    public void setOneradio(boolean oneradio) {
-        this.oneradio = oneradio;
+    public void setArrayConsulta2(ArrayList<Livros> arrayConsulta2) {
+        this.arrayConsulta2 = arrayConsulta2;
     }
+
+   
      
  
     public String novoLivro(){
@@ -288,7 +297,7 @@ public Map<String,Object> getTest() {
      InterfaceLivrosDAO test = new LivrariaDAO();
 
          arrayConsulta  = test.procurarLivroAutor(autor);
-       
+      
         return arrayConsulta;
 }
     
@@ -296,10 +305,25 @@ public Map<String,Object> getTest() {
      InterfaceLivrosDAO test = new LivrariaDAO();
         
        arrayConsulta = test.procurarLivroTitulo(titulo);
-      
+
         return arrayConsulta;
 }
+    public ArrayList<Livros> mostrarLivrosReservadosAluno() throws LivrariaDAOException {
+     InterfaceLivrosDAO test = new LivrariaDAO();
+        
+       arrayConsulta2 = test.livrosReservadosAluno(2, aluno);
+
+        return arrayConsulta2;
+}
     
+    
+     public ArrayList<Livros> mostrarLivrosReservadosProfessor() throws LivrariaDAOException {
+     InterfaceLivrosDAO test = new LivrariaDAO();
+        
+       arrayConsulta2 = test.livrosReservadosProfessor(3, professor);
+
+        return arrayConsulta2;
+}
 
      public void validaISBN(FacesContext context, UIComponent componente, Object objeto) throws ValidatorException{
         
@@ -326,8 +350,34 @@ public Map<String,Object> getTest() {
        
         return idao.procurarLivro(isbn);
                 }
+         public static ArrayList<Livros> arrayLivrosTest =  new ArrayList<Livros>();
+
+    public static ArrayList<Livros> getArrayLivrosTest() {
+        return arrayLivrosTest;
+    }
+
+    public static void setArrayLivrosTest(ArrayList<Livros> arrayLivrosTest) {
+        LivrosController.arrayLivrosTest = arrayLivrosTest;
+    }
      
-     public String confereCheckBox(String email, int quantidade) throws LivrariaDAOException{
+     public String confereCheckBoxPedido() throws LivrariaDAOException{
+
+              
+         InterfaceLivrosDAO idao = new LivrariaDAO();
+        
+         for (Livros livro : arrayConsulta2){
+             if(livro.isCheckBox() == true){
+                 
+             idao.emprestarLivro( livro.getIsbn(), true);
+             arrayLivrosTest.add(livro);
+           
+             }
+      }	
+         
+     return null;
+     }
+     
+     public String confereCheckBox(String email, int quantidade,int tipo) throws LivrariaDAOException{
 
               
          InterfaceLivrosDAO idao = new LivrariaDAO();
@@ -336,7 +386,7 @@ public Map<String,Object> getTest() {
              if(livro.isCheckBox() == true){
                  quantidade++;
                  if(quantidade <= 3){
-             idao.solicitarLivros(test, livro.getIsbn(), quantidade);
+             idao.solicitarLivros(test, livro.getIsbn(), quantidade, tipo);
              arrayLivrosSolicitados.add(livro);
                render = true;
                  }
@@ -345,6 +395,9 @@ public Map<String,Object> getTest() {
          
      return null;
      }
+     
+     
+     
       
    public  ArrayList<Livros> consultarLivrosPedidos(String email) throws LivrariaDAOException{
     InterfaceLivrosDAO idao = new LivrariaDAO();
@@ -377,43 +430,17 @@ public Map<String,Object> getTest() {
  }        
  
  
-  public ArrayList<Livros> mostrarExemplares(String isbn) throws LivrariaDAOException{
-         
-      InterfaceLivrosDAO idao = new LivrariaDAO();
-      List<Livros> list = new ArrayList<Livros>();
-      list = idao.mostrarExemplares(isbn);
-       if(list != null){
-      if( arrayExemplaresSolicitados.isEmpty()){
-        for (Livros livros : list) {
-            
-            arrayExemplaresSolicitados.add(livros);
-        }
-       }
-           
-       }
-     
-    return arrayExemplaresSolicitados;
   
-                
-     }
          
-         
-   public void confereCheckBoxExamplares() throws LivrariaDAOException{
-
-              
-         InterfaceLivrosDAO idao = new LivrariaDAO();
-         
-         
-         for (Livros livro : arrayExemplaresSolicitados){
-             if(livro.isCheckBox() == true){
-    
-             idao.atualizarExemplares(livro.getCod_exemplar(),livro.isCheckBox());
-            // arrayExemplaresSolicitados.add(livro);
-                 }
-             }
+  
      
-     }
-     
+    public String sair(){
+        
+        autor = "";
+        titulo = "";
+        return "login";
+        
+    }
      
      
 private int maxPorPagina =3;

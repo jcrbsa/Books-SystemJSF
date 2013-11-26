@@ -16,6 +16,8 @@
         <div id="header" style="height: 120px   ">
         <h:graphicImage value="images/logo.png" />
         <h:graphicImage value ="images/Nome.png" />
+                        <h:graphicImage style="position:relative; margin-top: -100px; margin-left: 100px" value ="images/Sistema Gerenciamento Livros.png" />
+
     <h:form style="float:right">
        <h:panelGrid columns="2"> 
            <h:outputLabel value="#{msg.idioma}" style="color:white" /> <br />
@@ -43,13 +45,13 @@
                     <h:commandLink styleClass="link" value="#{msg.editar_perfil}" action="editarPerfil?faces-redirect=true" />
 
 
-                    <h:commandLink styleClass="link" value="#{msg.historico}"  />
+                    <h:commandLink styleClass="link" value="#{msg.historico}" action="livrosSelecionados?faces-redirect=true" />
 
 
                     <h:commandLink styleClass="link" value="#{msg.sobre_sistema}"/>
 
 
-                    <h:commandLink styleClass="link" value="#{msg.sair}" action="login.jsp" />
+                    <h:commandLink styleClass="link" value="#{msg.sair}" action="#{livrosView.sair}" />
 
 
 
@@ -68,43 +70,45 @@
 
 
         </fieldset>
+                    <h:outputText style="color:Navy;position: absolute;left:90%; font-weight: bold; top: 225px" value="#{loginView.mostrarData(userData.locale)}" /> 
 
 
-          <h:panelGrid  style="position: absolute;left:50%;margin-left:-200px;top: 270px " cellpadding="0.1" cellspacing="1" width="250" border="0" columns="3">
-
-                    <h:outputLabel styleClass="link" value="Alterar Senha:" for="login" id="label_login"/>
-                    
-                </h:panelGrid>
+   
 
         <div class="container" style=" position: absolute;left:50%;margin-left:-200px;top: 300px">
 
-            <center>
-
-              
-                        
-                <h:form styleClass="loginform"  title="loginform" id="formulario">
+                <table><tr><td class="menu" colspan="2">
+                            <h:outputText value="#{msg.alterar}" /><h:outputText value=" #{msg.senha}" />
+                        </td></tr><tr><td>
+                             
+                            <center>
+                            <h:form styleClass="loginform"  title="loginform" id="formulario">
                     <h:panelGrid  cellpadding="0.1" cellspacing="1" width="250" border="0" columns="3">
                      
-                        <h:outputLabel  value="Login:" for="login" id="label_login"/>
+                        <h:outputLabel style="font-weight: bold" value="Login:" for="login" id="label_login"/>
 
                         <h:outputText value="#{loginView.login}"  />
                         <h:message for="login" /> 
 
 
-                        <h:outputLabel  value="Nova Senha:" for="senha" id="label_password"/>
+                        <h:outputLabel style="font-weight: bold" value="#{msg.senha}" for="senha" id="label_password"/>
                         <h:inputSecret value="#{loginView.password}"  />
 <!--                                <h:outputText value="#{UsuarioView.password}" 
                                           rendered="#{not UsuarioView.canEdit}" />-->
 
                         <h:message for="senha" /> 
 
-                        <h:commandButton value="Atualizar Senha" action="#{loginView.atualizaSenha()}" />
+                        <h:commandButton value="#{msg.alterar}" action="#{loginView.atualizaSenha()}" />
 
                     </h:panelGrid>
-                </h:form>
+                </h:form> 
+                                        </center>
+                            
+                        </td></tr></table>
+                        
+             
 
 
-            </center>
         </div>
 
 
