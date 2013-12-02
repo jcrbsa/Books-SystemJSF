@@ -30,10 +30,8 @@ public interface InterfaceLivrosDAO {
    void solicitarLivros(String login, String isbn, int quantidade, int tipo_usuario)throws LivrariaDAOException;
     ArrayList<Livros> livrosPedidos(String login)throws LivrariaDAOException; 
    int quantidadelLivrosUsuario(String email)throws LivrariaDAOException;
-   ArrayList<Livros> mostrarExemplares (String isbn) throws LivrariaDAOException;
-   
-   void atualizarExemplares(int cod_exemplar, boolean situacao) throws LivrariaDAOException;
-   int totalLivrosReservados(int cod_usuario)throws LivrariaDAOException;
+  
+     int totalLivrosReservados(int cod_usuario)throws LivrariaDAOException;
    int totalLivrosLiberados(int cod_usuario)throws LivrariaDAOException;
 
   ArrayList<Livros> livrosReservadosAluno(int i, String aluno)throws LivrariaDAOException;

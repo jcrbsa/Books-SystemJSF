@@ -93,9 +93,7 @@
                 <h:outputLabel id="label_publicacao" for="publicacao" value="#{msg.publicacao}"/>
                 <h:inputText id="publicacao" value="#{livrosView.publicacao}" required="true" />
                 <h:message for="publicacao" />
-                <h:outputLabel for="descricao" id="label_descricao" value="#{msg.descricao}"/>
-                <h:inputText id="descricao" value="#{livrosView.descricao}"/> 
-                <h:message for="descricao" />
+             
                 <h:commandButton id ="cadastro" value="#{msg.cadastrar}" action="#{livrosView.addLivros()}" />
                 <h:commandButton value="#{msg.limpar}" type="reset" />
             </h:panelGrid>    
@@ -112,8 +110,8 @@
             <h:dataTable value="#{livrosView.showLivros()}" var="livro"
                          styleClass="livroTable"
                          headerClass="livroTableHeader"
-                         rowClasses="livroTableOddRow,livroTableEvenRow">
-<!--                         first="#{livrosView.paginaAtual}" rows="#{livrosView.maxPorPagina}">-->
+                         rowClasses="livroTableOddRow,livroTableEvenRow"
+                     first="#{livrosView.paginaAtual}" rows="#{livrosView.maxPorPagina}">
                 <h:column>    				
                     <f:facet name="header">ISBN</f:facet>    				
                     <h:inputText value="#{livro.isbn}"
@@ -142,13 +140,7 @@
                     <h:outputText value="#{livro.publicacao}" 
                                   rendered="#{not livro.canEdit}" />
                 </h:column>
-                <h:column>
-                    <f:facet name="header"><h:outputLabel value="#{msg.descricao}"/></f:facet>
-                    <h:inputText value="#{livro.descricao}" 
-                                 size="30" rendered="#{livro.canEdit}" />
-                    <h:outputText value="#{livro.descricao}" 
-                                  rendered="#{not livro.canEdit}" />
-                </h:column>
+              
                 <h:column>
                     <f:facet name="header"><h:outputLabel value="#{msg.editar}"/></f:facet>
                     <h:commandLink
@@ -172,10 +164,10 @@
 
           
             </h:dataTable>  
-<!--              <h:commandLink value="Primeira " action="#{livrosView.pPrimeiraPagina()}"  rendererType="#{livrosView.paginaAtual != 0  ? true : false}" /> |
+              <h:commandLink value="Primeira " action="#{livrosView.pPrimeiraPagina()}"  rendererType="#{livrosView.paginaAtual != 0  ? true : false}" /> |
             <h:commandLink  value=" Anterior "  action="#{livrosView.pPaginaAnterior()}" rendererType="#{livrosView.paginaAtual != 0 ? true : false}" />  |
             <h:commandLink value=" Próxima " action="#{livrosView.pProximaPagina()}" rendererType="#{livrosView.paginaAtual  + livrosView.maxPorPagina lt livrosView.total ? true : false}" /> |
-            <h:commandLink  value=" Última" action="#{livrosView.pUltimaPagina()}"  rendererType="#{livrosView.paginaAtual  + livrosView.maxPorPagina lt livrosView.total ? true : false}" />-->
+            <h:commandLink  value=" Última" action="#{livrosView.pUltimaPagina()}"  rendererType="#{livrosView.paginaAtual  + livrosView.maxPorPagina lt livrosView.total ? true : false}" />
             
            
             <br/>

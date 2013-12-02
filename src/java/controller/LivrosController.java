@@ -43,12 +43,24 @@ public class LivrosController implements Serializable  {
     private String titulo;
     private int edicao;
     private String publicacao;
-    private String descricao;
     private String autor;
     private boolean checkBox = false;
     private boolean render =false;
     private String aluno;
     private String professor;
+    private int display = 1;
+
+    public int getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(int display) {
+        this.display = display;
+    }
+    public void mudaDisplay(int display){
+        this.setDisplay(display);
+    }
+    
 
     public String getAluno() {
         return aluno;
@@ -110,6 +122,7 @@ public class LivrosController implements Serializable  {
             
         return arrayConsulta;
     }
+   
     
 public ArrayList<Livros> arrayConsulta2;
 
@@ -178,14 +191,7 @@ public ArrayList<Livros> arrayConsulta2;
         this.publicacao = publicacao;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-   
+  
  
       public static ArrayList<Livros> getArray() {
         return array;
@@ -242,7 +248,7 @@ public ArrayList<Livros> arrayConsulta2;
             context.addMessage("message_isbn",message);
         }else{
             
-       livro = new Livros(isbn,titulo, edicao,publicacao, descricao);
+       livro = new Livros(isbn,titulo, edicao,publicacao);
            array.add(livro);
   
            InterfaceLivrosDAO  idao = new LivrariaDAO();  
@@ -404,24 +410,19 @@ public ArrayList<Livros> arrayConsulta2;
      
        List<Livros> list = new ArrayList<Livros>();
        list = idao.livrosPedidos(email);
-       
-         if(list != null){
+        
+   
     
        if( arrayLivrosSolicitados.isEmpty()){
         for (Livros livros : list) {
-            
             arrayLivrosSolicitados.add(livros);
         }
        }
-       }     
+           
      
     return arrayLivrosSolicitados; 
 }
- public static ArrayList<Livros> arrayExemplaresSolicitados = new ArrayList<Livros>();
-
-    public static ArrayList<Livros> getArrayExemplaresSolicitados() {
-        return arrayExemplaresSolicitados;
-    }
+ 
          
  public int consultaQuantidadelLivrosUsuario(String email) throws LivrariaDAOException{
      
@@ -432,12 +433,15 @@ public ArrayList<Livros> arrayConsulta2;
  
   
          
-  
-     
+ 
     public String sair(){
         
         autor = "";
         titulo = "";
+        aluno = "";
+        professor = "";
+        arrayLivrosSolicitados.clear();
+        display = 1;
         return "login";
         
     }
@@ -450,7 +454,6 @@ private int paginaAtual=0;
 public int getTotal() throws LivrariaDAOException{
     InterfaceLivrosDAO idao = new LivrariaDAO();
     
-    System.out.println("Total Livros:" + idao.totalDeLivros());
     return idao.totalDeLivros();
 }
     public int getMaxPorPagina() {
@@ -516,6 +519,61 @@ public String pUltimaPagina() throws LivrariaDAOException{
     
     return "crudLivros";
 }
+
+public String pPrimeiraPaginaUser(){
+    
+    paginaAtual = 0;
+
+
+    return "sessionUser";
+}
+
+public String pPaginaAnteriorUser(){
+    
+    paginaAtual -= maxPorPagina;
+        if(paginaAtual < 0 ){
+            paginaAtual =0;
+        }
+
+    return "sessionUser";
+}
+
+public String pProximaPaginaUser() throws LivrariaDAOException{
+      
+       
+    paginaAtual += maxPorPagina;
+        if(paginaAtual >= arrayConsulta.size() )
+        {
+            paginaAtual = arrayConsulta.size() - maxPorPagina;
+            
+        }
+          if(paginaAtual < 0 ){
+            paginaAtual =0;
+        }
+
+        return "sessionUser";
+    
+              
+}
+
+public String pUltimaPaginaUser() throws LivrariaDAOException{
+    
+
+    
+            paginaAtual = arrayConsulta.size() - maxPorPagina;
+            
+          if(paginaAtual < 0 ){
+            paginaAtual =0;
+        }
+
+           
+    return "sessionUser";
+        
+              
+    
+}
+
+
 
 
 

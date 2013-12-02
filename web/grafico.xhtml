@@ -78,16 +78,16 @@
             
                    <h:outputText style="color:Navy;position: absolute;left:90%; font-weight: bold; top: 225px" value="#{loginView.mostrarData(userData.locale)}" /> 
 
-                   <div class="container" style=" position: absolute;left:50%;margin-left:-200px;top: 300px">
+                   <div class="container" style=" position: absolute;left:25%;top: 300px">
                        
                         <p:barChart id="basic" value="#{chartBean.categoryModel}" legendPosition="ne"  
                       title="Livros Reservados" min="0" max="40" style="height:300px"/>  
                        
                    </div>
                    
-                    <div class="container" style=" position: absolute;left:50%;margin-left:-200px;top: 400px">
+                    <div class="container" style=" position: absolute;left:60%;top: 300px">
                        
-                        <p:barChart id="basic" value="#{chartBean.categoryModel2}" legendPosition="ne"  
+                        <p:barChart id="basic2" value="#{chartBean.categoryModel2}" legendPosition="ne"  
                       title="Livros Liberados" min="0" max="40" style="height:300px"/>  
                        
                    </div>

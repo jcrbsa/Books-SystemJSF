@@ -11,6 +11,8 @@
             <link rel="stylesheet" type="text/css" href="css/styles.css" />
             <link rel="stylesheet" type="text/css" href="css/abas.css" />
             <script type="text/javascript" src="js/abasLogin.js" />
+            
+            
         </h:head>
         <h:body >
             <!--Definição Template p/ Layout da pagina-->
@@ -103,7 +105,7 @@
                     </tr>    
                     <tr> 
                         <td colspan="2">
-                            <h:form id="form_login">
+                            <h:form id="form_login" style="display: #{livrosView.display eq 1 ? '' : 'none'}">
                                 <h:inputText style="position: relative; margin-top: 50px" id="titulo" size="70" value="#{livrosView.titulo}" />
                                 <h:commandButton value="#{msg.consultar}">
                                     <f:ajax execute="titulo" render="outputMessageTitulo" />
@@ -113,7 +115,8 @@
                                 <h:dataTable style="visibility: #{livrosView.arrayConsulta.size() eq 0 ? 'hidden' : 'visible'}" id="outputMessageTitulo" value="#{  livrosView.procuraLivrosTitulo() ne null ? livrosView.procuraLivrosTitulo() : 'Nenhum Resultado Encontrado' }" var="livro"
                                              styleClass="livroTable"
                                              headerClass="livroTableHeader"
-                                             rowClasses="livroTableOddRow,livroTableEvenRow">
+                                             rowClasses="livroTableOddRow,livroTableEvenRow"
+                                             first="#{livrosView.paginaAtual}" rows="#{livrosView.maxPorPagina}">
                                     <h:column>    				
                                         <f:facet name="header"><h:outputLabel value="#{msg.selecionar}" /> </f:facet>    				
                                         <h:selectBooleanCheckbox value="#{livro.checkBox}" style="visibility:  #{livro.selecionado ne false ? 'hidden' : 'visible' }" />
@@ -145,22 +148,28 @@
 
 
                                 </h:dataTable>    
+                                <h:commandLink value="#{msg.primeira} "  action="#{livrosView.pPrimeiraPaginaUser()}"  rendererType="#{livrosView.paginaAtual != 0  ? true : false}" /> |
+                                <h:commandLink  value="#{msg.anterior}"  action="#{livrosView.pPaginaAnteriorUser()}" rendererType="#{livrosView.paginaAtual != 0 ? true : false}" />  |
+                                <h:commandLink value="#{msg.proxima}"  action="#{livrosView.pProximaPaginaUser()}" rendererType="#{livrosView.paginaAtual  + livrosView.maxPorPagina lt livrosView.arrayConsulta.size() ? true : false}" /> |
+                                <h:commandLink  value="#{msg.ultima}"  action="#{livrosView.pUltimaPaginaUser()}"  rendererType="#{livrosView.paginaAtual  + livrosView.maxPorPagina lt livrosView.arrayConsulta.size() ? true : false}" />
+                                  <br />
                                 <h:commandButton style="visibility: #{livrosView.consultaQuantidadelLivrosUsuario(loginView.login) eq 3 ? 'hidden' : 'visible'}" value="#{msg.escolher}" action="#{livrosView.confereCheckBox(loginView.login, livrosView.consultaQuantidadelLivrosUsuario(loginView.login),loginView.usuario.tipo)}" />
 
 
                             </h:form>
 
-                            <h:form id="form_cadastro" style="display:none">
+                            <h:form id="form_cadastro" style="display: #{livrosView.display eq 2 ? '' : 'none'}">
                                 <h:inputText style="position: relative; margin-top: 50px" id="autor" size="70" value="#{livrosView.autor}"></h:inputText>
                                 <h:commandButton value="Consultar">
                                     <f:ajax execute="autor" render="outputMessageAutor" />
 
                                 </h:commandButton>
 
-                                <h:dataTable style="visibility: #{livrosView.arrayConsulta.size() eq 0 ? 'hidden' : 'visible'}" id="outputMessageAutor"  value="#{livrosView.procuraLivrosAutor()  != null ? livrosView.procuraLivrosAutor() : 'Nenhum Resultado Encontrado' }" var="livro"
+                                <h:dataTable style="visibility: #{livrosView.arrayConsulta.size() eq 0 ? 'hidden' : 'visible'}" id="outputMessageAutor"  value="#{livrosView.procuraLivrosAutor()  }" var="livro"
                                              styleClass="livroTable"
                                              headerClass="livroTableHeader"
-                                             rowClasses="livroTableOddRow,livroTableEvenRow">
+                                             rowClasses="livroTableOddRow,livroTableEvenRow"
+                                             first="#{livrosView.paginaAtual}" rows="#{livrosView.maxPorPagina}">
 
 
                                     <h:column>    				
@@ -190,14 +199,18 @@
                                     </h:column>
 
                                 </h:dataTable>
+                                <h:commandLink value="#{msg.primeira} " onclick="#{livrosView.mudaDisplay(2)};" action="#{livrosView.pPrimeiraPaginaUser()}"  rendererType="#{livrosView.paginaAtual != 0  ? true : false}" /> |
+                                <h:commandLink  value="#{msg.anterior}" onclick="#{livrosView.mudaDisplay(2)};" action="#{livrosView.pPaginaAnteriorUser()}" rendererType="#{livrosView.paginaAtual != 0 ? true : false}" />  |
+                                <h:commandLink value="#{msg.proxima}" onclick="#{livrosView.mudaDisplay(2)};" action="#{livrosView.pProximaPaginaUser()}"  rendererType="#{livrosView.paginaAtual + livrosView.maxPorPagina lt livrosView.arrayConsulta.size() ? true : false}" /> |
+                                <h:commandLink  value="#{msg.ultima}" onclick="#{livrosView.mudaDisplay(2)};" action="#{livrosView.pUltimaPaginaUser()}"  rendererType="#{livrosView.paginaAtual + livrosView.maxPorPagina lt livrosView.arrayConsulta.size() ? true : false}" />
+                                  <br />
                                 <h:commandButton style="visibility: #{livrosView.consultaQuantidadelLivrosUsuario(loginView.login) eq 3 ? 'hidden' : 'visible'}" value="#{msg.escolher}" action="#{livrosView.confereCheckBox(loginView.login, livrosView.consultaQuantidadelLivrosUsuario(loginView.login),loginView.usuario.tipo)}" />
                             </h:form>     
                         </td>
                     </tr>
                 </table>
-
+               
             </div>
-
         </h:body >
     </f:view>
 

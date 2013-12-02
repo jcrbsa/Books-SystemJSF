@@ -15,7 +15,7 @@ public class Livros implements Serializable{
     private String titulo;
     private int edicao;
     private String publicacao;
-    private String descricao;
+
     private String autor;
     private boolean selecionado;
     private boolean selected;
@@ -112,12 +112,12 @@ public class Livros implements Serializable{
         
     }
 
-    public Livros(String isbn, String titulo, int edicao, String publicacao, String descricao) {
+    public Livros(String isbn, String titulo, int edicao, String publicacao) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.edicao = edicao;
         this.publicacao = publicacao;
-        this.descricao = descricao;
+    
         this.canEdit = false; 
         this.selected = false;
     }
@@ -126,12 +126,12 @@ public class Livros implements Serializable{
   
   
     
-    public Livros(String isbn, String titulo,String autor, int edicao, String publicacao, String descricao, boolean selecionado) {
+    public Livros(String isbn, String titulo,String autor, int edicao, String publicacao, boolean selecionado) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.edicao = edicao;
         this.publicacao = publicacao;
-        this.descricao = descricao;
+
         this.canEdit = false;
         this.autor = autor;
         this.selecionado = selecionado;
@@ -140,12 +140,12 @@ public class Livros implements Serializable{
     }
     
     
-     public Livros(String isbn, String titulo,String autor, int edicao, String publicacao, String descricao, String devolucao) {
+     public Livros(String isbn, String titulo,String autor, int edicao, String publicacao, String devolucao) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.edicao = edicao;
         this.publicacao = publicacao;
-        this.descricao = descricao;
+   
         this.canEdit = false;
         this.autor = autor;
         this.selecionado = selecionado;
@@ -154,12 +154,7 @@ public class Livros implements Serializable{
 
     }
      
-     public Livros(int num_exemplar, boolean selecionado, int cod_exemplar) {
-         this.selecionado = selecionado;
-         this.num_exemplar =  num_exemplar;
-         this.canEdit = false;
-         this.cod_exemplar = cod_exemplar;
-    }
+
      
      
 
@@ -228,21 +223,7 @@ public class Livros implements Serializable{
         this.publicacao = publicacao;
     }
 
-    /**
-     * @return the descricao
-     */
-    public String getDescricao() {
-        return descricao;
-    }
-
-    /**
-     * @param descricao the descricao to set
-     */
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
     
- 
 
    public void setCanEdit(boolean canEdit) {
       this.canEdit = canEdit;

@@ -45,8 +45,8 @@ public class LivrariaDAO implements InterfaceLivrosDAO, InterfaceUsuariosDAO,Int
             throw new LivrariaDAOException("O valor passado não pode ser nulo");
                 }
             try {
-                String SQL = "INSERT INTO livros(isbn,titulo,edicao_num,ano_publicacao,descricao)"
-                        + "values(?,?,?,?,?)";
+                String SQL = "INSERT INTO livros(isbn,titulo,edicao_num,ano_publicacao)"
+                        + "values(?,?,?,?)";
                 conn = this.conn;
 
                 ps = conn.prepareStatement(SQL);
@@ -54,7 +54,7 @@ public class LivrariaDAO implements InterfaceLivrosDAO, InterfaceUsuariosDAO,Int
                 ps.setString(2, livro.getTitulo());
                 ps.setInt(3, livro.getEdicao());
                 ps.setString(4, livro.getPublicacao());
-                ps.setString(5, livro.getDescricao());
+           
                 ps.executeUpdate();
             } catch (SQLException sqle) {
                 throw new LivrariaDAOException("Erro ao inserir dados" + sqle);
@@ -95,15 +95,14 @@ public class LivrariaDAO implements InterfaceLivrosDAO, InterfaceUsuariosDAO,Int
         }
             try {
             
-                String SQL = "UPDATE livros SET titulo=?," + "edicao_num=?," + "ano_publicacao=?, descricao=?" + "WHERE isbn=?";
+                String SQL = "UPDATE livros SET titulo=?," + "edicao_num=?," + "ano_publicacao=?" + "WHERE isbn=?";
                 conn = this.conn;
                 ps = conn.prepareStatement(SQL);
 
                 ps.setString(1, livro.getTitulo());
                 ps.setInt(2, livro.getEdicao());
                 ps.setString(3, livro.getPublicacao());
-                ps.setString(4, livro.getDescricao());
-                ps.setString(5, livro.getIsbn());
+                ps.setString(4, livro.getIsbn());
 
                 ps.executeUpdate();
             } catch (SQLException sqle) {
@@ -125,15 +124,14 @@ public class LivrariaDAO implements InterfaceLivrosDAO, InterfaceUsuariosDAO,Int
                     
                 
             
-                String SQL = "UPDATE livros SET titulo=?," + "edicao_num=?," + "ano_publicacao=?, descricao=?" + "WHERE isbn=?";
+                String SQL = "UPDATE livros SET titulo=?," + "edicao_num=?," + "ano_publicacao=?" + "WHERE isbn=?";
                 conn = this.conn;
                 ps = conn.prepareStatement(SQL);
 
                 ps.setString(1, livros.getTitulo());
                 ps.setInt(2, livros.getEdicao());
                 ps.setString(3, livros.getPublicacao());
-                ps.setString(4, livros.getDescricao());
-                ps.setString(5, livros.getIsbn());
+                ps.setString(4, livros.getIsbn());
 
                 ps.executeUpdate();
                 }
@@ -163,8 +161,8 @@ public class LivrariaDAO implements InterfaceLivrosDAO, InterfaceUsuariosDAO,Int
                 String titulo = rs.getString(2);
                 int edicao = rs.getInt("edicao_num");
                 String publicacao = rs.getString("ano_publicacao");
-                String descricao = rs.getString("descricao");
-                list.add(new Livros(isbn, titulo, edicao, publicacao, descricao));
+                
+                list.add(new Livros(isbn, titulo, edicao, publicacao));
             }
             return list;
 
@@ -187,11 +185,11 @@ public class LivrariaDAO implements InterfaceLivrosDAO, InterfaceUsuariosDAO,Int
              ps.setString(1,isbn);
             rs = ps.executeQuery();
              if (rs.next()) {
-            String titulo = rs.getString(2);
-            int edicao = rs.getInt(3);
-            String publicacao = rs.getString(4);
-            String descricao = rs.getString(5);
-            livro =  new Livros(isbn, titulo, edicao, publicacao, descricao);
+            String titulo = rs.getString("titulo");
+            int edicao = rs.getInt("edicao_num");
+            String publicacao = rs.getString("ano_publicacao");
+           
+            livro =  new Livros(isbn, titulo, edicao, publicacao);
 
              }
              
@@ -421,9 +419,9 @@ PreparedStatement ps = null;
             String titulo = rs.getString("titulo");
             int edicao = rs.getInt("edicao_num");
             String publicacao = rs.getString("ano_publicacao");
-            String descricao = rs.getString("descricao");
+       
             boolean selecionado =  rs.getBoolean("selecionado");
-            list.add(new Livros(isbn, titulo,autor, edicao, publicacao, descricao, selecionado));
+            list.add(new Livros(isbn, titulo,autor, edicao, publicacao, selecionado));
 
              }
              
@@ -456,9 +454,9 @@ PreparedStatement ps = null;
             String autor = rs.getString("autor");
             int edicao = rs.getInt("edicao_num");
             String publicacao = rs.getString("ano_publicacao");
-            String descricao = rs.getString("descricao");
-           boolean selecionado =  rs.getBoolean("selecionado");
-            list.add(new Livros(isbn, titulo,autor, edicao, publicacao, descricao, selecionado));
+
+            boolean selecionado =  rs.getBoolean("selecionado");
+            list.add(new Livros(isbn, titulo,autor, edicao, publicacao, selecionado));
 
              }
              
@@ -584,9 +582,8 @@ PreparedStatement ps = null;
             String titulo = rs.getString("titulo");
             int edicao = rs.getInt("edicao_num");
             String publicacao = rs.getString("ano_publicacao");
-            String descricao = rs.getString("descricao");
             String devolucao = rs.getString("devolucao");
-            list.add(new Livros(isbn, titulo,autor, edicao, publicacao, descricao, devolucao));
+            list.add(new Livros(isbn, titulo,autor, edicao, publicacao, devolucao));
 
              }
              
@@ -627,61 +624,9 @@ PreparedStatement ps = null;
     
     }
 
-    @Override
-    public ArrayList<Livros> mostrarExemplares(String isbn) throws LivrariaDAOException {
    
-         PreparedStatement ps = null;
-        Connection conn = null;
-        ResultSet rs = null;
-        try {
-            conn = this.conn;
-            ps = conn.prepareStatement("SELECT * FROM exemplar WHERE isbn =?");
-             ps.setString(1,isbn);
-            rs= ps.executeQuery();
-            ArrayList<Livros> list = new ArrayList<Livros>();
-            while (rs.next()) {
-          
-            boolean selecionado =  rs.getBoolean("situacao");
-            int num_exemplar = rs.getInt("num_exemplar");
-            int cod_exemplar = rs.getInt("cod_exemplar");
-            list.add(new Livros(num_exemplar, selecionado,cod_exemplar));
 
-             }
-             
-            return list; 
-        
-        } catch (SQLException sqle) {
-            throw new LivrariaDAOException(sqle);
-        }
-        
-    
-    }
-
-    @Override
-    public void atualizarExemplares(int cod_exemplar, boolean situacao) throws LivrariaDAOException {
-        PreparedStatement ps = null;
-        Connection conn = null;
-         
-            try {
-            
-                String SQL = "UPDATE exemplar SET situacao=? WHERE cod_exemplar=? ";
-                  
-                conn = this.conn;
-                ps = conn.prepareStatement(SQL);
-               ps.setBoolean(1, situacao);
-                ps.setInt(2, cod_exemplar);
-                
-                ps.executeUpdate(); 
-                
-               
-                
-            } catch (SQLException sqle) {
-                throw new LivrariaDAOException("Erro ao inserir dados" + sqle);
-            }
-        
-        
-        
-    }
+   
 
     @Override
     public int totalLivrosReservados(int cod_usuario) throws LivrariaDAOException {
@@ -757,9 +702,8 @@ PreparedStatement ps = null;
             while (rs.next()) {
           
             boolean selecionado =  rs.getBoolean("liberado");
-            int num_exemplar = rs.getInt("id_usuario");
-            int cod_exemplar = rs.getInt("id_livro");
-            list.add(new Livros(num_exemplar, selecionado,cod_exemplar));
+            String isbn = rs.getString("id_livro");
+            list.add(new Livros(isbn,aluno ,selecionado));
 
              }
              
@@ -784,10 +728,10 @@ PreparedStatement ps = null;
             ArrayList<Livros> list = new ArrayList<Livros>();
             while (rs.next()) {
           
-            boolean selecionado =  rs.getBoolean("liberado");
-            int num_exemplar = rs.getInt("id_usuario");
-            int cod_exemplar = rs.getInt("id_livro");
-            list.add(new Livros(num_exemplar, selecionado,cod_exemplar));
+           boolean selecionado =  rs.getBoolean("liberado");
+            String isbn = rs.getString("id_livro");
+           
+            list.add(new Livros(isbn, professor, selecionado));
 
              }
              

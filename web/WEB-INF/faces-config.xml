@@ -178,5 +178,13 @@
         </navigation-case>
     </navigation-rule>
     
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>sessionUser</from-outcome>
+            <to-view-id>/sessionUser.xhtml</to-view-id>
+        </navigation-case>
+        
+    </navigation-rule>
+    
     
 </faces-config>
