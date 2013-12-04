@@ -7,9 +7,11 @@
         <h:head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
             <title>Página Usuário</title>
+            <link rel="stylesheet" type="text/css" href="css/button.css" />
             <link rel="stylesheet" type="text/css" href="css/menuBar.css" />
             <link rel="stylesheet" type="text/css" href="css/styles.css" />
             <link rel="stylesheet" type="text/css" href="css/abas.css" />
+            
             <script type="text/javascript" src="js/abasLogin.js" />
             
             
@@ -24,11 +26,13 @@
                   </ui:composition>-->
 
 
-            <div id="header" style="height: 120px   ">
+            <div  class="test5">
+         
                 <h:graphicImage value="images/logo.png" />
-                <h:graphicImage value ="images/Nome.png" />
-                <h:graphicImage style="position:relative; margin-top: -100px; margin-left: 100px" value ="images/Sistema Gerenciamento Livros.png" />
-                <h:form style="float:right">
+                <h:graphicImage value ="images/Nome.png"  />
+                 <h:outputText style="color:white;position: relative; margin-left: -70px; font-weight: bold;" value="#{loginView.mostrarData(userData.locale)}" /> 
+                <h:graphicImage style="position:relative; margin-top: -100px; margin-left: 400px" value ="images/Sistema Gerenciamento Livros.png" />
+                <h:form style="float:right; position:relative; margin-top: -90px;clear:right">
                     <h:panelGrid columns="2"> 
                         <h:outputLabel value="#{msg.idioma}" style="color:white" /> <br />
                         <h:selectOneMenu onchange="submit();" value="#{userData.locale}"
@@ -38,12 +42,10 @@
                         </h:selectOneMenu> 
                     </h:panelGrid> 
                 </h:form> 
-
-                <hr />
-
-
             </div>
 
+            <div class="test">
+        
             <fieldset id='fieldset'>
                 <legend><h:outputLabel  value ="#{msg.opcoes}" style="font-weight: bold" /></legend>
 
@@ -81,16 +83,18 @@
 
 
             </fieldset>
+                    
 
 
-
+</div>
+             
+        
+            
 <!--<h:outputText style="color:red; position: absolute;left:50%;top: 240px" value="Quantidade Livros: #{livrosView.consultaQuantidadelLivrosUsuario(loginView.login)}" /> -->
 
-            <h:outputText style="color:Navy;position: absolute;left:90%; font-weight: bold; top: 225px" value="#{loginView.mostrarData(userData.locale)}" /> 
             <h:outputText style="color:red; position: absolute;left:80%;margin-left:-200px;top: 250px" value="*Nº máximo livros: 3" /> 
-
-
-            <div class="container" style=" position: absolute;left:50%;margin-left:-200px;top: 300px">
+            <div class="test3">
+            <div class="test2" style=" position: absolute;left:50%;margin-left:-200px;top: 300px">
 
                 <table id="menu_central" >
                     <tr style="border:1px solid #000000;">
@@ -107,7 +111,7 @@
                         <td colspan="2">
                             <h:form id="form_login" style="display: #{livrosView.display eq 1 ? '' : 'none'}">
                                 <h:inputText style="position: relative; margin-top: 50px" id="titulo" size="70" value="#{livrosView.titulo}" />
-                                <h:commandButton value="#{msg.consultar}">
+                                <h:commandButton styleClass="button" value="#{msg.consultar}">
                                     <f:ajax execute="titulo" render="outputMessageTitulo" />
                                 </h:commandButton>
 
@@ -148,19 +152,19 @@
 
 
                                 </h:dataTable>    
-                                <h:commandLink value="#{msg.primeira} "  action="#{livrosView.pPrimeiraPaginaUser()}"  rendererType="#{livrosView.paginaAtual != 0  ? true : false}" /> |
-                                <h:commandLink  value="#{msg.anterior}"  action="#{livrosView.pPaginaAnteriorUser()}" rendererType="#{livrosView.paginaAtual != 0 ? true : false}" />  |
-                                <h:commandLink value="#{msg.proxima}"  action="#{livrosView.pProximaPaginaUser()}" rendererType="#{livrosView.paginaAtual  + livrosView.maxPorPagina lt livrosView.arrayConsulta.size() ? true : false}" /> |
-                                <h:commandLink  value="#{msg.ultima}"  action="#{livrosView.pUltimaPaginaUser()}"  rendererType="#{livrosView.paginaAtual  + livrosView.maxPorPagina lt livrosView.arrayConsulta.size() ? true : false}" />
+                                <h:commandLink styleClass="button" value="#{msg.primeira} "  action="#{livrosView.pPrimeiraPaginaUser()}"  rendererType="#{livrosView.paginaAtual != 0  ? true : false}" /> |
+                                <h:commandLink styleClass="button"  value="#{msg.anterior}"  action="#{livrosView.pPaginaAnteriorUser()}" rendererType="#{livrosView.paginaAtual != 0 ? true : false}" />  |
+                                <h:commandLink styleClass="button" value="#{msg.proxima}"  action="#{livrosView.pProximaPaginaUser()}" rendererType="#{livrosView.paginaAtual  + livrosView.maxPorPagina lt livrosView.arrayConsulta.size() ? true : false}" /> |
+                                <h:commandLink styleClass="button" value="#{msg.ultima}"  action="#{livrosView.pUltimaPaginaUser()}"  rendererType="#{livrosView.paginaAtual  + livrosView.maxPorPagina lt livrosView.arrayConsulta.size() ? true : false}" />
                                   <br />
-                                <h:commandButton style="visibility: #{livrosView.consultaQuantidadelLivrosUsuario(loginView.login) eq 3 ? 'hidden' : 'visible'}" value="#{msg.escolher}" action="#{livrosView.confereCheckBox(loginView.login, livrosView.consultaQuantidadelLivrosUsuario(loginView.login),loginView.usuario.tipo)}" />
+                                <h:commandButton styleClass="button" style="visibility: #{livrosView.consultaQuantidadelLivrosUsuario(loginView.login) eq 3 ? 'hidden' : 'visible'}" value="#{msg.escolher}" action="#{livrosView.confereCheckBox(loginView.login, livrosView.consultaQuantidadelLivrosUsuario(loginView.login),loginView.usuario.tipo)}" />
 
 
                             </h:form>
 
                             <h:form id="form_cadastro" style="display: #{livrosView.display eq 2 ? '' : 'none'}">
                                 <h:inputText style="position: relative; margin-top: 50px" id="autor" size="70" value="#{livrosView.autor}"></h:inputText>
-                                <h:commandButton value="Consultar">
+                                <h:commandButton styleClass="button" value="Consultar">
                                     <f:ajax execute="autor" render="outputMessageAutor" />
 
                                 </h:commandButton>
@@ -199,18 +203,27 @@
                                     </h:column>
 
                                 </h:dataTable>
-                                <h:commandLink value="#{msg.primeira} " onclick="#{livrosView.mudaDisplay(2)};" action="#{livrosView.pPrimeiraPaginaUser()}"  rendererType="#{livrosView.paginaAtual != 0  ? true : false}" /> |
-                                <h:commandLink  value="#{msg.anterior}" onclick="#{livrosView.mudaDisplay(2)};" action="#{livrosView.pPaginaAnteriorUser()}" rendererType="#{livrosView.paginaAtual != 0 ? true : false}" />  |
-                                <h:commandLink value="#{msg.proxima}" onclick="#{livrosView.mudaDisplay(2)};" action="#{livrosView.pProximaPaginaUser()}"  rendererType="#{livrosView.paginaAtual + livrosView.maxPorPagina lt livrosView.arrayConsulta.size() ? true : false}" /> |
-                                <h:commandLink  value="#{msg.ultima}" onclick="#{livrosView.mudaDisplay(2)};" action="#{livrosView.pUltimaPaginaUser()}"  rendererType="#{livrosView.paginaAtual + livrosView.maxPorPagina lt livrosView.arrayConsulta.size() ? true : false}" />
+                                <h:commandLink styleClass="button" value="#{msg.primeira} " onclick="#{livrosView.mudaDisplay(2)};" action="#{livrosView.pPrimeiraPaginaUser()}"  rendererType="#{livrosView.paginaAtual != 0  ? true : false}" /> |
+                                <h:commandLink styleClass="button"  value="#{msg.anterior}" onclick="#{livrosView.mudaDisplay(2)};" action="#{livrosView.pPaginaAnteriorUser()}" rendererType="#{livrosView.paginaAtual != 0 ? true : false}" />  |
+                                <h:commandLink styleClass="button" value="#{msg.proxima}" onclick="#{livrosView.mudaDisplay(2)};" action="#{livrosView.pProximaPaginaUser()}"  rendererType="#{livrosView.paginaAtual + livrosView.maxPorPagina lt livrosView.arrayConsulta.size() ? true : false}" /> |
+                                <h:commandLink styleClass="button"  value="#{msg.ultima}" onclick="#{livrosView.mudaDisplay(2)};" action="#{livrosView.pUltimaPaginaUser()}"  rendererType="#{livrosView.paginaAtual + livrosView.maxPorPagina lt livrosView.arrayConsulta.size() ? true : false}" />
                                   <br />
-                                <h:commandButton style="visibility: #{livrosView.consultaQuantidadelLivrosUsuario(loginView.login) eq 3 ? 'hidden' : 'visible'}" value="#{msg.escolher}" action="#{livrosView.confereCheckBox(loginView.login, livrosView.consultaQuantidadelLivrosUsuario(loginView.login),loginView.usuario.tipo)}" />
+                                <h:commandButton styleClass="button" style="visibility: #{livrosView.consultaQuantidadelLivrosUsuario(loginView.login) eq 3 ? 'hidden' : 'visible'}" value="#{msg.escolher}" action="#{livrosView.confereCheckBox(loginView.login, livrosView.consultaQuantidadelLivrosUsuario(loginView.login),loginView.usuario.tipo)}" />
                             </h:form>     
                         </td>
                     </tr>
                 </table>
                
             </div>
+                </div>
+            
+               
+            
+            <div class="footer">
+                <hr />
+                <p style="text-align: center;color:silver">Development by jcrbs@</p>
+            </div>
+
         </h:body >
     </f:view>
 

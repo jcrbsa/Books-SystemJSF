@@ -1,61 +1,60 @@
 BODY {
-	background-color: #f0f0f0;
-	margin-top: 0px;
-	margin-left: 0px;
-	margin-right: 0px;
-	margin-bottom: 10px;
-	font-family: Osaka,verdana,Sans-Serif;
-	font-size: 10pt;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 10px;
+    font-family: Osaka,verdana,Sans-Serif;
+    font-size: 10pt;
 }
 
 
 
 em {
-	font-weight: bold;
-	text-decoration: none;
-	font-style: normal;
+    font-weight: bold;
+    text-decoration: none;
+    font-style: normal;
 }
 
 
 
 .button{
-	border: 1px black solid;
-	font-family: Osaka,verdana,Sans-Serif;
-	font-size: 8pt;
-	/*width: 100px; too small for some translations*/
+    border: 1px black solid;
+    font-family: Osaka,verdana,Sans-Serif;
+    font-size: 8pt;
+    /*width: 100px; too small for some translations*/
 }
 
 .text{
-	border: 1px black solid;
-	font-family: Osaka,verdana,Sans-Serif;
-	font-size: 8pt;
-	color: #000009;
-	/*height: 12pt; Select boxes are too small in Mozilla */
+    border: 1px black solid;
+    font-family: Osaka,verdana,Sans-Serif;
+    font-size: 8pt;
+    color: #000009;
+    /*height: 12pt; Select boxes are too small in Mozilla */
 }
 
 
 .std {
-	border: solid #08245b 2px;
-	background: #d6ebff;
+    border: solid #08245b 2px;
+    background: #d6ebff;
 }
 .std thead {
-	background-color: #08245b;
-	color: white;
-	list-style-type: disc;
-	list-style-position: inside;
-	border: outset #D1D1CD 1px;
+    background-color: #08245b;
+    color: white;
+    list-style-type: disc;
+    list-style-position: inside;
+    border: outset #D1D1CD 1px;
 }
 
 
 th strong {
-  float: left;
-  margin-top: 2px;
+    float: left;
+    margin-top: 2px;
 }
 th form {
-  float: right;
-  padding: 0;
-  margin: 0;
-  margin-top: 1px;
+    float: right;
+    padding: 0;
+    margin: 0;
+    margin-top: 1px;
 }
 
 

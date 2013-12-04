@@ -1,17 +1,17 @@
 .link
 {
-float:left;
-width:6em;
-text-decoration:none;
-color:white;
-border: solid black 2px;
-background: #08245b ;
-padding:0.2em 0.6em;
+    float:left;
+    width:6em;
+    text-decoration:none;
+    color:white;
+    border: solid black 2px;
+    background: #08245b ;
+    padding:0.2em 0.6em;
 
 }
 .link:hover {
-background-color:#00FF0C;
-color:Navy; }
+    background-color:#00FF0C;
+    color:Navy; }
 
 
 
